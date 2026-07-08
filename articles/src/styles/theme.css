@@ -1,0 +1,217 @@
+/* ============================================
+   CodingSkuy Brand Theme for Starlight
+   Matches the visual identity of roishoiron.github.io
+   - Blue accent: #0055ff (light) / #3d8bff (dark)
+   - Background: #f0f4ff (light) / #060b18 (dark)
+   - Font: Plus Jakarta Sans + Inter
+   ============================================ */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* --- Starlight Font Overrides --- */
+:root {
+  --sl-font: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --sl-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  color-scheme: dark;
+  --sl-color-bg: #151719;
+  --sl-color-bg-sidebar: #0f1112;
+  --sl-color-text: #e3e2e0;
+  --sl-color-text-muted: #9fa1a4;
+  --sl-color-text-invert: #151719;
+  --sl-color-hairline: #2d3135;
+  --sl-color-hairline-light: #3a3e43;
+  --sl-color-accent: #60a5fa;
+  --sl-color-accent-high: #2563eb;
+}
+
+/* ─── Light Mode ─── */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --sl-color-bg: #fbf9f4;
+  --sl-color-bg-sidebar: #f5f0e6;
+  --sl-color-text: #2d2a26;
+  --sl-color-text-muted: #615e5a;
+  --sl-color-text-invert: #fbf9f4;
+  --sl-color-hairline: #e6dfd3;
+  --sl-color-hairline-light: #f0eae1;
+  --sl-color-accent: #bc6c25;
+  --sl-color-accent-high: #dda15e;
+  --sl-color-bg-inline-code: #f0eae1;
+}
+
+/* ============================================
+   Reading Comfort Optimizations
+   ============================================ */
+
+.sl-markdown-content p {
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
+.sl-markdown-content pre {
+  background-color: var(--sl-color-bg-sidebar) !important;
+  border: 1px solid var(--sl-color-hairline);
+}
+
+.sl-markdown-content a {
+  text-decoration-thickness: 1.5px;
+  underline-offset: 3px;
+}
+
+/* ============================================
+   Extra Visual Polish
+   ============================================ */
+
+/* Smooth theme transition */
+html,
+html *,
+html *::before,
+html *::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease;
+}
+/* But exclude transitions on transform/opacity (prevent animation issues) */
+html *,
+html *::before,
+html *::after {
+  transition-property: background-color, border-color, color;
+}
+
+/* Make the sidebar header / site title pop with brand gradient */
+.site-title {
+  background: linear-gradient(135deg, #0055ff, #00d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+:root[data-theme='dark'] .site-title {
+  background: linear-gradient(135deg, #3d8bff, #00d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Accent links inside article content */
+.sl-markdown-content a {
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.sl-markdown-content a:hover {
+  opacity: 0.8;
+}
+
+/* Code blocks — subtle border & consistent radius */
+.expressive-code {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+.expressive-code .expressive-code-wrapper {
+  border: 1px solid var(--sl-color-hairline);
+}
+.expressive-code .expressive-code-header {
+  border-bottom: 1px solid var(--sl-color-hairline);
+}
+.expressive-code .expressive-code-body {
+  border: 1px solid var(--sl-color-hairline);
+}
+.expressive-code code {
+  background-color: transparent !important;
+}
+.sl-markdown-content :not(pre) > code {
+  font-size: 0.85em;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  background: var(--sl-color-bg-inline-code);
+  border: 1px solid var(--sl-color-hairline);
+}
+
+/* Starlight right-side table of contents — brand accent */
+.starlight-toc a[aria-current='true'] {
+  border-left-color: var(--sl-color-accent);
+  color: var(--sl-color-accent);
+}
+
+/* Sidebar styling enhancements */
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='true'] {
+  background: var(--sl-color-accent-low);
+  border-right: 2px solid var(--sl-color-accent);
+  font-weight: 600;
+}
+
+/* Header search button */
+.search-button {
+  border-radius: 0.625rem;
+  border: 1px solid var(--sl-color-gray-5);
+}
+.search-button:hover {
+  border-color: var(--sl-color-accent);
+}
+
+/* Mobile menu hamburger brand color */
+@media (max-width: 50rem) {
+  .mobile-nav-toggle {
+    color: var(--sl-color-accent);
+  }
+}
+
+/* Brand gradient on the social link hover */
+.social-icons a:hover {
+  color: var(--sl-color-accent) !important;
+}
+
+/* Page title gradient on article pages */
+.content-panel h1 {
+  background: linear-gradient(135deg, var(--sl-color-accent), var(--sl-color-accent-high));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Table of contents thin scrollbar */
+.starlight-toc {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sl-color-gray-5) transparent;
+}
+
+/* Footer tweaks — matching brand */
+.sl-footer a:hover {
+  color: var(--sl-color-accent) !important;
+}
+
+/* Pagination / prev-next links */
+.pagination-links a {
+  border-radius: 0.75rem;
+  border-color: var(--sl-color-gray-5);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.pagination-links a:hover {
+  border-color: var(--sl-color-accent);
+  background: var(--sl-color-accent-low);
+}
+
+/* ─── Home Page Grid ─── */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+.home-card {
+  display: flex; flex-direction: column; align-items: center;
+  background: var(--sl-color-gray-6); border: 1px solid var(--sl-color-gray-5);
+  border-radius: 12px;
+  padding: 1.25rem 1rem;
+  text-decoration: none !important; color: inherit !important;
+  transition: all 0.2s;
+}
+.home-card:hover {
+  border-color: var(--sl-color-accent);
+  box-shadow: 0 4px 16px rgba(61,139,255,0.1);
+  transform: translateY(-2px);
+}
+.home-emoji { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+.home-label { font-weight: 700; font-size: 1rem; color: var(--sl-color-white); }
+.home-desc { font-size: 0.8rem; color: var(--sl-color-gray-2); text-align: center; margin-top: 0.2rem; }
+:root[data-theme='light'] .home-label { color: #1a1a2e; }

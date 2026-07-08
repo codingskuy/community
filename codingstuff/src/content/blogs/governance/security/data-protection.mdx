@@ -1,0 +1,72 @@
+---
+title: "Data Protection"
+description: "&quot;Perlindungan data — dari pengalaman data user nyaris bocor — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "security", "data-protection"]
+---
+
+
+# Data Protection
+
+> *"Waktu debugging, aku log request body untuk lihat apa yang dikirim user. Lupa filter field sensitif. Di log tercatat: email, nama, dan password — dalam bentuk teks biasa. Log itu bisa diakses tim lain. Beruntung ketahuan sebelum bocor keluar."**
+
+Momen itu bikin aku sadar: data protection bukan fitur — ini **tanggung jawab**. User percaya kita dengan data mereka. Dan satu kesalahan bisa menghancurkan kepercayaan itu.
+
+---
+
+### Kisah Kedua: Data Minimization yang Jarang Dilakukan
+
+Banyak aplikasi minta data yang tidak perlu. "Mau daftar? Isi nama, email, nomor telepon, alamat, tanggal lahir, pekerjaan..."
+
+Aku selalu tanya: **"Apakah semua data ini benar-benar diperlukan?"**
+
+Kalau cuma perlu kirim email — minta email aja. Jangan minta nomor telepon. Makin sedikit data yang dikumpulkan, makin kecil risiko.
+
+**Contoh CodingSkuy:**
+- Untuk baca artikel: tidak perlu daftar
+- Untuk bookmark: cukup email + password
+- Tidak ada nomor telepon, tidak ada alamat, tidak ada tanggal lahir
+
+---
+
+### Praktik
+
+**1. Data minimization**
+Kumpulkan data yang diperlukan. Sisanya — jangan.
+
+**2. Enkripsi**
+- **In transit** — HTTPS/TLS. Semua data yang dikirim harus dienkripsi.
+- **At rest** — data di database dienkripsi. Kalau db bocor, data tidak bisa dibaca.
+
+**3. Least privilege**
+Developer frontend tidak perlu akses ke database produksi. Setiap role — akses minimum.
+
+**4. Audit log**
+Siapa akses data apa dan kapan? Catat. Untuk investigasi.
+
+---
+
+### Hal-hal Kecil yang Sering Terlewat
+
+- **Jangan log password** — filter field sensitif di logging
+- **Mask data sensitif di UI** — "**** **** **** 1234" bukan "1234 5678 9012 3456"
+- **Hapus data kalau tidak diperlukan** — user minta hapus akun? Hapus datanya
+- **Backup juga harus dienkripsi**
+
+---
+
+### Response Plan
+
+Kalau terjadi kebocoran:
+1. **Identifikasi** — data apa yang bocor? Seberapa parah?
+2. **Stop the leak** — tutup celah, matikan akses
+3. **Notifikasi** — beri tahu user yang terdampak
+4. **Evaluasi** — kenapa ini terjadi? Sistem apa yang perlu diperbaiki?
+
+---
+
+🌱 **Cek: apakah ada data sensitif yang tercatat di log atau response API?**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya pengalaman data hampir bocor? Atau response plan yang pernah dijalankan? Cerita di komentar.*

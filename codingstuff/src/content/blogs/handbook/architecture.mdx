@@ -1,0 +1,108 @@
+---
+title: "Architecture Handbook"
+description: "&quot;Arsitektur software dari pengalaman — monolith, modular, sampe migrasi — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["handbook", "architecture", "index"]
+---
+
+
+# Architecture Handbook
+
+> *"Aplikasi pertamaku cuma satu file PHP. Sekarang? Satu perubahan butuh meeting 3 tim."*
+
+Dulu aku pikir arsitektur hanya penting untuk aplikasi besar. Untuk proyek kecil-kecilan, siapa peduli?
+
+Itu pemikiran yang salah. Dan aku bayar mahal untuk mempelajarinya.
+
+---
+
+### Awal: Semua dalam Satu File
+
+![Screenshot of single PHP file with mixed HTML, SQL, and logic](/codingstuff/codingstuff/codingstuff/images/journey/20-architecture-monolith.jpeg)
+
+Proyek Laravel pertamaku — semua logic ada di controller. Route, query database, validasi, render view — campur aduk.
+
+Awalnya cepat. Fitur baru? Tinggal tambah fungsi di controller. Selesai dalam 30 menit.
+
+Tapi setelah 20 fitur, satu file controller 2000 baris. Mau ganti logic dikit, takut rusak yang lain. Mau tambah fitur, bingung naruhnya di mana.
+
+**Itu pertama kalian aku paham: arsitektur bukan untuk proyek besar — arsitektur untuk masa depanmu yang ingin tidur nyenyak.**
+
+---
+
+### Modular: Pelajaran dari Flutter
+
+Waktu belajar Flutter, aku nemu konsep yang mengubah caraku ngoding: **setiap fitur adalah modul sendiri.**
+
+Bukan folder model, view, controller. Tapi folder per fitur — di dalamnya ada model, view, controller masing-masing.
+
+Dulu struktur foldernya:
+```
+lib/
+├── models/
+├── views/
+├── controllers/
+```
+
+Sekarang:
+```
+lib/
+├── features/
+│   ├── auth/
+│   ├── profile/
+│   └── dashboard/
+```
+
+Perubahannya sederhana. Tapi dampaknya besar. Mau hapus fitur? Tinggal hapus folder. Mau ganti implementasi? Tidak takut ganggu fitur lain.
+
+---
+
+### Migrasi: Cerita Pindah Arsitektur
+
+Proyek nyata: Aplikasi Flutter yang mulai dari sederhana, terus makin complex.
+
+Awalnya pake State management sederhana. Cukup untuk 5 screen. Pas 20 screen, mulai berantakan. Setiap state perubahan, layar lain ikut rerender.
+
+**Apakah langsung refactor total?**
+
+Tidak. Aku belajar: **migrasi arsitektur paling aman dilakukan incremental.**
+
+1. Fitur baru langsung pakai arsitektur baru
+2. Fitur lama dipindah satu per satu
+3. Tidak ada "big bang rewrite"
+
+Ini makan waktu lebih lama. Tapi resikonya jauh lebih rendah. Aplikasi tetap jalan selama migrasi.
+
+---
+
+### Prinsip yang Kupakai Sekarang
+
+**1. Simple dulu, kompleks kalau perlu**
+
+Banyak arsitektur over-engineering. Clean Architecture untuk CRUD sederhana? Buang-buang waktu.
+
+Mulai dari yang paling sederhana. Tambah kompleksitas hanya kalau terbukti diperlukan.
+
+**2. Batasan yang jelas**
+
+Antar modul harus punya batas tegas. Tidak boleh ada "saya pinjam fungsi ini, cuma sekali". Itu awal dari spaghetti code.
+
+**3. Testability**
+
+Kalau arsitekturnya susah di-test, arsitekturnya yang salah. Bukan test-nya.
+
+---
+
+### Trade-off Arsitektur
+
+| Arsitektur | Cocok Untuk | Resiko |
+|------------|-------------|--------|
+| Monolith | Tim kecil, MVP, aplikasi sederhana | Scaling tim & fitur |
+| Modular Monolith | Produk yang makin besar | Disiplin tim |
+| Microservices | Tim besar, domain kompleks | Infrastruktur, komunikasi |
+| Clean Architecture | Domain kompleks, long-term | Boilerplate, waktu awal |
+
+> *"Arsitektur terbaik adalah yang tidak menghalangimu bergerak cepat sekarang, tapi juga tidak membuatmu menyesal setahun kemudian."*
+
+[Kembali ke Engineering Handbook](/articles/handbook/)

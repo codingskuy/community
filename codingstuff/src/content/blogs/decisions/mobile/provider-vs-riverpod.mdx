@@ -1,0 +1,40 @@
+---
+title: "Provider vs Riverpod"
+description: "&quot;Provider vs Riverpod — dari pengalaman migrasi state management — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["decisions", "mobile", "provider-vs-riverpod"]
+---
+
+
+# Provider vs Riverpod
+
+> *"Aku pindah dari Provider ke Riverpod. Bukan karena Provider jelek — tapi karena Riverpod nyelesain masalah yang Provider tidak bisa."*
+
+Provider adalah state management pertama yang kupakai serius di Flutter. Dokumentasi bagus, komunitas besar. Aku pake untuk aplikasi pertama dan kedua — semuanya jalan lancar.
+
+Tapi makin besar aplikasi, makin kerasa batasnya. Suatu hari aku perlu akses data user dari layer service — bukan dari widget. Dengan Provider, aku harus passing BuildContext ke fungsi service. Repot. Kode jadi kotor. Kadang lupa passing context, error runtime baru ketahuan.
+
+**Masalah dengan Provider:**
+
+1. **BuildContext dependency** — harus ada context untuk akses provider. Di luar widget? Repot.
+2. **Provider tidak bisa standalone** — harus di widget tree. Kalau butuh provider di background service? Tidak bisa.
+3. **Compile-time safety terbatas** — akses provider yang tidak ada baru ketahuan runtime. Error baru muncul pas apps jalan.
+4. **Testing susah** — harus bikin widget tree dulu. Tes unit untuk logic yang pake provider harus dibungkus dengan MaterialApp dan MultiProvider.
+
+**Kenapa pindah ke Riverpod:**
+
+1. **Tidak perlu BuildContext** — akses dari mana aja. Service, background task, callback — semua bisa tanpa context.
+2. **Compile-time error** — salah provider langsung ketahuan pas compile. Tidak perlu nunggu runtime.
+3. **Testing gampang** — tanpa widget tree. Cukup ProviderContainer. Test jadi lebih cepat dan fokus ke logika.
+4. **Fitur lebih lengkap** — family untuk parameterized provider, autodispose untuk cleanup, ref.watch/listen untuk reactivity.
+
+**Tapi Riverpod juga ada kekurangan:**
+
+1. **Boilerplate generator** — butuh riverpod_generator dan build_runner. Satu lagi tool yang harus disetup.
+2. **Learning curve** — konsep provider, notifier, family, future provider. Teman-teman baru sering bingung.
+3. **Code generation** — build_runner kadang lambat, kadang error. Pernah satu jam debug karena generated file corrupt.
+
+> *"Provider cukup untuk aplikasi kecil-medium. Riverpod untuk aplikasi yang makin besar. Kalau baru mulai aplikasi baru, langsung Riverpod aja."*
+
+[Kembali ke Decisions](/articles/decisions/)

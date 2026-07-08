@@ -1,0 +1,76 @@
+---
+title: "Risk Assessment"
+description: "&quot;Menilai risiko arsitektur — dari pengalaman estimasi yang meleset — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "architecture-review", "risk-assessment"]
+---
+
+
+# Risk Assessment
+
+> *"Aku bilang: 'Ini selesai 2 minggu.' Kenyataannya 2 bulan. Bukan karena malas — tapi karena tidak hitung risiko yang tidak kelihatan."*
+
+Estimasi adalah salah satu skill tersulit di engineering. Aku selalu optimis — "paling 2 minggu, gampang." Tapi selalu ada yang tidak terduga: API partner delay, library tidak kompatibel, bug yang tidak terduga.
+
+Setelah pengalaman estimasi yang meleset terus-menerus, aku belajar: **setiap estimasi harus termasuk risk assessment.**
+
+---
+
+### Kisah Kedua: API Pihak Ketiga yang Mati
+
+Di satu proyek, core fitur tergantung pada API pihak ketiga — API pembayaran. Aku asumsikan API itu selalu available. Tidak ada fallback.
+
+Suatu hari — API itu down. 3 jam. Selama 3 jam itu, aplikasi tidak bisa memproses pembayaran.
+
+Kalau aku lakukan risk assessment sebelumnya:
+- **Probability:** rendah (API reputable)
+- **Impact:** tinggi (core feature mati)
+- **Risk score:** tinggi
+
+Mitigasi yang bisa dilakukan: queue system + retry mechanism + fallback payment method.
+
+---
+
+### Tipe Risiko
+
+**1. Technical Risk**
+Apakah teknologinya sudah mature? Apakah tim paham? Apakah ada masalah performa? Teknologi baru yang belum banyak dipakai di produksi — risikonya lebih tinggi.
+
+**2. Dependency Risk**
+Apakah kita tergantung pada pihak ketiga? Supplier, API, library. Kalau mereka tutup, ganti harga, atau berubah — gimana?
+
+**3. Timeline Risk**
+Estimasi selalu optimis. Faktor safety 2x dari estimasi awal lebih realistis. Ini bukan karena incompetence — tapi karena kita tidak bisa memprediksi yang tidak diketahui.
+
+---
+
+### Prioritas Risiko
+
+Gunakan matriks sederhana:
+
+| Impact ↓ Prob → | Rendah | Sedang | Tinggi |
+|---|---|---|---|
+| **Tinggi** | Medium | High | Critical |
+| **Sedang** | Low | Medium | High |
+| **Rendah** | Low | Low | Medium |
+
+- **Critical** — mitigasi sebelum eksekusi. Kalau tidak bisa mitigasi — jangan lakukan.
+- **High** — mitigasi atau siapkan contingency plan.
+- **Medium/Low** — monitor, tapi tidak blocking.
+
+---
+
+### Praktik
+
+- Research spike untuk teknologi baru — eksplorasi dulu sebelum komit
+- Prototype untuk bukti konsep — bukan langsung full implementation
+- Fallback plan — "Kalau A gagal, kita pake B"
+- Buffer time — tambah 30-50% dari estimasi awal
+
+---
+
+🌱 **Sebelum estimasi, tanya: apa yang bisa salah? Berapa probabilitasnya? Seberapa parah?**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya cerita estimasi yang meleset? Atau risiko yang tidak terduga? Cerita di komentar.*

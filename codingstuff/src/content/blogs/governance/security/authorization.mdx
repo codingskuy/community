@@ -1,0 +1,69 @@
+---
+title: "Authorization"
+description: "&quot;Otorisasi — dari pengalaman user bisa akses data user lain — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "security", "authorization"]
+---
+
+
+# Authorization
+
+> *"Aku iseng ganti angka di URL dari `/user/5` jadi `/user/6`. Dan lihat data orang lain. Nama, email, nomor telepon — semua terbaca. Hanya karena tidak ada cek otorisasi."*
+
+Ini dulu — pas aku masih belajar bikin API. Aku bangga endpoint `/api/user/:id` berhasil — return data user sesuai parameter ID. Tapi tidak ada cek: apakah user yang login berhak lihat data user lain?
+
+Jadi: User A login → ganti ID di URL → lihat data User B. Tanpa usaha.
+
+Ini yang disebut **IDOR — Insecure Direct Object Reference**. Salah satu celah paling umum dan paling berbahaya.
+
+---
+
+### Kisah Kedua: Bedanya Auth dan Otorisasi
+
+Banyak yang bingung. Termasuk aku dulu.
+
+**Autentikasi:** "Kamu siapa?" — bukti identitas. Login, JWT, session.
+**Otorisasi:** "Kamu boleh apa?" — izin akses. Admin, editor, viewer.
+
+Autentikasi tanpa otorisasi = pintu terkunci, tapi semua ruangan di dalam tidak ada kuncinya. Kamu bisa masuk — dan lihat semua yang ada.
+
+---
+
+### Level Otorisasi
+
+**1. Role-based (RBAC)**
+User punya role: admin, editor, viewer. Tiap role punya akses berbeda.
+Contoh: admin bisa hapus, editor bisa edit, viewer cuma baca.
+
+**2. Ownership-based**
+User hanya bisa akses resource miliknya. Ini yang paling sering dilanggar.
+API `/api/orders` harus filter: hanya order milik user yang login.
+
+**3. Attribute-based (ABAC)**
+Akses berdasarkan atribut: user, resource, environment.
+Contoh: artikel hanya bisa diedit jam kerja.
+
+---
+
+### Common Mistakes
+
+- **Cuma cek auth, tidak cek otorisasi** — sudah login → bebas akses apa pun. Salah.
+- **Otorisasi di client-side** — tombol admin di-hidden. Tapi API tetap bisa dipanggil.
+- **IDOR** — lihat contoh di atas.
+
+---
+
+### Implementasi
+
+Di CodingSkuy:
+- Setiap endpoint cek kepemilikan: apakah user ini pemilik resource?
+- Middleware handle otorisasi — tidak perlu diulang tiap handler
+- Default: deny — kecuali explicitly allowed
+
+---
+
+🌱 **Cek endpoint API-mu: apakah ada yang bisa diakses tanpa otorisasi?**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya pengalaman nemu IDOR di aplikasi sendiri atau orang lain? Cerita di komentar.*

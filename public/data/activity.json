@@ -1,0 +1,205 @@
+{
+  "generatedAt": "2026-04-07T06:28:13.131Z",
+  "owner": "roiskhoiron",
+  "discussionRepo": "roiskhoiron/.github",
+  "project": {
+    "number": 9,
+    "title": "Growth - DailyLife powered by CodingSkuy",
+    "url": "https://github.com/users/roiskhoiron/projects/9"
+  },
+  "projectColumns": [
+    {
+      "name": "Backlog",
+      "statusKey": "todo",
+      "count": 1
+    },
+    {
+      "name": "To Do",
+      "statusKey": "todo",
+      "count": 1
+    },
+    {
+      "name": "In progress",
+      "statusKey": "in_progress",
+      "count": 1
+    },
+    {
+      "name": "Review/Feedback",
+      "statusKey": "review_feedback",
+      "count": 0
+    },
+    {
+      "name": "Ready for Validation",
+      "statusKey": "ready_validation",
+      "count": 0
+    },
+    {
+      "name": "Test In Progress",
+      "statusKey": "in_progress",
+      "count": 1
+    },
+    {
+      "name": "Test Passed",
+      "statusKey": "ready_validation",
+      "count": 0
+    },
+    {
+      "name": "Ready to Handover",
+      "statusKey": "ready_handover",
+      "count": 0
+    },
+    {
+      "name": "Done",
+      "statusKey": "ready_handover",
+      "count": 0
+    }
+  ],
+  "funnel": [
+    {
+      "key": "todo",
+      "label": "Todo",
+      "count": 1
+    },
+    {
+      "key": "in_progress",
+      "label": "In Progress",
+      "count": 1
+    },
+    {
+      "key": "review_feedback",
+      "label": "Review/Feedback",
+      "count": 0
+    },
+    {
+      "key": "ready_validation",
+      "label": "Ready to Validation",
+      "count": 0
+    },
+    {
+      "key": "ready_handover",
+      "label": "Ready to Handover",
+      "count": 0
+    },
+    {
+      "key": "unknown",
+      "label": "Unmapped",
+      "count": 0
+    }
+  ],
+  "projectItems": [
+    {
+      "id": "PVTI_lAHOAbNDHc4BTz6OzgpMDBo",
+      "source": "project",
+      "sourceType": "Issue",
+      "title": "Belajar Skill AI di IBM SkillsBuild x Dicoding by PIJAK",
+      "url": "https://github.com/roiskhoiron/.github/issues/3",
+      "number": 3,
+      "state": "OPEN",
+      "status": "In progress",
+      "statusKey": "in_progress",
+      "updatedAt": "2026-04-07T02:47:23Z",
+      "repository": "roiskhoiron/.github",
+      "labels": [
+        "documentation",
+        "area:hard-skill",
+        "area:soft-skill",
+        "area:personal-brand",
+        "type:learning",
+        "platform:ibm"
+      ]
+    },
+    {
+      "id": "PVTI_lAHOAbNDHc4BTz6OzgpQQ9Q",
+      "source": "project",
+      "sourceType": "Issue",
+      "title": "Personal Engineering Labs on Workstation",
+      "url": "https://github.com/roiskhoiron/.github/issues/6",
+      "number": 6,
+      "state": "OPEN",
+      "status": "To Do",
+      "statusKey": "todo",
+      "updatedAt": "2026-04-07T03:20:49Z",
+      "repository": "roiskhoiron/.github",
+      "labels": [
+        "documentation",
+        "area:infrastructure",
+        "type:learning",
+        "type:maintenance"
+      ]
+    }
+  ],
+  "discussions": [
+    {
+      "id": "D_kwDOR6yWbs4AlhsK",
+      "source": "discussion",
+      "sourceType": "Discussion",
+      "title": "Personal Engineering Labs on Workstation",
+      "url": "https://github.com/roiskhoiron/.github/discussions/5",
+      "number": 5,
+      "state": "OPEN",
+      "status": "Projects & Issues",
+      "statusKey": "review_feedback",
+      "updatedAt": "2026-04-07T03:20:12Z",
+      "repository": "roiskhoiron/.github",
+      "labels": [
+        "documentation",
+        "area:infrastructure",
+        "type:learning",
+        "type:maintenance"
+      ],
+      "comments": 2
+    },
+    {
+      "id": "D_kwDOR6yWbs4AlhCb",
+      "source": "discussion",
+      "sourceType": "Discussion",
+      "title": "Pengen belajar Mobile Security Engineering",
+      "url": "https://github.com/roiskhoiron/.github/discussions/4",
+      "number": 4,
+      "state": "OPEN",
+      "status": "Mobile",
+      "statusKey": "review_feedback",
+      "updatedAt": "2026-04-06T15:37:12Z",
+      "repository": "roiskhoiron/.github",
+      "labels": [],
+      "comments": 1
+    },
+    {
+      "id": "D_kwDOR6yWbs4AlgaR",
+      "source": "discussion",
+      "sourceType": "Discussion",
+      "title": "Peluang Belajar Skill AI di IBM SkillsBuild x Dicoding by PIJAK",
+      "url": "https://github.com/roiskhoiron/.github/discussions/2",
+      "number": 2,
+      "state": "OPEN",
+      "status": "Discovery Learning",
+      "statusKey": "review_feedback",
+      "updatedAt": "2026-04-06T08:09:36Z",
+      "repository": "roiskhoiron/.github",
+      "labels": [
+        "documentation",
+        "area:hard-skill",
+        "type:learning",
+        "type:building",
+        "platform:ibm"
+      ],
+      "comments": 1
+    },
+    {
+      "id": "D_kwDOR6yWbs4AlgZX",
+      "source": "discussion",
+      "sourceType": "Discussion",
+      "title": "🧭 Welcome to life.dotdev Discussions — My Reflection Hub",
+      "url": "https://github.com/roiskhoiron/.github/discussions/1",
+      "number": 1,
+      "state": "OPEN",
+      "status": "Announcements",
+      "statusKey": "review_feedback",
+      "updatedAt": "2026-04-06T05:42:29Z",
+      "repository": "roiskhoiron/.github",
+      "labels": [],
+      "comments": 0
+    }
+  ],
+  "warnings": []
+}

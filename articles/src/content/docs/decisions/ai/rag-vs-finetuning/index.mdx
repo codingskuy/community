@@ -1,0 +1,46 @@
+---
+title: RAG vs Fine Tuning
+description: "RAG vs fine tuning — dari pengalaman bikin AI yang paham konteks — CodingSkuy"
+---
+
+# RAG vs Fine Tuning
+
+> *"Dulu aku kira fine-tuning jawaban semua masalah. Ternyata RAG lebih sering jawabannya."*
+
+Waktu mau bikin AI yang paham semua artikel CodingSkuy, aku pikir harus fine-tune model. Latih ulang dengan dataset artikel. Biar modelnya hafal semua konten.
+
+Tapi setelah riset, aku sadar: fine-tuning itu mahal, butuh data banyak, dan setiap artikel baru berarti training ulang.
+
+**RAG (Retrieval-Augmented Generation):**
+
+Pendekatan yang kupakai sekarang:
+
+1. Semua artikel CodingSkuy dipecah jadi chunks (potongan)
+2. Tiap chunk diubah jadi vector embedding
+3. Disimpan di vector database (pgvector)
+4. Pas user tanya, sistem cari chunk yang relevan
+5. Chunk dikirim ke LLM sebagai konteks
+
+Keuntungan: artikel baru tinggal nambah ke database. Tidak perlu training ulang.
+
+**Fine Tuning:**
+
+Fine tuning tetap berguna — tapi untuk konteks yang berbeda.
+
+Misal: aku mau model yang bisa nulis dengan gaya khas CodingSkuy — bahasa Indonesia yang santai tapi informatif. Fine tuning dengan contoh-contoh artikel bisa bikin model paham gaya penulisan.
+
+Tapi untuk knowledge (fakta, konsep, tutorial) — RAG lebih efektif.
+
+**Perbandingan:**
+
+| Aspek | RAG | Fine Tuning |
+|-------|-----|-------------|
+| Update data | Instant — tinggal ganti dokumen | Training ulang |
+| Biaya awal | Rendah (vector DB + embedding) | Tinggi (GPU untuk training) |
+| Biaya per query | Sedang (embedding + context) | Rendah (inference) |
+| Akurasi knowledge | Tinggi (dokumen aktual) | Sedang (model bisa lupa/halusinasi) |
+| Gaya bicara | Tidak berubah | Bisa diubah dengan contoh |
+
+> *"RAG untuk knowledge base dan dokumentasi. Fine tuning untuk gaya bicara dan task spesifik. Keduanya bisa digabung untuk hasil optimal."*
+
+[Kembali ke Decisions](/articles/decisions/)

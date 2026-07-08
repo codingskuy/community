@@ -1,0 +1,80 @@
+---
+title: "Bias Awareness"
+description: "&quot;Mengenali bias pada AI — dari pengalaman model yang tidak adil — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "ai", "bias-awareness"]
+---
+
+
+# Bias Awareness
+
+> *"Model pertamaku akurat 90%. Tapi 0% untuk salah satu kelompok pengguna. Bukan karena rusak — karena data training tidak seimbang. Aku tidak sadar sama sekali. Laporan menunjukkan hijau semua. Sampai seseorang tanya: 'Coba tes per kategori.'"*
+
+Waktu pertama bikin model klasifikasi, aku bangga. Dashboard metrics menunjukkan akurasi 90% — angka yang solid. Aku deploy, kasih tau tim, dan merasa puas.
+
+Tapi seorang kolega bertanya: *"Udah cek per-kategori?"*
+
+Aku buka breakdown per kategori. Satu kategori: 0%. Modelku tidak bisa memprediksi kategori itu sama sekali. Bukan karena model rusak — karena dari 1000 sampel data training, hanya 5 dari kategori itu.
+
+**Kesadaran:**
+Data tidak seimbang bukan masalah teknis — ini masalah etis. Karena model yang bias bisa merugikan sekelompok pengguna secara tidak adil.
+
+---
+
+### Kisah Kedua: Labeler yang Tidak Sadar Bias
+
+Di proyek lain, aku pekerjaan label data untuk model NLP. Dua orang anotator — mereka ngasih label untuk data yang sama.
+
+Hasilnya: 30% label tidak cocok.
+
+Aku cek perbedaan:
+- Anotator A lebih sering label "spam" untuk email dari domain tertentu
+- Anotator B lebih sering label "not spam" untuk email yang sama
+
+Siapa yang benar? Tidak ada. Masing-masing punya bias sendiri. Tapi model yang belajar dari data mereka akan mewarisi bias itu.
+
+**Pelajaran:**
+Bias tidak selalu datang dari data — bisa dari orang yang menyiapkan data. Penting punya pedoman anotasi yang jelas dan overlap antar anotator.
+
+---
+
+### Kisah Ketiga: Bias dari Masa Lalu
+
+Pernah dapet dataset rekrutmen dari 10 tahun lalu. Ide awalnya: bikin model yang bisa bantu screening CV.
+
+Tapi waktu lihat data:
+- 80% kandidat yang diterima adalah laki-laki
+- 20% perempuan
+
+Bukan karena diskriminasi sadar — mungkin karena 10 tahun lalu memang lebih banyak pelamar laki-laki di bidang tech. Tapi kalau model belajar dari data ini, dia akan "belajar" bahwa laki-laki lebih cocok.
+
+**Keputusan:**
+Aku tidak pake dataset itu. Cari dataset yang lebih seimbang atau buat dari awal dengan distribusi yang adil.
+
+---
+
+### Cara Deteksi Sederhana
+
+Tidak perlu tool canggih untuk deteksi bias dasar:
+
+1. **Uji model di berbagai kelompok** — pisahkan data uji per demografi, per kategori, per segmen
+2. **Bandingkan akurasi antar kelompok** — kalau beda >10%, ada masalah
+3. **Cek false positive rate** — apakah satu kelompok lebih sering salah dikenali sebagai positif?
+4. **Human review** — minta orang dari latar belakang berbeda lihat output model
+
+---
+
+### Mitigasi
+
+- **Seimbangkan data training** — oversampling minoritas, undersampling mayoritas, atau synthetic data
+- **Gunakan fairness metrics** — jangan cuma accuracy. Hitung false positive rate per kelompok
+- **Diverse perspective** — libatkan orang dari latar belakang berbeda dalam tim pengembangan
+- **Monitor terus** — bias bisa muncul setelah deployment karena data berubah
+
+---
+
+🌱 **Mulai dengan cek akurasi per kelompok di modelmu hari ini:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Pernah nemu bias di AI? Atau khawatir modelmu bias? Cerita di komentar.*

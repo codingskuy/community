@@ -1,0 +1,37 @@
+---
+title: "Caching Strategy"
+description: "&quot;Caching strategy — dari pengalaman bikin aplikasi offline-first — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["decisions", "mobile", "caching-strategy"]
+---
+
+
+# Caching Strategy
+
+> *"Aplikasi tanpa cache itu seperti kulkas tanpa listrik — isinya cepat basi, dan kamu harus belanja tiap hari."*
+
+Pertama bikin aplikasi, semua data ambil dari API. Setiap buka halaman, loading. User di Indonesia dengan koneksi tidak stabil sering lihat spinner kosong. Aplikasi terasa lambat.
+
+Pelajarannya: cache bukan fitur opsional — untuk mobile, itu kebutuhan.
+
+**Strategi cache yang kupakai:**
+
+1. **Cache-first, network-update** — tampilkan cache dulu, update dari network di background. User lihat data instan, kemudian data segar muncul. Ini yang kupakai untuk daftar artikel CodingSkuy.
+
+2. **Network-first, cache-fallback** — coba ambil dari network. Kalau gagal (offline atau timeout), pake cache. Untuk data yang harus real-time seperti status pesanan.
+
+3. **Stale-while-revalidate** — cache usang boleh ditampilkan sambil ambil data baru. Cocok untuk data yang tidak terlalu kritis — seperti daftar produk.
+
+**Tingkatan cache:**
+
+- **In-memory** — data di RAM, cepat, hilang saat app ditutup. Untuk state management.
+- **Local storage (Hive/SQLite)** — data di disk, bertahan. Untuk cache offline.
+- **HTTP cache** — cache response API. Pakai dio_cache_interceptor. Untuk API yang jarang berubah.
+
+**Yang kupelajari:**
+Cache strategy harus disesuaikan dengan tipe data. Data artikel CodingSkuy jarang berubah → cache-first. Data komentar real-time → network-first. Kombinasi strategi untuk tiap jenis data.
+
+> *"Cache strategy yang baik bikin aplikasi terasa cepat meski koneksi lambat. Cache strategy yang jelek bikin user lihat data basi."*
+
+[Kembali ke Decisions](/articles/decisions/)

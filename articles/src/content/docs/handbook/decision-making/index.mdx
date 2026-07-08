@@ -1,0 +1,97 @@
+---
+title: Decision Making Handbook
+description: "Keputusan teknis dari pengalaman — tech stack, trade-off, build vs buy — CodingSkuy"
+---
+
+# Decision Making Handbook
+
+> *"Dulu aku pilih teknologi karena 'keren'. Sekarang karena 'berapa biaya kalau salah?'"*
+
+Keputusan teknis adalah yang paling sering aku sesali — dan paling sering buatku begadang.
+
+Dari memilih framework, database, sampai keputusan arsitektur — setiap pilihan punya konsekuensi yang baru terasa berbulan-bulan kemudian.
+
+---
+
+### Tech Stack: Cerita Framework Hopping
+
+Aku pernah gonta-ganti framework hampir tiap bulan. Bulan ini Laravel. Bulan depan Express. Setelah itu Flutter. Setelah itu React Native.
+
+Alasannya: masing-masing keren dengan caranya sendiri. Tapi hasilnya: **aku tidak pernah benar-benar dalam di satu teknologi.**
+
+![Developer jumping between multiple frameworks, never finishing one](/articles/images/journey/21-framework-hopping.jpeg)
+
+Pelajaran pahit: **master satu teknologi lebih berharga daripada tahu banyak tapi dangkal.**
+
+Sekarang cara aku milih tech stack:
+
+**1. Apakah ini menyelesaikan masalah nyata?**
+
+Bukan karena *"trending di Twitter"* atau *"dipakai perusahaan besar"*. Apakah framework ini benar-benar cocok untuk problem yang aku hadapi?
+
+**2. Apakah aku bisa maintain 2 tahun ke depan?**
+
+Framework populer pun bisa mati. Lihat riwayat: seberapa aktif development-nya? Berapa banyak kontributor? Apakah ada perusahaan besar di belakangnya?
+
+**3. Berapa biaya belajar tim?**
+
+Teknologi baru butuh waktu belajar. Kalau tim harus belajar dari nol, hitung biayanya — bukan cuma dalam uang, tapi dalam waktu dan opportunity cost.
+
+---
+
+### Build vs Buy: Kesalahan Favoritku
+
+Dulu aku pikir: *"Bikin sendiri lebih murah daripada beli."*
+
+Salah besar.
+
+Aku pernah habiskan 2 bulan bikin authentication system dari nol. Fiturnya: login, register, lupa password, OAuth Google.
+
+Hasilnya? Rada mirip dengan Firebase Auth atau Auth0 yang bisa diintegrasi dalam 2 hari.
+
+**Kapan aku pilih build:**
+
+- Ini core business — beda dari kompetitor
+- Butuh kontrol penuh
+- Data sensitivity tinggi
+
+**Kapan aku pilih buy/pakai existing:**
+
+- Bukan core business (auth, email, payment, logging)
+- Butuh cepat ke market
+- Maintenance cost lebih tinggi daripada beli
+
+---
+
+### Rewrite vs Refactor: Luka Lama
+
+Aplikasi Flutter yang kusebut sebelumnya — yang mulai dari sederhana lalu makin complex — sempat ada dorongan untuk *tulis ulang dari awal*.
+
+Kodenya sudah berantakan. Struktur foldernya kacau. State managementnya tidak konsisten.
+
+Tapi aku ingat kata seorang mentor: **"Rewrite adalah cara paling mahal untuk refactor."**
+
+Kita cenderung underestimate effort rewrite. Lupa bahwa kode lama sudah punya:
+- Bug yang sudah fixed
+- Test case
+- Pengetahuan domain (business logic yang tidak tertulis)
+
+Sekarang aku pakai aturan ini:
+- **Refactor**: kalau arsitekturnya masih bisa diperbaiki bertahap
+- **Rewrite**: kalau bahasanya harus ganti total atau arsitektur sudah tidak bisa diperbaiki
+
+Dan kalau rewrite — lakukan bertahap, di sampling kode lama. Lihat pola strangler fig.
+
+---
+
+### Opportunity Cost dalam Engineering
+
+Paling sering dilupakan: **setiap jam yang kamu habiskan untuk A adalah jam yang tidak kamu habiskan untuk B.**
+
+Memilih untuk build custom CMS berarti tidak mengerjakan fitur analytics. Memilih untuk microservice berarti tidak punya waktu untuk testing.
+
+Aku belajar untuk selalu tanya: *"Kalau aku habiskan 2 minggu untuk ini, apa yang tidak jadi aku kerjakan?"*
+
+> *"Keputusan teknis yang baik bukan tentang memilih yang benar — tapi tentang memahami konsekuensi dari pilihanmu, dan siap menghadapinya."*
+
+[Kembali ke Engineering Handbook](/articles/handbook/)

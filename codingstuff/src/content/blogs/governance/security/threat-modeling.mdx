@@ -1,0 +1,86 @@
+---
+title: "Threat Modeling"
+description: "&quot;Threat modeling — dari pengalaman mikir &#39;bagaimana aplikasi diretas&#39; sebelum diretas beneran — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "security", "threat-modeling"]
+---
+
+
+# Threat Modeling
+
+> *"Dulu aku pikir: 'Ah, nggak mungkin ada yang mau retas aplikasi kecilku. Untuk apa?' Sampai data test milik temanku bocor lewat celah yang tidak pernah kupikirkan — endpoint tanpa autentikasi yang kulewatkan."*
+
+Aplikasi kecil bukan berarti aman. Attacker tidak selalu target kamu secara personal — mereka pake bot yang scan celah umum di ribuan aplikasi.
+
+Aplikasi CodingSkuys kecil? Iya. Tapi data user tetap berharga. Dan satu celah cukup untuk bocor.
+
+---
+
+### Kisah Kedua: STRIDE — Framework yang Mengubah Cara Pandang
+
+Waktu belajar threat modeling, aku kenalan dengan STRIDE dari Microsoft. Framework untuk kategorisasi ancaman.
+
+**S — Spoofing (Penyamaran)**
+Attacker berpura-pura jadi user lain. Mitigasi: autentikasi kuat.
+
+**T — Tampering (Manipulasi)**
+Data diubah di tengah jalan. Mitigasi: enkripsi, checksum.
+
+**R — Repudiation (Penyangkalan)**
+User melakukan sesuatu lalu bilang "bukan saya." Mitigasi: audit log, signature.
+
+**I — Information Disclosure (Kebocoran)**
+Data sensitif terbaca. Mitigasi: enkripsi, akses kontrol.
+
+**D — Denial of Service (Layanan mati)**
+Aplikasi tidak bisa diakses. Mitigasi: rate limiting, auto-scaling.
+
+**E — Elevation of Privilege (Naik akses)**
+User biasa bisa akses admin. Mitigasi: otorisasi ketat.
+
+---
+
+### Cara Melakukan
+
+**1. Diagram arsitektur**
+Gambar: client → API → database. Tandai setiap titik aliran data.
+
+**2. Identifikasi ancaman per titik**
+Client bisa diretas. API kena injection. Database bocor. Tiap titik punya ancaman sendiri.
+
+**3. Prioritaskan**
+Untuk setiap ancaman:
+- Seberapa mungkin? (rendah/sedang/tinggi)
+- Seberapa parah kalau terjadi? (rendah/sedang/tinggi)
+
+Fokus ke yang probability tinggi + impact tinggi.
+
+**4. Mitigasi**
+- Kurangi probability: pasang rate limiting, validasi input
+- Kurangi impact: matikan koneksi kalau anomali, backup rutin
+
+---
+
+### Contoh untuk CodingSkuy
+
+| Titik | Ancaman | Probability | Impact | Mitigasi |
+|---|---|---|---|---|
+| Mobile app | Reverse engineering | Rendah | Sedang | Obfuscation |
+| API | Injection | Sedang | Tinggi | Validasi input |
+| Database | Unauthorized access | Rendah | Tinggi | Security rules |
+
+---
+
+### Tools
+
+- **Threat Dragon** — OWASP, gratis, open source
+- **Microsoft Threat Modeling Tool** — komprehensif
+- Cukup pake whiteboard untuk proyek kecil
+
+---
+
+🌱 **Gambar diagram arsitektur aplikasimu — lalu identifikasi ancaman di setiap titik:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya pengalaman threat modeling? Atau celah yang tidak pernah terpikirkan? Cerita di komentar.*

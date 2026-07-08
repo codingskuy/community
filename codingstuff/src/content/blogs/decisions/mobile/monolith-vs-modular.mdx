@@ -1,0 +1,55 @@
+---
+title: "Monolith vs Modular"
+description: "&quot;Monolith vs modular Flutter — dari satu folder berantakan ke fitur terpisah — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["decisions", "mobile", "monolith-vs-modular"]
+---
+
+
+# Monolith vs Modular
+
+> *"Semua di satu folder itu cepat — sampai kamu harus cari di 200 file untuk satu bug."*
+
+Dulu struktur proyek Flutter-ku rata:
+
+```
+lib/
+├── models/
+├── views/
+├── controllers/  
+├── services/
+├── widgets/
+└── utils/
+```
+
+Awalnya rapi. Tapi setelah 20 fitur, folder `views/` berisi 40 file. Mau cari screen profil? Gulir 40 file. Folder `services/` campur aduk antara API auth, API produk, API setting.
+
+Yang paling menyebalkan: waktu harus hapus fitur profil. Karena kodenya tersebar — ada model di `models/`, screen di `views/`, service di `services/` — aku harus buka 7 folder berbeda. Takut ketinggalan satu file. Akhirnya banyak kode mati yang tertinggal.
+
+**Modular approach:**
+
+```
+lib/
+├── core/            — shared: theme, network, routing
+├── features/
+│   ├── auth/        — login, register, forgot password
+│   ├── profile/     — lihat & edit profil
+│   ├── dashboard/   — home screen
+│   └── settings/    — pengaturan
+└── shared/          — reusable widgets
+**
+
+**Kapan monolith:**
+- App kecil (&lt;10 screen)
+- Tim sendiri
+- Belum tahu persis boundary fitur
+
+**Kapan modular:**
+- App makin besar, folder mulai penuh
+- Tim >2 orang
+- Fitur bisa dihapus/ditambah independen
+
+> *"Modular tidak harus modular di awal. Refactor ke modular saat merasa 'kok susah nyari file ini?' Tanda itu sudah waktunya."*
+
+[Kembali ke Decisions](/articles/decisions/)

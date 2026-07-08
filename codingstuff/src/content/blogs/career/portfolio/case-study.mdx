@@ -1,0 +1,119 @@
+---
+title: "Case Study Writing"
+description: "&quot;Nulis case study — dari pengalaman dokumentasi engineering — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["career", "portfolio", "case-study"]
+---
+
+
+# Case Study Writing
+
+> *"Waktu aku apply kerja dan cuma kirim link GitHub, tidak ada yang peduli. Tapi waktu aku kirim case study tentang proyek yang kubangun — mereka undang interview."*
+
+Dulu aku pikir portfolio cukup: "Ini aplikasi yang pernah kubuat, ini tech stack-nya, ini link-nya." Tapi setelah berkali-kali apply dan ditolak, aku sadar: **orang tidak mau lihat hasil akhir. Mereka mau lihat proses berpikirku.**
+
+Case study adalah jembatan antara "aku bisa bikin ini" dan "aku paham kenapa dan gimana cara mikirnya." Dan ini yang membedakan kandidat biasa dari kandidat yang menonjol.
+
+---
+
+### Kisah Pertama: Case Study yang Membuka Pintu Interview Pertamaku
+
+![Laptop with code editor showing before and after migration code](/codingstuff/codingstuff/codingstuff/images/journey/13-code-migration-journey.jpeg)
+
+Waktu apply ke perusahaan pertama sebagai Flutter developer, aku lihat job description-nya: "menguasai state management, pengalaman dengan codebase existing, familiar dengan testing."
+
+Satu kalimat di JD itu mengingatkanku pada proyek CodingSkuy: migrasi dari Provider ke Riverpod. Awalnya cuma tugas teknis biasa — tapi pas kutulis jadi case study, aku sadar ini sebenarnya cerita yang kaya.
+
+Aku tulis:
+
+**Latar Belakang:**
+CodingSkuy awalnya pake Provider. Semakin besar, semakin lambat — rebuild widget tidak terkontrol, performa menurun.
+
+**Tantangan:**
+Waktu itu dokumentasi Riverpod masih terbatas. Tidak ada panduan migrasi dari Provider. Aku harus trial-error sendiri — pindahin satu provider, test, kalau error rollback.
+
+**Pendekatan:**
+Aku putuskan migrasi bertahap — bukan rewrite total. Provider lawan masih jalan sambil provider baru ditambahkan. Butuh 2 minggu untuk pindahin semua state.
+
+**Hasil:**
+- Waktu rebuild turun 60%
+- Loading screen berkurang drastis
+- Kode jadi lebih testable — unit test jadi mungkin untuk state layer
+
+**Pelajaran:**
+Kalau bisa mulai dari awal, aku akan pake Riverpod dari hari pertama. Tapi migrasi bertahap ngajarin aku tentang kompatibilitas dan pentingnya abstraction layer.
+
+Beberapa hari setelah apply... **aku dipanggil interview.** Salah satu alasan yang disebut: "Kami lihat case study-mu tentang migrasi state management — itu menunjukkan kamu paham konsep, bukan cuma make-nya."
+
+---
+
+### Kisah Kedua: Bedanya Portfolio dan Case Study
+
+Banyak orang bingung: "Bukannya portfolio udah cukup? Kenapa harus bikin case study?"
+
+Portfolio bilang: **"Ini hasil kerjaanku."**
+Case study bilang: **"Ini gimana caraku berpikir."**
+
+Contoh:
+- **Portfolio:** "Aplikasi Flutter dengan Firebase — 10k downloads."
+- **Case study:** "Aplikasi ini awalnya pake Provider, loading lambat karena rebuild gak terkontrol. Aku putuskan pindah ke Riverpod — meskipun dokumentasi terbatas — dengan pendekatan migrasi bertahap. Hasilnya performa naik, code jadi testable, dan tim bisa develop fitur baru lebih cepat."
+
+Yang mana yang lebih meyakinkan buat hiring manager?
+
+Waktu aku jadi interviewer, aku lebih milih kandidat yang punya 2 case study bagus daripada kandidat yang punya 10 proyek di GitHub tapi semua hasil tutorial.
+
+---
+
+### Kisah Ketiga: Case Study tentang Proyek yang Gagal
+
+Case study yang paling banyak dapat feedback bukan tentang proyek yang sukses — tapi tentang proyek yang gagal.
+
+Aku tulis case study tentang proyek side yang over-engineer: aplikasi habit tracker pake microservices, 5 repositori terpisah, caching layer, message queue — untuk aplikasi yang cuma dipake sendiri.
+
+**Kenapa gagal:**
+- YAGNI violation: build fitur yang belum diperlukan
+- Overwhelmed sama kompleksitas yang tidak perlu
+- Kehilangan motivasi karena progress terlalu lambat
+
+**Apa yang kupelajari:**
+- Start simple. Tambah kompleksitas kalau sudah terbukti diperlukan
+- Shipping > perfecting. Produk jadi > arsitektur ideal
+- Kalau aplikasi single-user, jangan pake microservices
+
+Banyak orang yang baca case study ini kirim pesan: "Sama banget, aku juga pernah ngelakuin itu." Karena jujur tentang kegagalan, case study ini lebih relatable — dan lebih berharga.
+
+---
+
+### Struktur yang Kupakai Sekarang
+
+Setiap case study yang kutulis, aku ikuti pola ini:
+
+1. **Judul yang menarik** — bukan "Case Study: Aplikasi Flutter" tapi "Migrasi State Management: Dari Provider ke Riverpod di CodingSkuy"
+
+2. **Latar belakang (1-2 paragraf)** — konteks proyek, ukuran tim, masalah awal
+
+3. **Tantangan spesifik (1-2 paragraf)** — apa yang sulit, kenapa solusi standar tidak cukup
+
+4. **Pendekatan dan trade-off (2-3 paragraf)** — apa yang dicoba, kenapa pilih A daripada B, apa pengorbanannya
+
+5. **Hasil dengan angka (1 paragraf)** — tolak ukur konkret, bukan perasaan
+
+6. **Pelajaran (1-2 paragraf)** — apa yang akan dilakukan berbeda
+
+7. **Call to action** — link ke proyek, repositori, atau artikel terkait
+
+---
+
+### Jadi...
+
+Case study yang baik tidak perlu panjang. Tapi harus **jujur, spesifik, dan menunjukkan cara berpikir**.
+
+Kalau kamu bingung mau mulai dari mana — buka proyek yang paling berkesan buatmu. Bisa proyek yang sukses, atau justru yang gagal. Tulis perjalanannya. Jangan takut imperfect — yang penting ceritanya nyata.
+
+---
+
+🌱 **Mulai tulis satu case study hari ini dari proyek yang paling berkesan:**
+[Kembali ke Career](/articles/career/) | [Lihat Semua Topik](/articles/)
+
+*Pernah nulis case study? Atau punya proyek yang menurutmu layak dijadikan case study? Cerita di komentar.*

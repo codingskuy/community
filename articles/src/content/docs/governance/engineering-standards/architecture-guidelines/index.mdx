@@ -1,0 +1,75 @@
+---
+title: Architecture Guidelines
+description: "Panduan arsitektur — dari pengalaman standarisasi pola tim — CodingSkuy"
+---
+
+# Architecture Guidelines
+
+> *"Satu tim pake BLoC, satu lagi pake Riverpod. Satu pake layer-first, satu lagi pake feature-first. Pindah dari modul A ke B — pola berubah total. Harus adaptasi tiap kali buka file baru."*
+
+Di satu proyek, setiap developer punya gaya arsitektur sendiri. Yang satu pake BLoC, yang lain Riverpod. Satu pake feature-first, satu lagi layer-first.
+
+Hasilnya: kode tidak konsisten. Developer baru butuh 1 minggu untuk paham pola di setiap modul. Code review jadi lebih lama karena harus adaptasi gaya tiap PR.
+
+Awalnya aku pikir: "Biar kreatif, yang penting jalan." Tapi setelah lihat sendiri dampaknya ke produktivitas tim — aku berubah pikiran.
+
+---
+
+### Kisah Kedua: Folder Structure yang Berubah Tiap Bulan
+
+Tim CodingSkuy dulu — struktur folder berubah tiap ada developer baru. Karena setiap orang punya preferensi sendiri:
+- Developer A: `screens/`, `widgets/`, `models/`, `services/`
+- Developer B: `features/auth/`, `features/home/`, `shared/`
+- Developer C: `pages/`, `components/`, `utils/`, `api/`
+
+Pindah folder — bingung lagi. Cari file — tebak-tebakan.
+
+**Solusi:**
+Aku tulis guidelines folder structure. Disepakati bersama. Tidak berubah kecuali ada alasan kuat.
+
+---
+
+### Komponen Guidelines
+
+**1. Struktur folder**
+Feature-first — setiap fitur punya folder sendiri. Tapi `core/` untuk shared code.
+
+**2. State management**
+- Data shared antar screen → Riverpod
+- Real-time → BLoC
+- Local state → setState (kecuali kompleks)
+
+**3. Dependency injection**
+Constructor injection atau Riverpod ref. Tidak pake `get_it` — untuk maintainability.
+
+**4. Error handling**
+Semua fungsi yang bisa error return Result type (Success/Failure). Ada global handler untuk unhandled error.
+
+---
+
+### Panduan Sederhana
+
+| Aspek | Batas |
+|---|---|
+| Baris per file | &lt;300 |
+| Baris per fungsi | &lt;30 |
+| Method publik per kelas | &lt;5 |
+| Parameter per fungsi | &lt;3 |
+
+Angka ini bukan aturan kaku — tapi panduan. Kalau melebihi, mungkin waktunya refactor atau split.
+
+---
+
+### Proses
+
+1. Tulis guidelines — 1-2 halaman. Tidak perlu panjang.
+2. Diskusikan dengan tim — semua harus setuju.
+3. Terapkan via code review dan linter — otomatis sebisa mungkin.
+4. Review periodik — update kalau tidak relevan lagi.
+
+---
+
+🌱 **Cek apakah tim punya architecture guidelines yang disepakati bersama:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya pengalaman tim tanpa standar arsitektur? Atau guidelines yang terlalu kaku? Cerita di komentar.*

@@ -1,0 +1,39 @@
+---
+title: "Open Source vs Closed Source"
+description: "&quot;Open source vs closed source AI — dari pengalaman pilih model — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["decisions", "ai", "open-vs-closed-source"]
+---
+
+
+# Open Source vs Closed Source
+
+> *"Open source itu bebas — tapi bebas di sini berarti bebas pakai, bukan bebas dari masalah."*
+
+Pertengahan 2024, aku harus milih model untuk RAG pipeline CodingSkuy. Dua opsi: GPT-4o (closed source, berbayar) atau Llama 3 (open source, gratis).
+
+**Closed source (GPT-4, Claude, Gemini):**
+Aku pilih GPT-4o untuk production. Alasannya: kualitas. Untuk nulis artikel coding — yang butuh akurasi teknis — GPT-4o paling jarang hallucination.
+
+Keuntungan:
+- Kualitas tertinggi
+- API stabil, dokumentasi lengkap
+- Support cepat
+
+Kekurangan:
+- Vendor lock-in — susah pindah kalau sudah integrasi
+- Harga bisa berubah — bulan ini murah, bulan depan bisa naik
+- Data lewat server mereka — untuk data publik tidak masalah, untuk data internal? Risiko.
+
+**Open source (Llama, Mistral, Qwen):**
+Di sisi lain, aku eksperimen dengan Llama 3 via Ollama. Untuk summarization artikel yang tidak butuh akurasi tinggi — hasilnya lumayan.
+
+Tapi ada biaya tersembunyi: infrastruktur. Llama 3 70B butuh GPU dengan VRAM besar. Kalau pake cloud GPU — biayanya bisa lebih mahal dari API GPT-4o.
+
+**Yang kupelajari:**
+Open source tidak otomatis lebih murah. Closed source tidak otomatis lebih mahal. Semua tergantung konteks: volume pemakaian, kebutuhan kualitas, dan infrastruktur yang sudah dimiliki.
+
+> *"Closed source untuk kualitas dan kemudahan. Open source untuk privasi dan kontrol. Hitung total cost of ownership sebelum memutuskan."*
+
+[Kembali ke Decisions](/articles/decisions/)

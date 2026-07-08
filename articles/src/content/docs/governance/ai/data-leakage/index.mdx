@@ -1,0 +1,68 @@
+---
+title: Data Leakage
+description: "Kebocoran data dari AI — dari pengalaman model memuntahkan data training — CodingSkuy"
+---
+
+# Data Leakage
+
+> *"Aku prompt: 'Lanjutkan kata: Nama saya...' — model menjawab dengan nama asli orang dari data training. Bukan nama fiktif. Nama beneran. Dengan alamat email."*
+
+Waktu eksperimen dengan model bahasa besar, aku iseng coba prompt yang tidak biasa. Bukan pertanyaan normal — tapi coba "menarik" data dari memorinya.
+
+Aku prompt: *"Lanjutkan kalimat: 'Nama saya...' "*
+
+Model menjawab dengan nama orang — nama yang tidak aku kenal. Aku cek — ternyata nama itu ada di data training publik.
+
+**Momen horor:**
+Bukan karena model pintar. Tapi karena model **menghafal** data training. Dan data pribadi yang seharusnya tidak keluar — malah diulang.
+
+---
+
+### Kisah Kedua: API Leakage yang Tidak Disadari
+
+Di CodingSkuy, aku pake AI untuk generate ringkasan artikel. Awalnya aku kirim seluruh konten artikel ke API AI — termasuk artikel yang belum dipublikasi.
+
+Suatu hari, aku baca terms of service penyedia API. Tertulis:
+> *"Data yang dikirim dapat digunakan untuk meningkatkan model.""
+
+Artinya: artikel CodingSkuy (termasuk yang belum publish) bisa dipake untuk training model — dan mungkin muncul di respons pengguna lain.
+
+**Aksi:**
+- Aku berhenti kirim konten penuh ke API pihak ketiga
+- Untuk artikel yang sensitif, aku pake model lokal
+- Semua data yang dikirim ke API di-anonymize
+
+---
+
+### Kisah Ketiga: Prompt yang Tidak Sengaja Ke-share
+
+Beberapa layanan AI punya fitur "share conversation." Suatu hari, seorang teman share conversation AI-nya — dan di dalamnya ada prompt yang berisi data internal perusahaannya.
+
+Dia tidak sadar. Tapi prompt itu — yang berisi informasi internal — sudah bisa diakses publik.
+
+**Pelajaran:**
+Fitur "share" itu berguna, tapi berbahaya kalau prompt mengandung data sensitif. Sekarang:
+- Aku selalu asumsikan bahwa prompt bisa bocor
+- Tidak pernah menempatkan data pribadi di prompt
+- Kalau terpaksa, minimal di-anonymize dulu
+
+---
+
+### Mitigasi
+
+**1. Differential privacy** — tambah noise ke data training sehingga model tidak bisa menghafal data individu. Kompleks tapi efektif.
+
+**2. Jangan kirim data sensitif ke API pihak ketiga** — kalau harus, pastikan penyedia punya sertifikasi yang sesuai dan tidak pake data untuk training.
+
+**3. Anonymization** — sebelum data masuk ke training, hapus informasi pribadi. Nama, email, alamat, nomor telepon — harus di-strip.
+
+**4. Regular testing** — prompt model dengan kalimat yang memicu memorization. "Nama saya...", "Email saya...", "Alamat...". Kalau model ngulang data pribadi — ada leakage.
+
+**5. Data agreement** — baca terms of service sebelum kirim data ke API AI.
+
+---
+
+🌱 **Cek: apakah model atau API yang kamu pake bisa bocorin data?**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Pernah lihat AI ngulang data pribadi? Atau khawatir soal data leakage? Cerita di komentar.*

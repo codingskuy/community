@@ -1,0 +1,89 @@
+---
+title: AI Engineer
+description: "Jadi AI engineer — dari prompt sampe production AI — CodingSkuy"
+---
+
+# AI Engineer
+
+> *"Aku mulai dengan prompt sederhana. Sekarang ngurus pipeline, token, vector database, dan hallucination."*
+
+Pertengahan 2023, pertama kali buka ChatGPT. Aku nulis prompt: *"Jelaskan Flutter state management dalam bahasa Indonesia."*
+
+Jawabannya bagus. Terlalu bagus.
+
+Dari situ aku mulai penasaran: bagaimana AI bekerja? Bagaimana cara membuat AI paham konteks spesifik? Dan yang paling penting — bagaimana menggunakan AI untuk bikin sesuatu yang berguna, bukan cuma chatting.
+
+### Perjalanan: Dari User AI ke Engineer AI
+
+**Fase 1: Pengguna**
+Aku pakai ChatGPT untuk bantu nulis. Bantu debug kode. Bantu riset.
+
+Di fase ini, aku pikir AI engineer adalah orang yang bisa nulis prompt paling bagus.
+
+**Fase 2: Integrator**
+Lalu aku mulai integrasi API OpenAI ke aplikasi. Bikin fitur: user tanya soal coding, AI jawab berdasarkan dokumentasi CodingSkuy.
+
+Di fase ini aku belajar: prompt engineering bukan sekadar nulis kalimat. Tapi struktur — system prompt, context injection, temperature, top_p. Parameter-parameter yang bikin output beda drastis.
+
+Satu prompt bisa menghasilkan jawaban yang sempurna. Ganti satu kata, jawabannya jadi ngawur.
+
+**Fase 3: Pipeline Builder**
+Sekarang aku bangun RAG pipeline. Ambil 240+ artikel CodingSkuy, pecah jadi chunks, generate embeddings, simpan di vector database. Pas user nanya, sistem ambil artikel relevan sebagai konteks.
+
+Dari sini aku paham: **AI engineer bukan cuma urusan model — tapi urusan data.**
+
+### Data: 80% Pekerjaan AI Engineer
+
+Ini yang tidak banyak dibahas di tutorial: AI engineer menghabiskan 80% waktunya untuk data.
+
+- Ngumpulin data dari berbagai sumber
+- Membersihkan data — duplikasi, inkonsistensi, noise
+- Memecah data jadi potongan yang pas (chunking strategy)
+- Testing: apakah embedding yang dihasilkan akurat?
+
+Di CodingSkuy, aku habiskan waktu lebih banyak untuk preprocessing artikel daripada training atau prompting.
+
+**Chunking yang salah:** potongan terlalu pendek → konteks tidak cukup. Potongan terlalu panjang → embedding-nya kabur. Ukuran chunk adalah hyperparameter — dan tidak ada jawaban universal.
+
+**Embedding yang salah:** pilih model embedding yang tidak cocok dengan bahasa Indonesia → hasil search-nya kacau.
+
+### Model Selection: Antara Mahal dan Efektif
+
+Setiap model punya trade-off:
+
+| Model | Kelebihan | Kekurangan |
+|-------|-----------|------------|
+| GPT-4o | Paling pintar, paling aman | Mahal untuk high volume |
+| Claude 3.5 | Bagus untuk code, konteks besar | Rate limit ketat |
+| Llama 3 (local) | Gratis, privasi terjaga | Kualitas di bawah cloud, butuh GPU |
+
+Aku pakai GPT-4o untuk production — kualitas bicara. Tapi untuk eksperimen pribadi dan data sensitif, pake Llama via Ollama.
+
+Pelajaran: **jangan fanatik ke satu model. Pilih berdasarkan: budget, kebutuhan kualitas, dan sensitivitas data.**
+
+### AI Engineer yang Sebenarnya
+
+Setelah setahun lebih berkecimpung, aku menyimpulkan:
+
+**AI engineer bukan:**
+- Orang yang cuma panggil API ChatGPT
+- Orang yang training model dari nol pake dataset open source
+
+**AI engineer adalah:**
+- Orang yang bisa identifikasi masalah mana yang *layak* pake AI dan mana yang cukup pake IF-ELSE
+- Orang yang paham data lebih penting dari model
+- Orang yang tahu cara mengevaluasi — apakah output model ini bener atau hallucination
+- Orang yang paham infrastruktur — deployment, monitoring, cost optimization
+
+### Tips Mulai
+
+Kalau kamu mau mulai jadi AI engineer, saran aku:
+
+1. **Jangan mulai dari training model.** Mulai dari pake API existing. Pahami prompt engineering.
+2. **Pelajari RAG.** Ini pintu masuk paling praktis untuk bikin AI yang berguna.
+3. **Pahami data.** Semakin baik datamu, semakin baik output AI.
+4. **Evaluasi secara sistemik.** Jangan coba sekali lalu simpulkan. Ukur akurasi, recall, precision di dataset yang representatif.
+
+> *"AI engineer adalah yang tahu kapan pakai AI dan kapan cukup pakai IF-ELSE."*
+
+[Kembali ke Career](/articles/career/)

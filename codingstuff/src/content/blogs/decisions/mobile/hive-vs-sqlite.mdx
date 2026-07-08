@@ -1,0 +1,39 @@
+---
+title: "Hive vs SQLite"
+description: "&quot;Hive vs SQLite — dari pengalaman pilih database lokal Flutter — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["decisions", "mobile", "hive-vs-sqlite"]
+---
+
+
+# Hive vs SQLite
+
+> *"Hive itu cepat. Tapi pas butuh JOIN — SQLite lah jawabannya."*
+
+Dua opsi database lokal Flutter. Aku pake keduanya, untuk kebutuhan yang berbeda.
+
+**Awalnya Hive:**
+Aku pilih Hive untuk cache daftar produk. Setup-nya cepat, baca/tulis super cepat. Tinggal define adapter, simpan object, selesai. Cocok banget untuk cache — data tidak perlu query kompleks, cukup "simpan semua dan ambil semua."
+
+Tapi kemudian aku butuh filter "produk dengan harga >50000 diurutkan berdasarkan rating." Dengan Hive, harus load semua data ke memory, filter manual pakai loop. Tidak efisien.
+
+**Pindah ke SQLite:**
+SQLite dengan drift (sebelumnya moor) butuh setup lebih — define table, migration, query. Tapi untuk query kompleks, SQLite jauh lebih cocok. Satu query SQL selesai, tanpa load semua data ke memory.
+
+**Perbandingan:**
+
+| Hive | SQLite |
+|------|--------|
+| Setup cepat, tanpa boilerplate | Setup butuh schema definition |
+| Baca/tulis super cepat | Lebih lambat untuk operasi sederhana |
+| Tidak support query kompleks | Support JOIN, filter, aggregate |
+| Tidak ada relasi | Relasi dan foreign key |
+| Untuk cache dan data sederhana | Untuk data relasional |
+
+**Yang kulakukan sekarang:**
+Hive tetap untuk cache session, preference, dan data sederhana. SQLite untuk data transaksional yang butuh query. Keduanya dipakai bersamaan dalam satu aplikasi.
+
+> *"Hive untuk cache dan data sederhana. SQLite untuk data relasional yang butuh query. Keduanya bisa dipakai bersamaan."*
+
+[Kembali ke Decisions](/articles/decisions/)

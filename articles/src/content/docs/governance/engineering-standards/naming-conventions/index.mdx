@@ -1,0 +1,77 @@
+---
+title: Naming Conventions
+description: "Konvensi penamaan — dari pengalaman baca kode dengan nama yang tidak jelas — CodingSkuy"
+---
+
+# Naming Conventions
+
+> *"Pernah lihat variabel `x`, `data`, `temp`? Aku pernah. File pertama — `x` ternyata user ID. File kedua — `x` ternyata total harga. Tidak ada yang paham. Termasuk penulisnya — 2 bulan kemudian."*
+
+Dulu aku males mikir nama. Variabel? `data`. Fungsi? `processData`. Class? `DataManager`. Semua serba "data" — semua tidak jelas.
+
+Sampai suatu hari aku buka kode sendiri yang kutulis 3 bulan lalu. Fungsi `getData()` — data apa? Dari mana? Return type? Aku tidak tahu. Harus baca seluruh fungsi.
+
+Sejak itu: **nama yang baik menjelaskan intent tanpa perlu baca kode.**
+
+---
+
+### Kisah Kedua: Boolean yang Membingungkan
+
+Pernah lihat kode ini?
+```dart
+if (flag) { ... }
+```
+Apa itu `flag`? Flag apa? Apa artinya true? Apa artinya false?
+
+Bandikan dengan:
+```dart
+if (isUserActive) { ... }
+```
+
+Tanpa lihat konteks, langsung paham: kalau user aktif, lakukan sesuatu. Itulah kekuatan nama yang baik.
+
+**Aturan boolean:**
+- `is` + adjective: `isActive`, `isLoaded`, `isVisible`
+- `has` + noun: `hasPermission`, `hasError`
+- `can` + verb: `canEdit`, `canDelete`
+
+---
+
+### Konvensi per Bahasa
+
+**Dart/Flutter:**
+- Classes, enums: PascalCase — `UserModel`, `HttpStatus`
+- Variables, functions: camelCase — `getUser()`, `userName`
+- Constants: lowerCamelCase — `const defaultTimeout`
+- Files: snake_case — `user_model.dart`
+- Private: prefix `_` — `_handleButtonPress()`
+
+**JavaScript/TypeScript:**
+- Classes: PascalCase
+- Variables, functions: camelCase
+- Constants: UPPER_CASE atau camelCase
+- Files: camelCase atau kebab-case
+
+---
+
+### Nama yang Harus Dihindari
+
+- `data`, `info`, `stuff` — tidak jelas
+- `temp`, `tmp` — temporary untuk apa?
+- `manager`, `util`, `helper` — terlalu generic. Biasanya tanda class tidak punya tanggung jawab jelas
+- `test1`, `test2` — apa bedanya?
+
+---
+
+### Tips
+
+- Nama lebih panjang lebih baik dari nama tidak jelas. `daysSinceLastLogin` > `d`
+- Kalau bingung naming — biasanya ada masalah di desain, bukan di nama
+- Konsisten lebih penting dari "benar"
+
+---
+
+🌱 **Cari satu variabel dengan nama tidak jelas di kode — ganti dengan nama yang lebih baik:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya nama variabel paling aneh yang pernah dilihat? Cerita di komentar.*

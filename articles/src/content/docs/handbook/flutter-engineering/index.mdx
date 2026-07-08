@@ -1,0 +1,107 @@
+---
+title: Flutter Engineering Handbook
+description: "Flutter engineering dari pengalaman — state management, widget, sampe production — CodingSkuy"
+---
+
+# Flutter Engineering Handbook
+
+> *"Dulu aku pikir Flutter cuma 'buat aplikasi cantik'. Ternyata engineering-nya jauh lebih dalam."*
+
+Aku mulai Flutter di 2021. Awalnya karena penasaran — *"satu kode untuk Android dan iOS?"* Terlalu bagus untuk jadi kenyataan.
+
+Ternyata memang tidak semudah itu. Tapi setelah 4 tahun, Flutter jadi alat utama yang kupakai untuk CodingSkuy apps.
+
+---
+
+### State Management: Perjalanan yang Melelahkan
+
+Ini topik paling membingungkan buat pemula Flutter. Dan jujur, untuk intermediate juga.
+
+Aku mulai dengan `setState`. Cukup untuk todo app. Begitu aplikasi makin besar, semuanya jadi lambat dan kacau.
+
+Lalu pindah ke Provider. Lebih baik. Tapi masih manual.
+
+Lalu BLoC. Powerful. Tapi boilerplate-nya bikin males.
+
+Lalu Riverpod. Ini yang sampai sekarang kupakai.
+
+**Pelajaran: tidak ada state management yang sempurna. Yang ada adalah yang cocok dengan konteksmu.**
+
+Panduanku sekarang:
+
+| Kondisi | Pilihan |
+|---------|---------|
+| App sederhana, &lt;5 screen | setState + InheritedWidget |
+| App medium, 5-20 screen | Riverpod |
+| App kompleks, tim besar | Riverpod + BLoC untuk fitur tertentu |
+| Real-time, streaming | BLoC dengan Stream |
+
+---
+
+### Widget Tree: Antara Indah dan Berantakan
+
+Flutter itu widget di dalam widget di dalam widget.
+
+Awalnya aku tulis semua widget di satu file. Satu screen bisa 500 baris. Mau ganti padding dikit, harus cari di mana letaknya. Frustrasi.
+
+Sekarang polanya:
+
+```
+screen_a.dart          — Scaffold, AppBar, body
+├── widgets/
+│   ├── header.dart    — bagian atas
+│   ├── form.dart      — form input
+│   └── footer.dart    — tombol aksi
+```
+
+**Satu widget, satu file.** Kalau widget dipakai ulang, extract ke folder `shared/`.
+
+Prinsip sederhana: **kalau widgetnya lebih dari 50 baris, mungkin perlu diekstrak.**
+
+---
+
+### Platform Quirks: Yang Tidak Ada di Dokumentasi
+
+Flutter menjanjikan *"write once, run anywhere"*. Tapi praktiknya, ada perbedaan yang harus dihandle:
+
+**iOS:**
+
+- Keyboard behavior beda dengan Android
+- Back gesture harus manual
+- App lifecycle berbeda (iOS suka nge-freeze app di background)
+
+**Android:**
+
+- Back button (hardware) harus dihandle
+- Berbagai ukuran layar
+- Fragment lifecycle saat app di-recreate
+
+Pelajaran: **test di dua platform sebelum release.** Fitur yang mulus di iOS bisa hancur di Android.
+
+---
+
+### Performance: Hal yang Baru Kusedari Belakangan
+
+Flutter itu cepat — 60fps. Tapi kalau tidak hati-hati, bisa jadi lambat banget.
+
+Beberapa kesalahan yang pernah kulakukan:
+
+1. **Build method terlalu besar** — setiap setState rebuild semuanya. Solusi: const widget, extract widget kecil.
+2. **List tanpa lazy loading** — 1000 item di-render sekaligus. Solusi: ListView.builder.
+3. **Image tanpa caching** — gambar didownload ulang tiap kali render. Solusi: cached_network_image.
+4. **Animation tanpa consideration** — animasi terus jalan meski tidak kelihatan. Solusi: TickerMode.
+
+---
+
+### Production: Yang Tidak Diajarkan Tutorial
+
+Dari pengalaman deploy Flutter ke production:
+
+- **Code signing**: setup signing untuk Android dan iOS butuh waktu, jangan tunda
+- **App size**: Flutter app bisa 40MB+ untuk hello world. Gunakan --split-debug-info, obfuscation
+- **Update**: tanpa code push (Shorebird), setiap update harus review App Store — butuh waktu 1-7 hari
+- **Testing di device nyata**: emulator tidak cukup. Beat. Satu device bisa punya perilaku beda.
+
+> *"Flutter itu mudah untuk prototype, sulit untuk production. Tapi begitu kamu paham pola kerjanya — tidak ada yang lebih produktif untuk mobile development."*
+
+[Kembali ke Engineering Handbook](/articles/handbook/)

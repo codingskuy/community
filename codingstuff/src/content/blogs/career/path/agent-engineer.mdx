@@ -1,0 +1,99 @@
+---
+title: "Agent Engineer"
+description: "&quot;Jadi agent engineer — bikin AI agent yang beneran kerja — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["career", "path", "agent-engineer"]
+---
+
+
+# Agent Engineer
+
+> *"Chatbot itu menjawab. Agent itu mengerjakan. Perbedaannya: action."*
+
+Kalau AI engineer bikin model yang jawab pertanyaan, agent engineer bikin AI yang **ngelakuin sesuatu**. Buka website, kirim email, edit file, panggil API, ambil keputusan.
+
+Ini evolusi yang terjadi secara alami. Setelah paham cara kerja LLM, langkah selanjutnya: bagaimana bikin LLM bekerja untuk kita.
+
+### Awal Mula: Dari Eksperimen Sederhana
+
+Pertama kali bikin agent — aku coba bikin bot yang bisa browsing web untuk riset. Prompt sederhana: "Cari informasi tentang Flutter 3.24, rangkum dalam Bahasa Indonesia."
+
+Bot-nya: panggil API search → baca hasil → generate ringkasan. Selesai.
+
+Tapi pas kucoba untuk task yang lebih kompleks — riset, tulis artikel, dan kirim draft — botnya error terus. Kenapa? Karena satu agent tidak bisa handle semua task sekaligus.
+
+### Reveal Pertamaku: Multi-Agent Architecture
+
+Dari kegagalan itu, aku belajar: **satu agent untuk satu tugas spesifik.**
+
+Untuk sistem penulisan artikel CodingSkuy, aku design tiga agent:
+
+**1. Agent Riset**
+Tugas: cari topik, kumpulkan referensi, baca sumber.
+Tools: search API, web scraper.
+Output: dokumen referensi terstruktur.
+
+**2. Agent Nulis**
+Tugas: ambil referensi, tulis draft artikel.
+Tools: akses ke template, style guide CodingSkuy.
+Output: draft artikel.
+
+**3. Agent Review**
+Tugas: baca draft, cek fakta, cek konsistensi.
+Tools: knowledge base, style checker.
+Output: draft revisi.
+
+Masing-masing punya tools sendiri. Hasilnya lebih baik. Tapi kompleksitasnya naik signifikan.
+
+### Tantangan: Orchestration
+
+Sekarang ada 3 agent. Siapa yang manage urutannya? Kalau agent riset error, apa agent nulis tetap jalan? Kalau agent review nggak setuju, apa yang terjadi?
+
+Di sinilah orchestration jadi penting. Aku coba beberapa pendekatan:
+
+**Sequential:** tiap agent kerja bergantian. Sederhana, tapi lambat — agent nulis harus nunggu agent riset selesai.
+
+**Parallel:** agent riset dan nulis kerja bareng. Cepat, tapi perlu koordinasi — agent nulis butuh data dari agent riset.
+
+**Supervisor pattern:** satu agent utama yang delegasi task ke agent lain. Paling fleksibel, tapi paling kompleks — supervisor harus bisa evaluasi hasil tiap agent.
+
+### Memory & Context: Masalah Terbesar
+
+Agent harus ingat konteks percakapan. Tapi konteks LLM terbatas — dari 8k token sampai 200k token tergantung model.
+
+Bayangkan agent riset yang sudah membaca 10 artikel. Semua informasi itu harus disimpan di suatu tempat. Kalau dimasukkan semua ke prompt — konteks penuh, biaya API mahal, model jadi lambat.
+
+Aku coba:
+- **Summarization** — ringkas informasi sebelum masuk ke prompt
+- **Vector memory** — simpan hasil bacaan di vector database, ambil yang relevan saat dibutuhkan
+- **Structured output** — minta agent output dalam format JSON yang terstruktur, lalu parse untuk penggunaan berikutnya
+
+### Safety: Pelajaran Paling Mahal
+
+Agent itu berbeda dengan chatbot. Chatbot cuma ngomong. Agent **ngelakuin sesuatu**.
+
+Kalau agent punya akses ke database — satu prompt injection, data bisa bocor. Kalau agent bisa kirim email — satu kesalahan konfigurasi, spam ke semua user.
+
+Pengalamanku: agent review CodingSkuy punya akses ke tool "posting artikel." Dalam satu tes, agent salah interpretasi instruksi dan hampir posting artikel yang belum selesai. Beruntung ada human-in-the-loop — aku harus approve sebelum posting.
+
+Sejak itu, setiap agent punya:
+- **Least privilege** — akses minimal sesuai tugas
+- **Human-in-the-loop** — aksi berisiko butuh persetujuan
+- **Audit trail** — setiap aksi tercatat
+
+### Agent Engineer Bukan Sekadar Prompt Engineer
+
+Banyak yang bilang: *"Agent engineer cuma nulis prompt panjang."*
+
+Tidak.
+
+Agent engineer adalah:
+- **System designer** — bagaimana agent berkomunikasi, apa tools-nya, bagaimana error handling
+- **Infrastructure engineer** — agent harus reliable. Kalau API down, gimana? Kalau rate limit kena, gimana?
+- **Safety engineer** — bagaimana mencegah agent melakukan hal yang tidak diinginkan
+- **UX designer** — bagaimana user berinteraksi dengan agent. Loading state, confirmation, error message
+
+> *"Agent engineer adalah yang bikin AI tidak cuma ngomong, tapi kerja."*
+
+[Kembali ke Career](/articles/career/)

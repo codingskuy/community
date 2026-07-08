@@ -1,0 +1,71 @@
+---
+title: "Model Security"
+description: "&quot;Melindungi model AI — dari pengalaman model bisa ditiru orang lain — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "ai", "model-security"]
+---
+
+
+# Model Security
+
+> *"Aku bikin model yang cukup akurat — investasi waktu dan komputasi berminggu-minggu. Lalu seseorang bilang: 'Coba deploy API-nya tanpa rate limiting.' Dalam hitungan jam, modelku bisa ditiru orang lain."*
+
+Model AI itu investasi. Bukan cuma waktu ngoding — tapi data, komputasi, eksperimen, tuning. Dan seperti aset berharga lainnya — model perlu diamankan.
+
+Awalnya aku pikir: "Modelku simpan di server, diakses via API. Aman."
+
+Tapi ternyata — seseorang bisa merekonstruksi behavior model dengan query berulang. Mereka kirim input, catat output, latih model tiruan. **Model stealing.**
+
+---
+
+### Kisah Kedua: Adversarial Attack yang Mengejutkan
+
+Pernah lihat gambar ini: stiker kecil di rambu STOP bikin mobil otonom bacanya "60 km/jam"? Itu adversarial attack.
+
+Aku alami versi sederhananya di NLP model. Beberapa kata tertentu bisa bikin model klasifikasiku error total:
+
+Input normal: "Aplikasi ini bagus" → klasifikasi: positif
+Input dengan adversarial noise: "Aplikasi ini bagus" (tapi ditambah karakter khusus yang tidak kelihatan) → klasifikasi: negatif
+
+Perubahan kecil — tidak kelihatan oleh manusia — tapi membuat model salah total.
+
+**Kenapa ini terjadi:**
+Model belajar dari pola statistik, bukan makna. Attacker exploit celah ini dengan membuat input yang "terlihat" sama oleh manusia tapi beda di mata model.
+
+---
+
+### Kisah Ketiga: Data Training yang Bocor
+
+Pernah lihat demo di mana seseorang prompt: "Nama saya..." dan model ngeluarin nama asli dari data training? Itu data extraction.
+
+Tekniknya: dengan query tertentu, model bisa "diingatkan" tentang data spesifik yang ada di training set. Kalau training set mengandung data pribadi — itu bisa bocor.
+
+---
+
+### Mitigasi
+
+**1. Akses terbatas via API**
+Model cuma bisa diakses via API terautentikasi. Bukan file model yang bisa di-download. API gateway sebagai gerbang tunggal.
+
+**2. Rate limiting**
+Batasi jumlah query per user per periode waktu. Deteksi anomali: kalau satu user query 10.000 kali dalam 5 menit — alarm.
+
+**3. Monitoring**
+Monitor pola query. Kalau ada yang query dengan pola sistematis (input incrementing, misalnya) — itu indikasi model stealing.
+
+**4. Enkripsi model file**
+Simpan model file di tempat aman. Jangan commit ke git. Jangan simpan di public S3 bucket. Gunakan encrypted storage.
+
+**5. Adversarial training**
+Latih model dengan contoh serangan. Ini membantu model lebih robust terhadap adversarial input.
+
+**6. Differential privacy**
+Tambah noise ke data training. Model jadi tidak bisa menghafal data individu.
+
+---
+
+🌱 **Cek: apakah model API-mu punya rate limiting?**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya pengalaman model kena exploit atau hampir bocor? Cerita di komentar.*

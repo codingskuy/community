@@ -1,0 +1,86 @@
+---
+title: Governance Handbook
+description: "Engineering governance dari pengalaman — review, standar, dan budaya tim — CodingSkuy"
+---
+
+# Governance Handbook
+
+> *"Dulu aku pikir governance itu 'mempersulit'. Sampai aku lihat production down karena tidak ada proses."*
+
+Governance — kata yang sering bikin engineer geleng-geleng kepala. Terlalu banyak aturan. Terlalu lambat. Terlalu birokratis.
+
+Aku juga dulu berpikir begitu. Sampai aku mengalami sendiri: **kode yang tidak direview, arsitektur yang tidak didokumentasikan, standar yang tidak disepakati — semuanya berujung pada satu hal: technical debt yang membunuh produktivitas.**
+
+Governance bukan tentang aturan. Governance adalah **sistem yang membuatmu tidak perlu memikirkan ulang hal yang sama setiap kali.**
+
+---
+
+### Code Review: Bukan untuk Mencari Kesalahan
+
+Awalnya aku benci code review. Nulis kode, terus ditunggu orang lain. Kadang nunggu berhari-hari. Kadang review-nya kasar: *"Ini logic-nya salah."*
+
+Sampai suatu hari ada bug di production. Seharusnya ketahuan di review. Tapi karena review dilakukan asal-asalan — *"LGTM, merge"* — bug lolos.
+
+Sejak itu aku paham: **code review bukan formalitas. Code review adalah safety net terakhir sebelum kode sampai ke user.**
+
+Yang kupraktikkan sekarang:
+
+1. **Cek logic dulu**, baru style. Banyak reviewer fokus ke indentasi dan lupa lihat alur data.
+2. **Tanya, bukan perintah.** *"Kenapa pakai pendekatan ini?"* lebih baik dari *"Ganti pake ini."*
+3. **Review dalam 24 jam.** Makin lama nunggu, makin besar konteks yang hilang.
+
+---
+
+### Standar: Kenapa Harus Ditulis
+
+"Pakai standar yang sama aja." — kalimat ini sering kudengar. Tapi tanpa dokumen, standar hanya ada di kepala.
+
+Masalahnya: kepala orang isinya beda-beda.
+
+Aku pernah satu tim dengan standar tidak tertulis. Hasilnya:
+- Ada yang pakai 2 spasi, ada yang 4
+- Ada yang pakai BLoC, ada yang setState
+- Ada yang tulis test, ada yang skip
+
+Bukan siapa yang benar. Tapi **inkonsistensi memperlambat tim.** Setiap kali pindah kode, harus adaptasi gaya baru.
+
+Dokumen standar tidak harus ribuan halaman. Cukup:
+- **Format & style** — prettier, editor config
+- **Architecture pattern** — bagaimana struktur folder
+- **Code review checklist** — apa yang dicek sebelum merge
+- **Definition of Done** — kapan fitur dianggap selesai
+
+---
+
+### Documentation: Investasi Paling Diremehkan
+
+Dokumentasi adalah governance dalam bentuk paling dasar. **Tanpa dokumentasi, pengetahuan hanya ada di kepala. Dan kepala bisa resign.**
+
+Di proyek Flutter yang kusebut sebelumnya, dokumentasi teknis tidak ada. Ketika anggota tim baru masuk, butuh berminggu-minggu untuk paham alur data. Senior yang paling tahu harus menjelaskan hal yang sama berulang kali.
+
+Sekarang aku menerapkan **minimum viable documentation**:
+
+1. **README** — cara setup, run, test
+2. **Architecture Decision Records (ADR)** — kenapa keputusan teknis diambil
+3. **Runbook** — cara debug, deploy, rollback
+
+Tidak perlu sempurna. Cukup ditulis, dan terus diperbarui.
+
+---
+
+### Budaya vs Aturan
+
+Ini yang paling penting: **governance terbaik adalah yang tidak terasa seperti governance.**
+
+Kalau tim punya budaya:
+- Saling review dengan rasa hormat
+- Dokumentasi otomatis karena sudah kebiasaan
+- Standar diikuti bukan karena terpaksa
+
+...maka aturan tertulis hanya formalitas.
+
+Tapi budaya tidak datang sendiri. Butuh contoh dari senior, butuh penguatan konsisten, butuh waktu.
+
+> *"Governance bukan mengekang kreativitas. Governance adalah pagar di pinggir tebing — bukan rantai di kaki."*
+
+[Lihat panduan governance detail](/articles/governance/) | [Kembali ke Engineering Handbook](/articles/handbook/)

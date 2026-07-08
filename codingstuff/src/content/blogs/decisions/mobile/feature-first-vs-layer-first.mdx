@@ -1,0 +1,57 @@
+---
+title: "Feature First vs Layer First"
+description: "&quot;Feature-first vs layer-first — dari pengalaman struktur folder Flutter — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["decisions", "mobile", "feature-first-vs-layer-first"]
+---
+
+
+# Feature First vs Layer First
+
+> *"Layer-first itu rapi di awal. Setelah 20 fitur, kamu akan cari file di 5 folder berbeda."*
+
+Perdebatan klasik struktur folder Flutter. Aku sempat di kedua kubu.
+
+**Layer-first:**
+
+```
+lib/
+├── models/     → semua model
+├── views/      → semua screen
+├── services/   → semua API call
+└── widgets/    → semua widget
+```
+
+Awalnya pilih ini karena kelihatan sederhana. Semua model di satu tempat. Tapi begitu app punya 15+ screen, folder `views/` berisi 30 file. Mau searching screen profil harus lihat satu-satu. Folder `widgets/` berisi widget yang cuma dipake satu screen campur dengan widget global.
+
+**Feature-first:**
+
+```
+lib/
+├── features/
+│   ├── auth/
+│   │   ├── models/
+│   │   ├── screens/
+│   │   └── services/
+│   └── profile/
+│       ├── models/
+│       ├── screens/
+│       └── services/
+└── shared/
+    └── widgets/
+**
+
+Setiap fitur punya folder sendiri. Mau edit halaman profil? Buka `features/profile/`. Mau hapus fitur auth? Tinggal hapus folder `features/auth/`. Tidak perlu cari ke 5 folder berbeda.
+
+**Kekurangan feature-first:**
+- Ada duplikasi — beberapa model mirip antar fitur
+- File total lebih banyak
+- Butuh disiplin — kadang godaan besar untuk "pindahin ke shared aja" → ujungnya kacau
+
+**Solusiku sekarang:**
+Feature-first untuk fitur. Layer-first untuk shared code. Misal: `core/network/` untuk API client global. Tapi layar dan logika tetap per fitur.
+
+> *"Feature-first untuk fitur. Layer-first untuk shared code. Keduanya bisa jalan beriringan."*
+
+[Kembali ke Decisions](/articles/decisions/)

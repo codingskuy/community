@@ -1,0 +1,68 @@
+---
+title: Open Source Evaluation
+description: "Evaluasi open source — dari pengalaman pilih library yang ternyata mati — CodingSkuy"
+---
+
+# Open Source Evaluation
+
+> *"Aku pake library Flutter yang kelihatan keren — bintang 5k, dokumentasi rapi, contoh jelas. 2 bulan kemudian — repository di-archive. Tidak ada maintainer. Tidak kompatibel dengan Flutter versi baru."*
+
+Pernah ngalamin: pake library karena ratingnya bagus di pub.dev. Tapi tiba-tiba library itu tidak diupdate lagi. Flutter naik versi — library-nya patah. Mau migrasi ke library lain — tidak semudah itu.
+
+Aku habiskan 1 minggu untuk migrasi dari library mati ke alternatifnya. 1 minggu yang seharusnya untuk fitur baru.
+
+Sejak itu, aku punya checklist sebelum pake library pihak ketiga.
+
+---
+
+### Kisah Kedua: Bus Factor 1
+
+Pernah pake library yang dikelola oleh 1 orang. Library bagus — spesifik untuk use case yang aku butuh. Tapi semua dependensi ada di satu orang.
+
+Suatu hari, maintainer itu hilang. Tidak ada respons di issues. 6 bulan — no commit.
+
+Aku harus memutuskan: fork dan maintain sendiri, atau migrasi ke library lain. Dua-duanya berat.
+
+**Pelajaran:**
+Cek jumlah kontributor. 1 kontributor = bus factor tinggi. Kalau orang itu tertabrak bus — library mati. Minimal 2-3 maintainer aktif.
+
+---
+
+### Kerangka Evaluasi
+
+**1. Apakah ini terawat?**
+- Kapan terakhir commit? >6 bulan? Hati-hati.
+- Berapa kontributor? 1 = risiko tinggi.
+- Issues ditanggapi? Cek issues — apakah maintainer merespon?
+- Ada rilis terbaru? Bukan cuma commit, tapi versi yang stabil.
+
+**2. Apakah kualitasnya baik?**
+- Ada test? Cek coverage. Kalau tidak ada test — risiko tinggi.
+- API intuitive? Baca dokumentasi 5 menit. Kalau bingung — mungkin library tidak well-designed.
+- Dokumentasi jelas? Ada contoh kode yang bisa di-copy?
+
+**3. Bagaimana risikonya?**
+- Lisensi — cocok dengan proyek? GPL untuk komersial? Hati-hati.
+- Dependency — library ini depend ke library lain. Makin banyak dependensi, makin besar risiko konflik.
+- Popularitas — bukan jaminan, tapi indikator. 100 bintang vs 10.000 bintang — beda.
+
+---
+
+### Aturan Praktis
+
+**Wajib dihindari:**
+- Tidak ada commit >1 tahun
+- Tidak ada test sama sekali
+- Satu maintainer tanpa backup
+
+**Pertimbangkan ulang:**
+- Dokumentasi minim
+- API berubah tanpa migration guide
+- Issue tidak direspons
+
+---
+
+🌱 **Cek library yang kamu pake — mana yang perlu dicari alternatifnya?**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya pengalaman library mati di tengah jalan? Cerita di komentar.*

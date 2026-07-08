@@ -1,0 +1,104 @@
+---
+title: Portfolio Strategy
+description: "Strategi portfolio — dari proyek random ke portfolio yang berdampak — CodingSkuy"
+---
+
+# Portfolio Strategy
+
+> *"Dulu aku kira portfolio adalah kumpulan proyek yang pernah kubuat. Ternyata portfolio adalah cerita tentang siapa aku sebagai engineer."*
+
+Waktu pertama kali lulus bootcamp, aku panik. Semua lowongan kerja minta "portfolio." Aku buka laptop, lihat folder proyek-proyekku — isinya aplikasi kalkulator, todo app, dan cuaca app. Semua proyek yang sama dengan ribuan orang lain.
+
+Aku pikir: *"Masa iya, tiga bulan belajar coding, hasilnya cuma ini?"*
+
+Tapi aku tetap apply — dengan portfolio isinya proyek-proyek tutorial itu. Hasilnya? Tidak ada panggilan. Satu bulan, dua bulan. Nol.
+
+---
+
+### Kisah Pertama: Proyek Bootcamp yang Mengubah Cara Pandangku
+
+![Laptop showing Laravel education dashboard with management interface](/articles/images/journey/11-laravel-education-dashboard.jpeg)
+
+Waktu bootcamp di Dicoding, kami dapat proyek kelompok: membuat sistem manajemen program pendidikan untuk sekolah kejuruan. Bukan proyek individu — ini proyek tim dengan deadline 2 bulan.
+
+Awalnya aku pikir: *"Ah, sama aja kayak todo app — cuma CRUD, masukin data, tampilin data."*
+
+Tapi mentor dari Tokopedia berkata sesuatu yang aku ingat sampai sekarang:
+
+> *"Kamu tidak cuma bikin fitur. Kamu bikin sistem yang akan dipakai orang beneran — guru, siswa, admin. Mereka nggak peduli codinganmu rapi. Mereka peduli aplikasi ini membantu kerja mereka."*
+
+Proyek itu adalah momen pertama aku bikin sesuatu yang **nyata**:
+- Bukan tutorial dengan data dummy, tapi data siswa betulan (anonim untuk testing)
+- Bukan fitur yang cuma jalan di emulator, tapi yang harus di-deploy ke server
+- Bukan kode yang langsung dibuang setelah selesai, tapi kode yang akan dipelihara tim selama bertahun-tahun
+
+Fitur export laporan ke PDF misalnya — yang tadinya cuma "tombol export" doang, ternyata butuh queue system karena kalau 100 guru export bersamaan, server bisa crash. Aku belajar ini dari diskusi tim, bukan dari tutorial.
+
+**Apa yang kupelajari:**
+Di akhir proyek, aku sadar satu hal: yang membedakan portfolio orang biasa dengan portfolio impactful bukan jumlah proyek — tapi **kedalaman cerita** di balik setiap proyek.
+
+---
+
+### Kisah Kedua: Satu Proyek yang Mendefinisikan Karirku
+
+Setelah bootcamp, aku bekerja di startup dan kemudian membangun CodingSkuy. Satu proyek ini — aplikasi Flutter untuk konten coding dalam Bahasa Indonesia — menjadi pusat portfolio-ku.
+
+Bukan karena proyek ini besar atau kompleks, tapi karena:
+- **Aku bisa jelasin dari awal sampai akhir**: kenapa pake Flutter, kenapa pilih Riverpod, bagaimana handle offline-first, bagaimana CI/CD di-setup
+- **Ada proses nyata di baliknya**: aku gagal 3 kali sebelum nemu arsitektur yang pas. Awalnya pake Provider, migrasi ke Riverpod. Awalnya pake Firebase, migrasi sebagian ke Supabase
+- **Ada dampak yang terukur**: aplikasi dipake ribuan orang, loading time turun dari 3 detik ke 400ms dengan caching strategy
+
+Interview di perusahaan besar — mereka nanya soal pengalaman state management. Aku cerita tentang migrasi Provider ke Riverpod di CodingSkuy — termasuk drama di tengah jalan, testing strategy yang kupake, dan hasil akhirnya. Mereka tidak nanya soal teknologi lain — karena satu cerita ini sudah mencakup semua yang mereka mau lihat.
+
+**Pelajaran penting:**
+> *"Lebih baik punya satu proyek yang kamu kuasai dari dalam ke luar, daripada 10 proyek yang cuma kamu ikutin tutorialnya."*
+
+---
+
+### Kisah Ketiga: Belajar dari Proyek yang Gagal
+
+Tidak semua proyek di portfolio harus sukses besar. Yang sering dilupakan orang adalah **proyek yang gagal juga bisa jadi portfolio yang kuat** — kalau kamu tahu cara menceritakannya.
+
+Aku pernah bikin proyek side — aplikasi tracking habit. Aku over-engineer dari awal: microservices (padahal untuk diri sendiri), database terpisah (padahal single user), caching layer (padahal datanya cuma 100 baris). Proyek itu tidak pernah selesai. Kode berserakan di 5 repositori, masing-masing setengah jadi.
+
+Tapi dari proyek itu aku belajar:
+- "YAGNI — You Ain't Gonna Need It" itu nyata
+- Fitur yang tidak pernah selesai lebih buruk dari fitur yang tidak pernah dimulai
+- Lebih baik shipping produk sederhana daripada merancang katedral
+
+Sekarang, ketika orang tanya: "Pernah gagal di proyek apa?" — aku cerita ini. Mereka lihat bahwa aku paham trade-off, bisa refleksi, dan tidak mengulangi kesalahan yang sama.
+
+---
+
+### Praktik yang Kupakai Sekarang
+
+Setelah bertahun-tahun, ini yang kulakukan untuk portfolio:
+
+**1. Pilih satu proyek utama, rawat seperti taman**
+CodingSkuy adalah proyek utama. Aku tidak buka proyek baru setiap bulan. Aku rawat yang ini — refactor, tambah fitur, perbaiki arsitektur. Satu proyek yang umurnya tahunan lebih impressive dari 12 proyek yang masing-masing umurnya seminggu.
+
+**2. Dokumentasi setiap keputusan teknis**
+Setiap kali pilih teknologi atau arsitektur, aku catat kenapa. Enam bulan kemudian, aku lupa. Catatan ini jadi bahan case study — dan juga jadi bahan interview.
+
+**3. Deploy biar bisa diklik**
+Portfolio tanpa link live demo itu seperti restoran tanpa makanan. Aku setup GitHub Actions + Firebase Hosting, jadi setiap push ke main, otomatis deploy. Recruiter tinggal klik.
+
+**4. Tunjukkan proses, bukan cuma hasil**
+Screenshot aplikasi jadi itu biasa. Tapi screenshot error, commit message yang rapi, PR yang terstruktur — itu yang bedain engineer serius dari yang asal-asalan.
+
+---
+
+### Jadi...
+
+Kalau kamu masih bingung harus mulai dari mana, pertanyaan yang kutanya ke diri sendiri dulu:
+
+> *"Kalau aku cuma bisa punya SATU proyek di portfolio — proyek apa yang paling mewakili kemampuan dan passionku?"*
+
+Fokus ke satu. Rawat. Selesaikan. Ceritakan.
+
+---
+
+🌱 **Mulai dari satu proyek hari ini:**
+[Kembali ke Career](/articles/career/) | [Lihat Semua Topik](/articles/)
+
+*Proyek apa di portfolio-mu yang paling kamu banggakan? Atau justru proyek yang gagal tapi banyak ngajarin? Cerita di komentar — kita belajar bareng.*

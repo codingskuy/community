@@ -1,0 +1,66 @@
+---
+title: Hallucination Risk
+description: "Halusinasi AI — dari pengalaman LLM bikin kutipan yang tidak ada — CodingSkuy"
+---
+
+# Hallucination Risk
+
+> *"ChatGPT bilang: 'Menurut penelitian Harvard 2023...' Masalahnya: penelitian itu tidak pernah ada. Nama jurnalnya benar, nama penelitinya kelihatan otentik, tahunnya masuk akal. Tapi semuanya karangan."*
+
+Waktu pertama kali pake ChatGPT untuk bantu riset, aku hampiri mengutip penelitian palsu. Judulnya meyakinkan, abstraknya koheren, metodologinya terdengar ilmiah.
+
+Untung aku cek sumber asli sebelum publish. Penelitian itu tidak ada. Tidak ada di Google Scholar, tidak ada di PubMed, tidak ada di repository Harvard.
+
+Sejak itu, aku tidak pernah percaya output LLM tanpa verifikasi.
+
+---
+
+### Kisah Kedua: Bedanya Hallucination dan Leakage
+
+Banyak orang bingung antara hallucination dan data leakage. Padahal beda:
+
+- **Hallucination:** Model mengarang informasi yang tidak ada. Outputnya terdengar meyakinkan tapi salah.
+- **Leakage:** Model mengulang data nyata dari training set — termasuk data pribadi.
+
+Di CodingSkuy, aku hadapi hallucination waktu AI generate ringkasan artikel. Model nambahin detail yang tidak ada di artikel asli:
+- "Penulis menyebutkan bahwa Flutter 4.0 dirilis Januari 2025" — padahal artikel tidak menyebut itu
+- "Menurut wawancara dengan engineer Google..." — padahal tidak ada wawancara
+
+**Kenapa hallucination terjadi:**
+Bukan bug — ini cara kerja LLM. Mereka merangkai kata yang paling mungkin secara statistik. Mereka tidak mencari kebenaran — mereka mencari pola yang paling "masuk akal" berdasarkan data training.
+
+---
+
+### Kisah Ketiga: Logika yang Rusak
+
+Pernah minta AI review kode Flutter. Dalam satu respons, dia bilang:
+- "Provider lebih baik karena..."
+- 3 paragraf kemudian: "Riverpod lebih baik karena..."
+
+Dua pendapat yang kontradiktif — dalam satu respons. Karena model tidak punya "pendirian." Dia hanya menghasilkan teks yang konsisten secara lokal, tanpa konsistensi global.
+
+**Yang lebih bahaya:**
+Hallucination tidak selalu jelas. Kadang outputnya 90% benar, 10% salah. Dan 10% yang salah itu sulit dideteksi karena terbungkus informasi yang benar.
+
+---
+
+### Mitigasi
+
+**1. Grounding — hubungkan ke sumber nyata**
+Yang paling efektif: RAG (Retrieval-Augmented Generation). Jangan biarkan AI menjawab dari parameter model saja. Ambil dokumen relevan sebagai konteks. Di CodingSkuy, setiap jawaban AI didasarkan pada artikel CodingSkuy yang sudah di-index.
+
+**2. Prompt yang jelas**
+Beri instruksi eksplisit: "Jika tidak tahu, katakan tidak tahu. Jangan mengarang." Tidak menjamin 100%, tapi mengurangi drastis.
+
+**3. Validasi manual**
+Cross-check output dengan sumber eksternal. Model bilang "Flutter 4.0 rilis 2025"? Cek dokumentasi resmi. Jangan percaya mentah-mentah.
+
+**4. Human-in-the-loop**
+Untuk konten yang dipublikasi — selalu ada review manusia. AI generate draft, manusia edit dan verifikasi.
+
+---
+
+🌱 **Mulai: setiap output AI harus diverifikasi sebelum dipake — apalagi untuk publikasi:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Pernah hampir tertipu hallucination AI? Atau punya tips mitigasi? Cerita di komentar.*

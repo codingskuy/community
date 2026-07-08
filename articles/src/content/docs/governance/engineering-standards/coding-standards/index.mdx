@@ -1,0 +1,60 @@
+---
+title: Coding Standards
+description: "Standar coding — dari pengalaman kode yang tidak konsisten — CodingSkuy"
+---
+
+# Coding Standards
+
+> *"File pertama pake 2 spasi. File kedua pake 4 spasi. File ketiga pake tab. Semua di proyek yang sama. Setiap buka file baru — adaptasi gaya baru."*
+
+Pernah lihat kode yang formatting-nya berbeda tiap file? Aku pernah. Bahkan aku yang nulis.
+
+Dulu aku tidak peduli standar. "Yang penting jalan." Tapi setelah buka kode sendiri 6 bulan kemudian — aku muak. Tidak konsisten, susah dibaca, butuh waktu lebih lama untuk paham.
+
+**Momen berubah:**
+Waktu pairing dengan developer senior, dia kasih tahu: *"Standar coding bukan tentang 'cara yang benar.' Tapi tentang konsistensi. Tidak masalah pake 2 spasi atau 4 spasi — yang penting semua file sama."*
+
+---
+
+### Area yang Perlu Distandarisasi
+
+**1. Formatting**
+- Spasi vs tab — pilih satu
+- Panjang baris — 80 atau 120 karakter?
+- Kurung kurawal — di baris sama atau baris baru?
+
+Semua ini bisa diurus oleh formatter. `dart format` untuk Flutter, `prettier` untuk JS/TS. **Jangan buang waktu debat formatting.**
+
+**2. Naming conventions**
+- camelCase, snake_case, atau PascalCase? Pilih dan konsisten.
+- Singkatan: "btn" atau "button"? "ctx" atau "context"?
+
+**3. File organization**
+- Satu class per file? Atau beberapa class kecil dalam satu file?
+- Nama file — sesuai class name?
+
+---
+
+### Tools
+
+**Linter** — tangkap kesalahan standar otomatis. `flutter analyze` atau `dart analyze`.
+
+**Formatter** — rapikan kode otomatis. `dart format`, `prettier`.
+
+**Editor config** — `.editorconfig` — semua editor punya setting yang sama. Spasi vs tab, indent size, line ending.
+
+---
+
+### Tips
+
+- Jangan debat formatting di code review — itu tugas formatter
+- Standar ditulis dan disepakati — tidak boleh berlaku surut
+- Update standar periodik — teknologi berubah
+- Automation > manual — makin otomatis, makin konsisten
+
+---
+
+🌱 **Setup formatter otomatis di proyekmu — `dart format` atau `prettier`:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya horror story soal standar coding yang tidak konsisten? Cerita di komentar.*

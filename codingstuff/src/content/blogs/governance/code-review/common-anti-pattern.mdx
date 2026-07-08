@@ -1,0 +1,71 @@
+---
+title: "Code Review Anti Pattern"
+description: "&quot;Code review anti-pattern — dari pengalaman jadi reviewer dan yang direview — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "code-review", "common-anti-pattern"]
+---
+
+
+# Code Review Anti Pattern
+
+> *"Pernah review cuma bilang 'LGTM' tanpa baca kode. Besoknya error di production gara-gara logic sederhana yang terlewat. Itu salahku — dan pelajaran yang tidak akan kulupakan."*
+
+Awal karir, aku pikir code review adalah formalitas. "Biar ada proses aja." Aku kasih LGTM (Looks Good To Me) ke PR tanpa baca detail — karena percaya penulisnya senior, pasti bener.
+
+Besoknya, error di production. Ternyata ada logic sederhana yang salah — if statement terbalik. Sesuatu yang akan ketahuan kalau aku baca 2 menit.
+
+Sejak itu, aku tidak pernah LGTM tanpa baca lagi.
+
+---
+
+### Kisah Kedua: PR Didiamkan 2 Minggu
+
+Di sisi lain, aku jadi yang kena review lambat. PR-ku nunggu 2 minggu untuk direview. Pas direview, aku sudah lupa detailnya. Harus baca ulang kode dari awal — buang waktu.
+
+**Dampak review lambat:**
+- Konteks hilang — developer harus refresh ingatan
+- Produktivitas turun — nunggu review sambil ngerjain hal lain
+- Frustrasi — "kenapa PR-ku gak direview?"
+- Deadline terdesak — kadang merge tanpa review
+
+**Solusi:**
+Sekarang di tim — target review dalam 24 jam, maksimal 48 jam. PR yang didiamkan >48 jam adalah masalah prioritas.
+
+---
+
+### Kisah Ketiga: Nitpicking yang Tidak Produktif
+
+Waktu pertama jadi reviewer, aku fokus ke hal yang salah. "Pake spasi 2 bukan 4." "Nama variabelnya kurang panjang." "Bracket-nya beda gaya."
+
+Aku bangga — kelihatan teliti. Tapi senior bilang: *"Lu buang waktu. Mending fokus ke logic error atau security issue. Formatting urusan linter."*
+
+**Yang benar:**
+- Linter dan formatter handle formatting — bukan manusia
+- Review fokus ke: logic, security, performance, maintainability
+- Kalau komentar cuma soal style — mungkin tidak perlu
+
+---
+
+### Anti-pattern Lain
+
+**1. Ego trip** — "Harusnya pake cara gue." Padahal banyak cara valid.
+**2. Review sambil multitasking** — baca kode sambil meeting — hasilnya tidak maksimal.
+**3. Komentar vague** — "Ini kurang bagus" tanpa penjelasan. "Kurang bagus kenapa?"
+**4. Overwhelming PR** — PR 5000 baris — siapa pun malas review.
+
+---
+
+### Cara Menghindari
+
+- Prioritaskan review — dalam 24 jam
+- Baca dengan teliti — 2 menit baca bisa cegah error production
+- Fokus ke logic, security, performance — bukan style
+- Tanya, bukan perintah — "Ada alternatif?" lebih baik dari "Ganti!"
+
+---
+
+🌱 **Cek PR yang belum di-review — jangan sampai ada yang nunggu 2 hari:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya pengalaman code review paling kocak atau paling pahit? Cerita di komentar.*

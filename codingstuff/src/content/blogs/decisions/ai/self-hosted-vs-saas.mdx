@@ -1,0 +1,45 @@
+---
+title: "Self Hosted vs SaaS"
+description: "&quot;Self hosted vs SaaS — dari pengalaman hosting AI sendiri — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["decisions", "ai", "self-hosted-vs-saas"]
+---
+
+
+# Self Hosted vs SaaS
+
+> *"SaaS itu bayar bulanan. Self-hosted itu bayar server, listrik, dan malam-malam begadang karena maintenance."*
+
+CodingSkuy pake beberapa SaaS: Vercel untuk hosting, Supabase untuk database, OpenAI untuk AI. Cepet launch, fokus ke produk. Tapi pertanyaan mulai muncul: kapan waktunya self-host?
+
+**SaaS (Software as a Service):**
+Aku pake SaaS untuk hal-hal yang bukan core business:
+- Vercel — hosting frontend. Tidak perlu mikir server, auto scale, gratis tier cukup.
+- Supabase — database + auth. Setup dalam 30 menit, dibanding setup PostgreSQL sendiri yang butuh berhari-hari.
+- OpenAI — AI model paling canggih, tinggal panggil API.
+
+Kekurangan yang mulai terasa:
+- Harga naik — semakin banyak user, semakin mahal
+- Vendor lock-in — migrasi dari Supabase ke PostgreSQL sendiri butuh effort
+- Kontrol terbatas — ada fitur yang tidak bisa dikustomisasi
+
+**Self-hosted:**
+Satu komponen yang aku self-host: RAG pipeline. Kenapa? Karena data artikel CodingSkuy — meskipun publik — aku lebih nyaman kontrol sendiri. Juga karena rate limit OpenAI terlalu ketat untuk jumlah query yang kuperlukan.
+
+Aku setup pgvector di VPS 1GB. Untuk skala CodingSkuy saat ini, masih cukup. Tapi kalau user naik 10x, aku harus scale — yang berarti biaya server naik, maintenance naik.
+
+**Kapan pilih SaaS:**
+- Non-core business (auth, email, hosting)
+- Mau cepet ke market
+- Tim kecil — DevOps mahal
+
+**Kapan pilih self-host:**
+- Core business — ini yang membedakan produkmu
+- Data sensitif
+- Usage tinggi — SaaS jadi lebih mahal daripada self-host
+- Butuh kontrol penuh
+
+> *"SaaS untuk non-core dan cepat launch. Self-host untuk core business dan kontrol. Hybrid sering jadi jawaban optimal."*
+
+[Kembali ke Decisions](/articles/decisions/)

@@ -1,0 +1,77 @@
+---
+title: "RFC"
+description: "&quot;Request for Comments — dari pengalaman usul perubahan arsitektur — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "documentation", "rfc"]
+---
+
+
+# RFC
+
+> *"Aku pernah usul perubahan besar ke tim: 'Ganti state management dari Provider ke Riverpod.' Langsung ditolak — karena aku tidak jelasin kenapa dan bagaimana dampaknya. Padahal ideku bagus — tapi cara penyampaiannya tidak meyakinkan.""
+
+Dulu aku punya kebiasaan: ada ide → langsung bilang ke tim. "Guys, ganti pake Riverpod aja." Respons: "Kenapa?" Aku jawab: "Soalnya lebih bagus."
+
+Tidak cukup. Tim butuh alasan yang jelas, dampak yang terukur, alternatif yang dipertimbangkan.
+
+Dari situ aku belajar formalitas tidak selalu buruk. RFC adalah dokumen yang memastikan perubahan signifikan didiskusikan dengan matang.
+
+---
+
+### Kisah Kedua: Bedanya ADR dan RFC
+
+Banyak yang bingung: "ADR dan RFC bedanya apa?"
+
+**ADR** — mencatat keputusan yang sudah diambil. "Kita pake Riverpod. Ini alasannya."
+**RFC** — mengusulkan perubahan untuk didiskusikan. "Aku usul pindah ke Riverpod. Gimana pendapat kalian?"
+
+Sederhananya:
+- ADR untuk masa lalu — dokumentasi
+- RFC untuk masa depan — diskusi
+
+---
+
+### Kisah Ketiga: RFC yang Mengubah Tim
+
+Di satu tim, aku usul perubahan workflow deployment — dari manual ke CI/CD. Aku tulis RFC:
+
+- **Summary:** "Usul pake GitHub Actions untuk auto-deploy"
+- **Motivasi:** "Deploy manual butuh 30 menit, sering error karena lupa langkah"
+- **Proposal:** "Setup GitHub Actions: test → build → deploy"
+- **Alternatif:** "Jenkins (terlalu berat untuk tim kecil), manual (status quo)"
+- **Risiko:** "Initial setup butuh 2 hari, kalau salah konfigurasi bisa broken"
+
+Hasil: tim setuju. RFC membantu aku berpikir lebih matang — termasuk memikirkan risiko yang awalnya tidak kusadari.
+
+---
+
+### Format RFC
+
+**Title:** [RFC] Nama Proposal
+**Status:** Draft → Review → Accepted / Rejected
+**Summary:** 2-3 kalimat jelas.
+**Motivation:** Kenapa perubahan ini perlu?
+**Proposal:** Detail teknis.
+**Alternatives:** Apa yang dipertimbangkan? Kenapa tidak dipilih?
+**Impact:** Siapa terpengaruh? Apa yang berubah?
+**Risiko:** Risiko dan mitigasi.
+
+---
+
+### Proses
+
+1. **Draft** — tulis proposal
+2. **Review** — tim baca dan komentar (minimal 3 hari)
+3. **Iterasi** — perbaiki berdasarkan feedback
+4. **Keputusan** — accepted atau rejected
+5. **Archive** — simpan untuk referensi
+
+Tidak harus lama. RFC sederhana bisa selesai dalam 1-2 hari.
+
+---
+
+🌱 **Ada usul perubahan? Tulis RFC dulu — bukan langsung ngomong di chat:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya pengalaman usul perubahan yang ditolak karena tidak dijelaskan dengan baik? Cerita di komentar.*

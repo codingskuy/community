@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0055ff"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="24" fill="url(#grad)" opacity="0.12"/>
+  <text x="64" y="86" font-family="system-ui,sans-serif" font-size="64" font-weight="800" text-anchor="middle" fill="url(#grad)" letter-spacing="-2">&lt;/&gt;</text>
+  <style>
+    rect { fill: #0055ff; opacity: 0.1; }
+    text { fill: #0055ff; }
+    @media (prefers-color-scheme: dark) {
+      rect { fill: #3d8bff; opacity: 0.15; }
+      text { fill: #3d8bff; }
+    }
+  </style>
+</svg>

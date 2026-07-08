@@ -1,0 +1,14 @@
+/package-lock.json
+/node_modules/
+/build/
+/dist/
+.env
+*.log
+slides/node_modules/
+slides/dist/
+slides/*/dist/
+slides/package-lock.json
+slides/.slidev/
+/codingstuffy/
+/slides/
+node_modules

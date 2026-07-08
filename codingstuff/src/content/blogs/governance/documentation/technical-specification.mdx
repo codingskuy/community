@@ -1,0 +1,65 @@
+---
+title: "Technical Specification"
+description: "&quot;Menulis spesifikasi teknis — dari pengalaman nulis kode tanpa rencana — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "documentation", "technical-specification"]
+---
+
+
+# Technical Specification
+
+> *"Dulu aku langsung buka IDE dan ngetik. Kelihatan cepat — 'gercep' kata anak muda. Tapi hasilnya: kode yang harus ditulis ulang 3 kali. Karena selalu ada momen di tengah jalan: 'Oh, ternyata ini tidak sesuai ekspektasi.'"*
+
+Kebiasaan lamaku: ada fitur baru → langsung buka VS Code → mulai ngetik. Tidak ada rencana. Tidak ada diagram. Tidak ada pemikiran tentang edge cases.
+
+Kelihatan cepat — karena tidak ada fase "buang waktu" untuk nulis dokumen. Tapi di tengah jalan, selalu ada momen:
+- *"Loh, ini berarti perlu table baru di database?"*
+- *"Oh, aku lupa handle kasus kalau user offline."*
+- *"Ternyata API yang kupake limitnya cuma 100 request/hari."*
+
+Akhirnya: kode ditulis ulang. Buang waktu lebih banyak dari yang dihemat dengan tidak nulis spec.
+
+---
+
+### Kisah Kedua: Spec yang Menyelamatkan 2 Minggu
+
+Di CodingSkuy, aku mau nambah fitur bookmark. Sebelum coding, aku paksa diri nulis spesifikasi:
+
+**Tujuan:** User bisa bookmark artikel
+**Alur:** User klik icon bookmark → artikel tersimpan ke "Bookmark" → bisa diakses offline
+**API:** POST /api/bookmark `{articleId}`, DELETE /api/bookmark `{articleId}`, GET /api/bookmarks
+**Database:** Tabel baru "bookmarks" — userId, articleId, createdAt
+**UI:** Icon bookmark di setiap kartu artikel, halaman Bookmark terpisah
+**Edge cases:** Bookmark duplikat? (handle dengan unique constraint), offline? (local cache), hapus akun? (cascade delete)
+
+Pas nulis spec ini, aku nemu masalah: kalau user bookmark pas offline — gimana? Kalau tidak dipikirkan dari awal, ini bisa jadi bug di production.
+
+---
+
+### Format Minimal yang Kupakai
+
+Tidak perlu 10 halaman. Cukup jawab 6 pertanyaan:
+
+1. **Tujuan** — fitur ini mau selesaikan masalah apa?
+2. **Alur Data** — dari mana ke mana? Flowchart sederhana.
+3. **API** — endpoint, request, response. Contoh konkret.
+4. **Database** — table baru? Kolom baru? Schema.
+5. **UI** — komponen apa yang perlu dibuat?
+6. **Testing Plan** — apa yang perlu di-test?
+
+---
+
+### Kenapa Ini Bekerja
+
+- Kamu nemu masalah sebelum kode ditulis — bukan sesudahnya
+- Estimasi jadi akurat — karena sudah tahu scope
+- Tim lain bisa kasih masukan lebih awal
+- Jadi dokumentasi untuk masa depan
+
+---
+
+🌱 **Sebelum coding fitur berikutnya — tulis spec minimal dulu:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya kebiasaan langsung coding tanpa rencana? Atau selalu pake spec? Cerita di komentar.*

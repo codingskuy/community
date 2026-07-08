@@ -1,0 +1,109 @@
+---
+export interface Tag {
+  tag: string;
+  count?: number;
+  size: number;
+}
+
+interface Props {
+  tags: Tag[];
+  currentTag?: string | null;
+  type?: "blogs" | "cards" | "slides" | "courses";
+  usedFor?: "list" | "detail";
+}
+
+const {
+  tags: allTags,
+  currentTag: tag,
+  type = "blogs",
+  usedFor = "list",
+} = Astro.props;
+
+const selectedTags = tag ? [tag] : [];
+const base = ((import.meta.env.BASE_URL || "/") + "/").replace(/\/\/$/, "/");
+---
+
+<div class="flex flex-wrap gap-2 w-fit" data-tag-filter>
+  {
+    usedFor === "list" && (
+      <a
+        href={`${base}${type}`}
+        class={`inline-flex items-center justify-center whitespace-nowrap rounded-full text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 px-3! ${
+          selectedTags.length === 0
+            ? "text-primary border border-primary hover:text-primary hover:border-primary"
+            : "border border-border text-muted-foreground hover:text-primary! hover:border-primary!"
+        }`}
+      >
+        All
+      </a>
+    )
+  }
+  {
+    allTags.map((tagItem) => (
+      <a
+        href={`${base}${type}?tag=${tagItem.tag}`}
+        class={`inline-flex items-center justify-center whitespace-nowrap rounded-full text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 px-3! no-underline! ${
+          selectedTags.includes(tagItem.tag)
+            ? "text-primary border border-primary hover:text-primary hover:border-primary bg-primary/10"
+            : "border border-border text-muted-foreground hover:text-primary! hover:border-primary! bg-card"
+        }`}
+      >
+        {tagItem.tag}
+        {tagItem.count && `(${tagItem.count})`}
+      </a>
+    ))
+  }
+</div>
+
+<script>
+  // Tag progressive reveal — 20 at a time
+  document.addEventListener("DOMContentLoaded", () => {
+    const tagContainer = document.querySelector("[data-tag-filter]");
+    if (!tagContainer) return;
+
+    tagContainer.addEventListener("click", (evt) => {
+      evt.stopPropagation();
+    });
+
+    const allTags = tagContainer.querySelectorAll('a[href*="tag="]');
+    const PAGE = 20;
+    let visible = PAGE;
+
+    if (allTags.length <= PAGE) return;
+
+    allTags.forEach((tag, i) => {
+      if (i >= PAGE) (tag as HTMLElement).style.display = "none";
+    });
+
+    const moreBtn = document.createElement("button");
+    moreBtn.className =
+      "inline-flex items-center justify-center whitespace-nowrap rounded-full text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 px-3! border border-border text-muted-foreground hover:text-primary hover:border-primary";
+    moreBtn.textContent = `more (${allTags.length - visible})`;
+
+    moreBtn.onclick = () => {
+      const next = Math.min(visible + PAGE, allTags.length);
+      for (let i = visible; i < next; i++) {
+        const el = allTags[i] as HTMLElement;
+        el.style.display = "inline-flex";
+        el.style.opacity = "0";
+        el.style.transform = "translateY(8px)";
+        requestAnimationFrame(() => {
+          el.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+        });
+      }
+      visible = next;
+      const remaining = allTags.length - visible;
+      if (remaining <= 0) {
+        moreBtn.style.transition = "opacity 0.2s ease";
+        moreBtn.style.opacity = "0";
+        setTimeout(() => moreBtn.remove(), 200);
+      } else {
+        moreBtn.textContent = `more (${remaining})`;
+      }
+    };
+
+    tagContainer.appendChild(moreBtn);
+  });
+</script>

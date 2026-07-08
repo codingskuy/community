@@ -1,0 +1,318 @@
+---
+// articles/src/components/Hub.astro
+// Learning Hub component — "One Topic. Multiple Ways to Learn."
+// Props: category (folder in content/), topic (folder name)
+// Reads meta.yaml + all experience files from content/[category]/[topic]/
+// Renders: 5 experience cards + inline content per section
+
+import yaml from 'js-yaml';
+import { readFile, readdir } from 'node:fs/promises';
+import path from 'node:path';
+import { Marked } from 'marked';
+
+const { category, topic } = Astro.props;
+
+// ── Resolve content path ──
+const projectRoot = process.cwd();
+const contentDir = path.join(projectRoot, '..', 'content', category);
+const topicSlug = topic;
+
+// ── Load meta.yaml ──
+let meta = {
+  title: '', description: '',
+  experiences: { article: { enabled: false }, slide: { enabled: false },
+                  playground: { enabled: false }, tutorial: { enabled: false },
+                  quiz: { enabled: false } },
+  related: [], tags: [],
+};
+try {
+  meta = yaml.load(await readFile(path.join(contentDir, 'meta.yaml'), 'utf-8'));
+} catch (e) {
+  console.warn(`Hub: no meta.yaml at ${contentDir}:`, e.message);
+}
+
+const marked = new Marked({ gfm: true });
+
+// ── Load content per experience ──
+const sections = { article: '', slide: '', playground: '', tutorial: '', quiz: '' };
+
+// 📖 ARTICLE
+if (meta.experiences?.article?.enabled) {
+  try {
+    const raw = await readFile(path.join(contentDir, 'article', 'article.mdx'), 'utf-8');
+    sections.article = raw.replace(/^---[\s\S]*?---\n*/, '');
+  } catch {}
+}
+
+// 🎞 SLIDE
+if (meta.experiences?.slide?.enabled) {
+  try {
+    const raw = await readFile(path.join(contentDir, 'slide', 'slides.md'), 'utf-8');
+    sections.slide = raw.replace(/^---[\s\S]*?---\n*/, '');
+  } catch {}
+}
+
+// 🧪 PLAYGROUND
+if (meta.experiences?.playground?.enabled) {
+  try {
+    const raw = await readFile(path.join(contentDir, 'playground', 'index.mdx'), 'utf-8');
+    sections.playground = raw.replace(/^---[\s\S]*?---\n*/, '');
+  } catch {}
+}
+
+// 🎓 TUTORIAL — concatenate all parts
+if (meta.experiences?.tutorial?.enabled) {
+  try {
+    const parts = ['intro.mdx', 'part1.mdx', 'part2.mdx', 'exercise.mdx', 'project.mdx', 'summary.mdx'];
+    const tutDir = path.join(contentDir, 'tutorial', topic);
+    for (const part of parts) {
+      try {
+        const raw = await readFile(path.join(tutDir, part), 'utf-8');
+        sections.tutorial += raw.replace(/^---[\s\S]*?---\n*/, '') + '\n\n---\n\n';
+      } catch {}
+    }
+  } catch {}
+}
+
+// ❓ QUIZ
+if (meta.experiences?.quiz?.enabled) {
+  try {
+    const raw = await readFile(path.join(contentDir, 'quiz', 'questions.mdx'), 'utf-8');
+    sections.quiz = raw.replace(/^---[\s\S]*?---\n*/, '');
+  } catch {}
+}
+
+// ── Render markdown to HTML ──
+const rendered = {};
+for (const [key, md] of Object.entries(sections)) {
+  rendered[key] = md ? await marked.parse(md) : '';
+}
+
+// ── Experience card configs ──
+const experiences = [
+  {
+    id: 'article',
+    icon: '📖',
+    title: 'Baca',
+    desc: 'Pahami konsep dan teori. 5-8 menit membaca.',
+    duration: meta.experiences?.article?.duration,
+    enabled: meta.experiences?.article?.enabled,
+    btnLabel: 'Mulai Membaca',
+  },
+  {
+    id: 'slide',
+    icon: '🎞',
+    title: 'Slide',
+    desc: 'Penjelasan visual dan ringkas. Cocok buat yang malas baca panjang.',
+    duration: meta.experiences?.slide?.slides ? `${meta.experiences.slide.slides} slide` : null,
+    enabled: meta.experiences?.slide?.enabled,
+    btnLabel: 'Tonton Slide',
+  },
+  {
+    id: 'playground',
+    icon: '🧪',
+    title: 'Playground',
+    desc: 'Coba langsung! Edit dan run kode interaktif.',
+    duration: 'Interaktif',
+    enabled: meta.experiences?.playground?.enabled,
+    btnLabel: 'Coba Langsung',
+  },
+  {
+    id: 'tutorial',
+    icon: '🎓',
+    title: 'Tutorial',
+    desc: 'Panduan lengkap dari awal sampai project jadi.',
+    duration: meta.experiences?.tutorial?.chapters ? `${meta.experiences.tutorial.chapters} bab` : null,
+    enabled: meta.experiences?.tutorial?.enabled,
+    btnLabel: 'Mulai Tutorial',
+  },
+  {
+    id: 'quiz',
+    icon: '❓',
+    title: 'Quiz',
+    desc: 'Uji pemahaman kamu dengan soal-soal interaktif.',
+    duration: meta.experiences?.quiz?.questions ? `${meta.experiences.quiz.questions} soal` : null,
+    enabled: meta.experiences?.quiz?.enabled,
+    btnLabel: 'Kerjakan Quiz',
+  },
+];
+---
+
+<div class="hub">
+  <!-- Hero -->
+  <div class="hub-hero">
+    <h1 class="hub-title">{meta.title || `${category}/${topic}`}</h1>
+    <p class="hub-subtitle">{meta.description || ''}</p>
+    <div class="hub-tagline">
+      <p>Setiap developer belajar dengan cara berbeda.</p>
+      <p>Pilih cara yang paling nyaman buatmu.</p>
+    </div>
+    <div class="hub-meta-tags">
+      {meta.tags?.map(t => <span class="hub-badge hub-badge-tag">#{t}</span>)}
+    </div>
+  </div>
+
+  <!-- Experience cards — 5 column grid -->
+  <div class="hub-grid">
+    {experiences.map(exp => (
+      <a href={exp.enabled ? `#${exp.id}` : undefined}
+        class:list={['hub-card', !exp.enabled && 'hub-card-disabled']}
+        style={exp.enabled ? 'text-decoration:none;color:inherit;' : undefined}
+      >
+        <div class="hub-card-icon">{exp.icon}</div>
+        <div class="hub-card-body">
+          <div class="hub-card-title">{exp.title}</div>
+          <div class="hub-card-desc">{exp.desc}</div>
+          {exp.duration && (
+            <div class="hub-card-meta">
+              <span class:list={['hub-badge', !exp.enabled && 'hub-badge-disabled']}>
+                {exp.duration}
+              </span>
+            </div>
+          )}
+        </div>
+        <span class:list={['hub-btn', !exp.enabled && 'hub-btn-disabled']}>
+          {exp.btnLabel} →
+        </span>
+      </a>
+    ))}
+  </div>
+
+  <!-- Inline content per experience -->
+  {experiences.filter(exp => exp.enabled && rendered[exp.id]).map(exp => (
+    <div class="hub-content-section" id={exp.id}>
+      <h2 class="hub-section-title">
+        {exp.icon} {exp.title}
+      </h2>
+      <div class="hub-section-content">
+        <Fragment set:html={rendered[exp.id]} />
+      </div>
+    </div>
+  ))}
+
+  <!-- Related -->
+  {meta.related?.length > 0 && (
+    <div class="hub-related-section">
+      <h3>🔗 Topik Terkait</h3>
+      <div class="hub-related-list">
+        {meta.related.map(r => {
+          const label = r.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+          // related slugs use same category for now; override if needed
+          return <a href={`/${category}/${r}/`} class="hub-tag">{label}</a>;
+        })}
+      </div>
+    </div>
+  )}
+
+  <!-- Tags -->
+  {meta.tags?.length > 0 && (
+    <div class="hub-tags-section">
+      <div class="hub-tags-list">
+        {meta.tags.map(t => <span class="hub-tag hub-tag-static">#{t}</span>)}
+      </div>
+    </div>
+  )}
+</div>
+
+<style is:global>
+  .hub { max-width: 860px; margin: 0 auto; padding: 1rem 0 3rem; }
+
+  .hub-hero { margin-bottom: 1.5rem; }
+  .hub-title { font-size: 1.75rem; font-weight: 800; color: var(--sl-color-white); margin: 0 0 0.25rem; }
+  .hub-subtitle { font-size: 0.95rem; color: var(--sl-color-gray-2); margin: 0; }
+  .hub-tagline {
+    font-size: 0.95rem; color: var(--sl-color-gray-2); line-height: 1.5;
+    border-left: 3px solid var(--sl-color-accent); padding-left: 1rem;
+    margin: 0.75rem 0; background: var(--sl-color-gray-6); border-radius: 0 8px 8px 0;
+    padding: 0.75rem 1rem;
+  }
+  .hub-meta-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+  .hub-badge-tag {
+    background: var(--sl-color-gray-6); color: var(--sl-color-gray-2);
+    font-size: 0.75rem; padding: 0.15rem 0.6rem; border-radius: 999px;
+  }
+  :root[data-theme='light'] .hub-title { color: #1a1a2e; }
+
+  /* ── Cards Grid ── */
+  .hub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.75rem; margin-bottom: 2.5rem; }
+  @media (max-width: 600px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .hub-card {
+    display: flex; flex-direction: column;
+    background: var(--sl-color-gray-6); border: 1px solid var(--sl-color-gray-5);
+    border-radius: 14px; padding: 1.25rem 1rem;
+    transition: all 0.2s ease;
+  }
+  .hub-card:hover { border-color: var(--sl-color-accent); box-shadow: 0 4px 20px rgba(61,139,255,0.12); transform: translateY(-2px); }
+  .hub-card-disabled { opacity: 0.5; pointer-events: none; }
+  .hub-card-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+  .hub-card-body { flex: 1; }
+  .hub-card-title { font-size: 1rem; font-weight: 700; color: var(--sl-color-white); }
+  :root[data-theme='light'] .hub-card-title { color: #1a1a2e; }
+  .hub-card-desc { font-size: 0.8rem; color: var(--sl-color-gray-2); line-height: 1.4; margin-top: 0.2rem; }
+  .hub-card-meta { margin-top: 0.5rem; }
+  .hub-badge {
+    display: inline-block; background: #eef2ff; color: #3d8bff;
+    font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 999px;
+  }
+  :root[data-theme='dark'] .hub-badge:not(.hub-badge-tag) { background: var(--sl-color-gray-5); color: var(--sl-color-accent); }
+  .hub-badge-disabled { background: var(--sl-color-gray-5); color: var(--sl-color-gray-3); }
+
+  .hub-btn {
+    display: inline-block; width: 100%; text-align: center;
+    background: var(--sl-color-accent); color: #fff !important; text-decoration: none !important;
+    font-size: 0.8rem; font-weight: 600; padding: 0.5rem 0.75rem;
+    border-radius: 8px; transition: background 0.2s; margin-top: 0.75rem;
+  }
+  .hub-btn:hover { background: var(--sl-color-accent-high); color: #fff !important; }
+  .hub-btn-disabled { background: var(--sl-color-gray-5); color: var(--sl-color-gray-3) !important; }
+
+  /* ── Content Sections ── */
+  .hub-content-section { margin: 2.5rem 0; padding-top: 1rem; border-top: 1px solid var(--sl-color-gray-5); scroll-margin-top: 5rem; }
+  .hub-section-title { font-size: 1.3rem; font-weight: 700; color: var(--sl-color-white); margin-bottom: 1rem; }
+  :root[data-theme='light'] .hub-section-title { color: #1a1a2e; }
+
+  .hub-section-content { line-height: 1.8; font-size: 0.95rem; color: var(--sl-color-gray-1); }
+  .hub-section-content h2 { font-size: 1.25rem; font-weight: 700; color: var(--sl-color-white); margin-top: 1.5rem; }
+  :root[data-theme='light'] .hub-section-content h2 { color: #1a1a2e; }
+  .hub-section-content h3 { font-size: 1.05rem; font-weight: 600; color: var(--sl-color-white); margin-top: 1.25rem; }
+  :root[data-theme='light'] .hub-section-content h3 { color: #1a1a2e; }
+  .hub-section-content p { margin: 0.75rem 0; }
+  .hub-section-content ul, ol { margin: 0.5rem 0; padding-left: 1.5rem; }
+  .hub-section-content li { margin: 0.3rem 0; }
+  .hub-section-content code {
+    background: var(--sl-color-gray-6); padding: 0.15rem 0.4rem; border-radius: 4px;
+    font-size: 0.875em; color: #e11d48;
+  }
+  .hub-section-content pre {
+    background: #0f172a; color: #e2e8f0; padding: 1rem; border-radius: 8px;
+    overflow-x: auto; font-size: 0.85rem; line-height: 1.6;
+  }
+  .hub-section-content pre code { background: transparent; color: inherit; padding: 0; }
+  .hub-section-content blockquote {
+    border-left: 3px solid var(--sl-color-accent); padding-left: 1rem; margin: 1rem 0;
+    color: var(--sl-color-gray-1); background: var(--sl-color-gray-6); border-radius: 0 8px 8px 0;
+    padding: 0.75rem 1rem;
+  }
+  .hub-section-content table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+  .hub-section-content th, td { border: 1px solid var(--sl-color-gray-5); padding: 0.4rem 0.6rem; text-align: left; }
+  .hub-section-content th { background: var(--sl-color-gray-6); font-weight: 600; }
+  .hub-section-content a { color: var(--sl-color-accent); text-decoration: underline; }
+  .hub-section-content img { max-width: 100%; border-radius: 8px; margin: 1rem 0; }
+  .hub-section-content iframe { border-radius: 8px; margin: 1rem 0; }
+  .hub-section-content hr { border: none; border-top: 1px solid var(--sl-color-gray-5); margin: 1.5rem 0; }
+
+  /* ── Related & Tags ── */
+  .hub-related-section, .hub-tags-section { margin: 2rem 0; padding-top: 1rem; border-top: 1px solid var(--sl-color-gray-5); }
+  .hub-related-section h3 { font-size: 1.05rem; font-weight: 700; color: var(--sl-color-white); margin-bottom: 0.75rem; }
+  .hub-related-list, .hub-tags-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .hub-tag {
+    display: inline-block; background: var(--sl-color-gray-6); color: var(--sl-color-gray-2);
+    font-size: 0.8rem; padding: 0.3rem 0.75rem; border-radius: 999px;
+    text-decoration: none; transition: all 0.15s;
+  }
+  .hub-tag:hover { background: #eef2ff; color: #3d8bff; text-decoration: none !important; }
+  .hub-tag-static { cursor: default; }
+  .hub-tag-static:hover { background: var(--sl-color-gray-6); color: var(--sl-color-gray-2); }
+  :root[data-theme='light'] .hub-related-section h3 { color: #1a1a2e; }
+</style>

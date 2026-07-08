@@ -1,0 +1,121 @@
+---
+title: System Design Interview
+description: "System design interview — dari pengalaman design sistem — CodingSkuy"
+---
+
+# System Design Interview
+
+> *"System design interview bukan soal jawaban benar. Tapi soal pengetahuan trade-off. Dan itu yang bikin interview ini paling mendekati kerjaan beneran — bedanya, kamu nggak punya Google."*
+
+Dari semua jenis interview teknis, system design adalah favoritku. Kenapa? Karena tidak ada jawaban mutlak. Yang dinilai adalah **proses berpikir** — cara kamu memecah masalah kompleks, mempertimbangkan trade-off, dan merancang solusi yang bisa diskalakan.
+
+Tapi ini juga yang paling bikin banyak engineer gugup. Dulu aku juga begitu.
+
+---
+
+### Kisah Pertama: Gagal di Putaran System Design
+
+![Whiteboard with scattered diagram and erased marks showing confusion](/articles/images/journey/27-system-design-whiteboard.jpeg)
+
+Waktu interview di perusahaan X — posisi senior Flutter engineer — aku sampai di putaran system design dengan percaya diri. "Design a chat application" — kayaknya gampang.
+
+Aku langsung gambar:
+- Client → Server → Database
+- WebSocket connection
+- Firebase Cloud Messaging
+
+30 menit kemudian, pewawancara tanya hal-hal yang tidak kupersiapkan:
+- "Gimana handle-nya kalau user tiba-tiba offline pas ngirim pesan?"
+- "Apa yang terjadi kalau 1 juta user send message bersamaan?"
+- "Kenapa pilih database itu? Trade-off-nya apa?"
+
+Aku diam. Tidak bisa jawab. Gagal.
+
+**Apa yang salah?**
+Aku langsung detail tanpa klarifikasi. Aku tidak tanya requirement. Aku pilih teknologi tanpa pertimbangan. Aku tidak pikirkan edge cases.
+
+Sejak saat itu, aku ubah pendekatan total.
+
+---
+
+### Kisah Kedua: Framework 5 Langkah yang Kupakai
+
+![Whiteboard diagram showing step-by-step system design flow: clarify → high-level → deep dive → trade-off → bottleneck](/articles/images/journey/28-system-design-framework.jpeg)
+
+Setelah kegagalan itu, aku pelajari framework system design dari senior engineer dan dari buku "Designing Data-Intensive Applications." Sekarang aku selalu pake 5 langkah ini:
+
+**1. Clarify Requirements (5 menit pertama)**
+Jangan langsung gambar. Tanya:
+- "Feature apa aja yang perlu di-support?"
+- "Berapa jumlah user? Targetnya?"
+- "Latency requirement? Real-time atau boleh delay?"
+- "Read-heavy atau write-heavy?"
+
+Waktu interview "Design URL Shortener" — aku tanya: "Berapa lama URL harus aktif? Perlu analytics? Bisa di-custom?" Pewawancara mengangguk — dia lihat aku paham pentingnya klarifikasi.
+
+**2. High-Level Design (10 menit)**
+Gambar kotak-kotak besar: client, server, database, cache. Mulai sederhana dulu. Tidak usah langsung tambahin load balancer, CDN, message queue.
+
+**3. Deep Dive (15 menit)**
+Pilih satu komponen, bahas detail. "Database-nya pakai apa? Schema-nya gimana?" Waktu "Design Chat App" — aku pilih database sebagai deep dive. Bahas: kenapa pake Cassandra (write-heavy, scale horizontal), schema untuk direct message vs group chat, indexing strategy.
+
+**4. Trade-off (5 menit)**
+"Kenapa pake NoSQL daripada SQL?" Karena write-heavy. Tapi konsekuensinya: query kompleks lebih susah. Aku jelaskan trade-off ini tanpa diminta — itu yang membedakan junior dan senior.
+
+**5. Bottleneck & Scaling (5 menit)**
+"Bagian mana yang paling mungkin jebol?" Kalau aplikasi viral, server mana yang pertama collapse? Gimana handle-nya?
+
+---
+
+### Kisah Ketiga: "Saya Tidak Tahu" — Frasa Ajaib dalam System Design
+
+Satu pelajaran yang paling berharga: **mengakui ketidaktahuan itu tanda kekuatan, bukan kelemahan.**
+
+Waktu interview "Design News Feed" — aku ditanya soal algoritma ranking. Aku tidak terlalu paham machine learning.
+
+Aku jawab:
+> *"Untuk ranking algoritma, saya tidak memiliki pengalaman mendalam. Tapi pendekatan saya: mulai dengan simple heuristic (chronological, engagement-based), lalu secara bertahap tambah kompleksitas. Untuk ML-specific ranking, saya akan kolaborasi dengan data scientist atau belajar dari dokumentasi yang ada."*
+
+Pewawancara bilang: "Good. Kamu tahu batasanmu dan punya rencana untuk mengatasinya." — lanjut ke tahap berikutnya.
+
+---
+
+### Topik yang Sering Muncul
+
+Dari pengalaman interview dan diskusi dengan sesama engineer, ini topik yang paling sering muncul:
+
+- **Design URL Shortener** (bit.ly) — hashing, database sharding, collision handling
+- **Design Chat System** (WhatsApp) — real-time, message ordering, offline support, end-to-end encryption
+- **Design News Feed** (Instagram/Twitter) — feed generation, fan-out (push vs pull), caching
+- **Design Rate Limiter** — token bucket vs sliding window, distributed rate limiting
+- **Design Parking Lot / Elevator** — object-oriented design untuk on-site interview
+
+---
+
+### Praktik Persiapan
+
+1. **Buku:** "Designing Data-Intensive Applications" — ini bikin aku paham trade-off database dan distributed system
+2. **YouTube:** System Design Interview channel — untuk lihat contoh interview dari kedua sisi
+3. **Mock interview:** Aku latihan dengan teman — bergantian jadi interviewer dan interviewee
+4. **Gambar:** Latihan gambar diagram — tidak perlu cantik, yang penting jelas
+
+**Tips:**
+- Mulai dari yang sederhana — tambah kompleksitas bertahap
+- Kenali trade-off: consistency vs availability (CAP theorem), latency vs throughput
+- Gambar — jangan cuma ngomong. Visual membantu penjelasan
+- Kalau tidak tahu, akui — tapi berikan cara untuk mencari tahu
+
+---
+
+### Jadi...
+
+System design interview bukan tes pengetahuan. Ini tes **cara berpikir**.
+
+Tidak ada arsitektur yang sempurna. Yang ada adalah arsitektur yang tepat untuk kebutuhan tertentu. Tunjukkan bahwa kamu paham ini — dan kamu pasti lolos.
+
+---
+
+🌱 **Latihan: design URL shortener pake framework 5 langkah:**
+[Kembali ke Career](/articles/career/) | [Lihat Semua Topik](/articles/)
+
+*System design interview paling susah yang pernah kamu hadapi? Atau ada trik khusus? Cerita di komentar.*

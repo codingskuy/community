@@ -1,0 +1,78 @@
+---
+title: "AI Ethics"
+description: "&quot;Etika AI — dari pengalaman lihat AI bikin keputusan yang tidak adil — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "ai", "ai-ethics"]
+---
+
+
+# AI Ethics
+
+> *"Model klasifikasiku akurat 90% secara keseluruhan. Tapi 0% untuk satu kelompok. Karena data training untuk kelompok itu hampir tidak ada. Aku bangga modelnya — sampai seseorang tanya: 'Coba tes untuk kategori ini.'"*
+
+Waktu pertama kali belajar machine learning, aku fokus ke satu angka: akurasi. 90% — itu bagus, pikirku. Aku puas, deploy, dan siap move on ke proyek berikutnya.
+
+Tapi seorang mentor bertanya: *"Berapa akurasi per kategori?"*
+
+Aku cek. Satu kategori: 0%. Modelku tidak bisa memprediksi kategori itu sama sekali. Bukan karena model rusak — karena dari 1000 sampel data training, hanya 5 yang termasuk kategori itu.
+
+**Momen sadar:**
+90% akurasi rata-rata terdengar hebat. Tapi kalau untuk satu kelompok pengguna modelnya gagal total — itu bukan model yang baik. Itu model yang tidak adil.
+
+---
+
+### Kisah Kedua: Rekomendasi yang Tidak Netral
+
+Satu tahun kemudian, aku bikin sistem rekomendasi konten untuk CodingSkuy. Tujuannya: menampilkan artikel yang relevan berdasarkan preferensi pengguna.
+
+Awalnya berjalan baik. Tapi setelah beberapa bulan, aku lihat pola aneh: pengguna baru selalu dikasih rekomendasi artikel yang sama — dari penulis yang sama. Sistem belajara bahwa artikel dari penulis A paling banyak dibaca, jadi terus direkomendasikan.
+
+**Apa yang sebenarnya terjadi:**
+- Artikel penulis A memang populer — jadi sistem makin sering merekomendasikannya
+- Artikel penulis lain — meskipun berkualitas — tidak pernah naik karena tidak punya "track record"
+- Ini feedback loop — populer makin populer, yang tidak populer tetap tenggelam
+
+**Pelajaran:**
+Sistem yang tidak dirancang dengan fairness bisa menciptakan ketidakadilan secara tidak sengaja. Bukan karena "jahat" — tapi karena data historis bias.
+
+---
+
+### Kisah Ketiga: Etika dalam Penggunaan AI Sehari-hari
+
+Ada momen yang bikin aku lebih hati-hati: waktu testing chatbot CodingSkuy, ada pengguna yang bertanya: *"Ini saya ngobrol dengan manusia atau AI?"*
+
+Awalnya aku pikir tidak masalah. Tapi dia kecewa waktu tahu itu AI — karena merasa "ditipu."
+
+Sejak itu, aturanku:
+- Setiap interaksi AI harus dikasih label jelas — "Dijawab oleh AI"
+- AI tidak boleh berpura-pura jadi manusia
+- Keputusan kritis tetap harus ada manusia
+
+---
+
+### Prinsip Etis yang Kupakai
+
+**1. Fairness** — Apakah model berlaku adil untuk semua kelompok? Aku selalu cek performa per kelompok. Kalau ada perbedaan signifikan — ada yang harus diperbaiki. Bisa dari data training, bisa dari desain model.
+
+**2. Transparency** — Pengguna harus tahu bahwa mereka berinteraksi dengan AI. Sederhana: "Halo, saya asisten AI." Bukan "Halo, saya Rois — ada yang bisa dibantu?"
+
+**3. Accountability** — Harus ada manusia yang bertanggung jawab. Kalau AI salah rekomendasi — manusia, bukan AI, yang bertanggung jawab.
+
+**4. Privacy** — Model tidak boleh memuntahkan data training. Aku selalu test: bisa tidak model ini ngulang data pribadi yang ada di training set? Kalau bisa — ada leakage.
+
+---
+
+### Praktik yang kulakukan
+
+- **Audit data training** — pastikan representatif. Kalau 95% data dari kelompok mayoritas, model tidak akan bekerja untuk minoritas.
+- **Monitor setelah deployment** — performa bisa berubah karena data di lapangan berbeda.
+- **Feedback loop** — setiap AI punya tombol laporkan. User bisa report kalau output aneh.
+- **Human override** — fitur untuk batalkan keputusan AI.
+
+---
+
+🌱 **Etika AI bukan tentang teknologi — tapi tentang tanggung jawab:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Pernah lihat AI yang tidak adil atau bias? Atau punya pengalaman etis dengan AI? Cerita di komentar.*

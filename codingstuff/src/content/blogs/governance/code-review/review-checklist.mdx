@@ -1,0 +1,75 @@
+---
+title: "Review Checklist"
+description: "&quot;Checklist code review — dari pengalaman biar review tidak asal-asalan — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "code-review", "review-checklist"]
+---
+
+
+# Review Checklist
+
+> *"Dulu review-ku tidak terstruktur. Baca kode asal, kasih komentar seadanya. Sampai ada bug yang lolos — karena aku tidak cek error handling. Dari situ aku sadar: review butuh checklist."*
+
+Waktu pertama code review, aku cuma lihat: "apakah kodenya jalan?" Kalau iya, LGTM. Tapi banyak hal yang terlewat: edge case, security, error handling, performance.
+
+Seperti pilot yang punya checklist sebelum take off — code review juga perlu checklist. Bukan untuk memperlambat, tapi untuk memastikan tidak ada yang terlewat.
+
+---
+
+### Kisah Kedua: Bug Lolos karena Error Handling Tidak Dicek
+
+PR tentang fitur upload gambar. Kode untuk happy path bagus — upload berhasil, response OK. Aku review, LGTM.
+
+Di production, user upload gambar dengan format tidak didukung. Yang terjadi: aplikasi crash, bukan kasih error message yang jelas.
+
+Kenapa? Karena error handling tidak ada. Kode cuma handle "sukses" — tidak handle "gagal."
+
+**Pelajaran:**
+Happy path hanya setengah dari kode. Error handling adalah setengah lainnya. Dan itu yang paling sering dilewatkan di review.
+
+---
+
+### Checklist yang Kupakai
+
+Setiap review, aku cek hal-hal ini:
+
+**1. Logic & Correctness**
+- Apakah kode menyelesaikan masalah?
+- Edge case di-handle? Input kosong, null, format salah?
+- Asumsi: apa yang dianggap "benar" oleh kode ini?
+
+**2. Error Handling**
+- Kalau API error — apa yang terjadi? Crash? Retry? Fallback?
+- Kalau input tidak valid — pesan errornya jelas?
+- Kalau database timeout — gimana handle-nya?
+
+**3. Security**
+- Input divalidasi? (SQL injection, XSS)
+- Data sensitif tidak bocor ke log?
+- Autentikasi dan otorisasi sudah benar?
+
+**4. Performance**
+- N+1 query? (cek database call di dalam loop)
+- Operasi berat di main thread? (block UI)
+- Bisa di-cache?
+
+**5. Maintainability**
+- Mudah dibaca 6 bulan lagi?
+- Magic number / hardcoded value?
+- Test-nya ada? (kalau ada)
+
+---
+
+### Cara Pakai
+
+Checklist bukan untuk "menghakimi" — tapi untuk memastikan tidak ada yang terlewat. Tidak semua item harus dipenuhi. Tapi setidaknya sudah dipertimbangkan.
+
+Awalnya aku cetak checklist ini dan tempel di monitor. Sekarang sudah otomatis — tanpa sadar aku sudah cek semuanya.
+
+---
+
+🌱 **Bikin checklist review versimu — sesuaikan dengan tech stack dan tim:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya item checklist yang menurutmu paling penting? Cerita di komentar.*

@@ -1,0 +1,44 @@
+---
+title: Cloud LLM vs Local LLM
+description: "Cloud LLM vs local LLM — dari pengalaman pakai OpenAI dan run model sendiri — CodingSkuy"
+---
+
+# Cloud LLM vs Local LLM
+
+> *"Awalnya aku cuma pake ChatGPT. Sampai mikir: gimana kalau model ini jalan di laptopku sendiri?"*
+
+2023, pertama kali pake ChatGPT untuk bantu nulis. Hasilnya memuaskan. Tapi di kepala ada pertanyaan: bagaimana kalau suatu hari API ini mati? Atau harganya naik? Atau aku perlu akses offline?
+
+**Cloud LLM (OpenAI, Claude, Gemini):**
+Yang kupake: GPT-4 untuk artikel CodingSkuy. Tinggal panggil API, langsung dapet response. Model terbesar, paling pintar.
+
+Keuntungan:
+- Langsung pake — tanpa setup infrastruktur
+- Model paling canggih
+- Bayar per token — murah untuk pemakaian ringan
+- Update otomatis — selalu pake model terbaru
+
+Kekurangan:
+- Data dikirim ke server pihak ketiga
+- Bayar terus — makin sering dipake, makin mahal
+- Butuh koneksi internet
+
+**Local LLM (Llama, Mistral, Gemma):**
+Pas eksperimen, aku coba Llama 3 via Ollama di laptop. Setup-nya gampang — tinggal `ollama run llama3`. Tapi hasilnya? Untuk nulis artikel coding yang butuh presisi, local model masih kalah dari GPT-4. Sering hallucination, kadang pake API yang tidak ada.
+
+Tapi untuk task sederhana — seperti summarization teks — local model cukup. Dan gratis.
+
+**Kapan pilih cloud:**
+- Butuh kualitas terbaik
+- Usage masih rendah
+- Tidak ada masalah privasi data
+
+**Kapan pilih local:**
+- Privasi data penting
+- Usage tinggi (biaya cloud membengkak)
+- Butuh offline
+- Task sederhana
+
+> *"Cloud LLM untuk kecerdasan maksimal. Local LLM untuk privasi dan biaya tetap. Kombinasi keduanya sering jadi jawaban terbaik."*
+
+[Kembali ke Decisions](/articles/decisions/)

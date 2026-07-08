@@ -1,0 +1,35 @@
+---
+title: "Kapan setState Sudah Cukup?"
+description: "&quot;setState vs state management — dari pengalaman — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["decisions", "mobile", "kapan-setstate-cukup"]
+---
+
+
+# Kapan setState Sudah Cukup?
+
+> *"Dulu aku pikir semua aplikasi butuh Riverpod. Ternyata setState cukup untuk proyek pertamaku."*
+
+Awal belajar Flutter, aku langsung loncat ke state management canggih. Riverpod. BLoC. Semua. Padahal aplikasi pertamaku cuma tiga screen: daftar tugas, detail tugas, dan form tambah tugas.
+
+Pas kutulis dengan Riverpod, aku menghabiskan waktu lebih banyak untuk setup provider daripada nulis logika aplikasinya. Setiap ada state baru harus buat provider, define class, register di main. Hasilnya? Todo app sederhana jadi punya 5 file padahal bisa 1 file.
+
+**Kapan setState cukup:**
+
+1. **Jumlah screen sedikit** (&lt;5) — state tidak perlu dibagikan antar screen
+2. **State lokal** — tiap screen punya data sendiri, tidak perlu dishare
+3. **Tidak ada real-time** — WebSocket, stream, polling, atau data yang berubah dari luar
+4. **Prototype atau MVP** — validasi ide dulu, refactor nanti
+5. **Tim sendiri** — tidak perlu standarisasi state management untuk kolaborasi
+
+**Kapan harus beralih:**
+
+1. **Screen bertambah** — state perlu dibagikan, setState mulai ribet
+2. **Testing jadi susah** — karena state tersebar di widget tree
+3. **Performa mulai terasa** — setiap setState rebuild widget tree yang besar
+4. **Tim mulai besar** — perlu pola yang konsisten
+
+> *"Jangan pake state management kompleks untuk aplikasi yang belum tentu kompleks. Mulai dari setState, refactor kalau sudah terbukti perlu."*
+
+[Kembali ke Decisions](/articles/decisions/)

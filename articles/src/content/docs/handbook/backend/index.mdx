@@ -1,0 +1,115 @@
+---
+title: Backend Handbook
+description: "Backend engineering dari pengalaman — API, database, server-side story — CodingSkuy"
+---
+
+# Backend Handbook
+
+> *"Waktu error 500 muncul di production jam 2 pagi — aku baru sadar backend bukan cuma soal bikin API."*
+
+Backend selalu jadi sisi yang tidak terlihat. User tidak pernah lihat backend. Yang mereka lihat: aplikasi lancar, atau aplikasi error.
+
+Aku belajar backend dari proyek-proyek kecil — Laravel untuk website, Express untuk API, sampai menangani jutaan request.
+
+---
+
+### API Design: Pelajaran dari REST yang Salah
+
+Awal-awal bikin API, aku bikin endpoint seperti ini:
+
+```
+GET /getUserData
+POST /saveUserData
+GET /deleteUser?id=5
+```
+
+Tidak konsisten. Kadang pakai query params, kadang path params. Kadang pakai kata kerja di URL.
+
+Pelajarannya: **konsistensi lebih penting dari kesempurnaan.**
+
+Sekarang aku ikuti pola sederhana:
+
+```
+GET    /users          — daftar user
+GET    /users/:id      — detail user
+POST   /users          — buat user
+PUT    /users/:id      — update user
+DELETE /users/:id      — hapus user
+```
+
+Pola ini bukan cuma soal estetika. Ini soal **predictability**. Developer lain yang baca kode langsung tahu: *"Oh, ini REST standard."*
+
+---
+
+### Database: Pilih yang Tepat
+
+Dulu aku pikir semua proyek harus pakai PostgreSQL atau MySQL. Relational. Normalisasi. ACID.
+
+Sampai aku ngerjain proyek log analytics. Data masuk jutaan per hari. Query JOIN makin lambat. indexing sudah dilakukan, tapi tetap lambat.
+
+Aku pindah ke database time-series untuk log, dan biarkan PostgreSQL untuk data transaksional.
+
+Pelajaran: **satu database tidak cocok untuk semua beban.**
+
+Panduan kasarku sekarang:
+
+- **Relational (PostgreSQL/MySQL)** — data transaksional, relasi kompleks, butuh consistency
+- **Document (MongoDB)** — data fleksibel, schema berubah cepat
+- **Time-series (InfluxDB/TimescaleDB)** — log, metrik, data kronologis
+- **Cache (Redis)** — data sementara, session, rate limiting
+
+---
+
+### Error Handling: Yang Paling Sering Diremehkan
+
+Fitur yang paling sering aku remehkan: error handling.
+
+Dulu:
+
+```dart
+try {
+  await api.call();
+} catch (e) {
+  print(e);
+}
+```
+
+Sekarang:
+
+```dart
+try {
+  await api.call();
+} on TimeoutException {
+  retry();
+} on UnauthorizedException {
+  refreshToken();
+} catch (e) {
+  logError(e);
+  showUserFriendlyMessage();
+}
+```
+
+Perbedaan: **error bukan abnormal — error adalah bagian dari alur normal.** Kalau kode tidak handle error, artinya kode itu belum selesai.
+
+---
+
+### Deployment: Dari Manual ke CI/CD
+
+Proyek pertamaku: SSH ke server, git pull, restart. Manual. Error-prone.
+
+Satu kali aku lupa pull di server production. Fix yang sudah dikerjakan 3 jam tidak terdeploy. User komplen.
+
+Sekarang:
+
+1. Push ke branch → trigger test
+2. Test lulus → build otomatis
+3. Build berhasil → deploy ke staging
+4. Staging oke → deploy ke production (dengan satu klik)
+
+Waktu setup CI/CD memang lama. Tapi setiap menit yang diinvestasikan di awal adalah jam yang dihemat dari human error.
+
+---
+
+> *"Backend yang baik tidak terlihat. Yang terlihat cuma aplikasi yang cepat, tidak error, dan selalu available."*
+
+[Kembali ke Engineering Handbook](/articles/handbook/)

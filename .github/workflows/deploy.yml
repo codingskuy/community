@@ -1,0 +1,93 @@
+name: Deploy Vite Site to GitHub Pages
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  discussions: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate activity data snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_ACTIVITY_TOKEN: ${{ secrets.GH_ACTIVITY_TOKEN }}
+        run: npm run generate:activity
+
+      - name: Build Vite project (React SPA)
+        env:
+          VITE_GITHUB_READ_TOKEN: ${{ secrets.VITE_GITHUB_READ_TOKEN }}
+          VITE_YOUTUBE_API_KEY: ${{ secrets.VITE_YOUTUBE_API_TOKEN }}
+          VITE_YOUTUBE_CHANNEL_HANDLE: ${{ secrets.VITE_YOUTUBE_CHANNEL_HANDLE }}
+        run: npm run build
+
+      - name: Install Astro dependencies
+        run: cd articles && npm install --legacy-peer-deps
+
+      - name: Build Astro (articles + tutorials)
+        run: cd articles && npm run build 2>&1
+
+      - name: Debug Astro output
+        run: ls -la articles/dist/ || echo "articles/dist/ not found"
+
+      - name: Merge Astro output into build/
+        run: |
+          mkdir -p build/articles
+          cp -R articles/dist/* build/articles/
+          ls -la build/articles/
+
+      - name: Setup pnpm
+        run: npm install -g pnpm
+
+      - name: Install codingstuff dependencies
+        run: cd codingstuff && pnpm install --frozen-lockfile 2>&1
+
+      - name: Build codingstuff (static for GitHub Pages)
+        run: cd codingstuff && bash scripts/deploy-static.sh 2>&1
+        env:
+          SITE_URL: ${{ secrets.CODINGSTUFF_SITE_URL || 'https://roishoiron.github.io' }}
+
+      - name: Debug codingstuff output
+        run: ls -la codingstuff/dist/ || echo "codingstuff/dist/ not found"
+
+      - name: Merge codingstuff output into build/
+        run: |
+          mkdir -p build/codingstuff
+          cp -R codingstuff/dist/* build/codingstuff/
+          ls -la build/codingstuff/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4

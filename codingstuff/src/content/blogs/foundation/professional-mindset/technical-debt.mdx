@@ -1,0 +1,129 @@
+---
+title: "Technical Debt"
+description: "&quot;Technical debt: hutang teknik yang harus dibayar — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["foundation", "professional-mindset", "technical-debt"]
+---
+
+
+# Technical Debt
+
+> *"Kode cepat hari ini bisa jadi hutang besar bulan depan."*
+
+Istilah *technical debt* pertama kali kudengar di bootcamp Dicoding dari mentor yang berasal dari Tokopedia.
+
+Waktu itu aku baru selesai bikin fitur. Mentorku melihat kodeku, lalu berkata:
+
+> *"Kode ini jalan. Tapi kalau ada bug di sini, seberapa cepat kamu bisa menemukan penyebabnya?"*
+
+Aku diam. Sebenarnya jawabannya: lama. Karena kodeku berantakan.
+
+Itulah pertama kalinya aku sadar bahwa **kode yang "jalan" belum tentu kode yang baik.**
+
+---
+
+### Apa Itu Technical Debt?
+
+Technical debt adalah **konsekuensi dari memilih solusi cepat daripada solusi yang benar.**
+
+Sama seperti hutang uang, technical debt memberikan keuntungan jangka pendek — fitur selesai lebih cepat — tapi dengan bunga yang harus dibayar di masa depan.
+
+Bunganya berupa:
+- Waktu ekstra untuk memahami kode yang berantakan
+- Bug yang sulit dilacak karena struktur kode tidak jelas
+- Kesulitan menambah fitur baru karena sistem makin rapuh
+- Ketergantungan pada orang tertentu yang "satu-satunya yang paham kode ini"
+
+Contoh klasik dari pengalamanku:
+
+**Skenario:** Aplikasi Android di proyek pertamaku. Deadline mepet. Aku butuh nambahin fitur notifikasi.
+
+**Solusi cepat:** Copy-paste kode dari proyek lain. Tidak pakai dependency injection. Semua logika di satu Activity.
+
+**Hasil:** Fitur selesai hari itu. Aku lega.
+
+**Sebulan kemudian:** Ada bug di notifikasi. Butuh waktu 2 jam cuma untuk mencari dimana logika notifikasi ditulis. Ternyata berserakan di 3 file berbeda. Memperbaiki satu bagian malah merusak bagian lain.
+
+**Total waktu yang terbuang:** 2 jam debugging + 1 jam refactor.
+
+Kalau sejak awal aku pakai 1 jam untuk nulis kode yang rapi — aku sudah hemat 2 jam dan menghindari sakit kepala.
+
+---
+
+### Dari Mana Technical Debt Muncul?
+
+Technical debt tidak selalu karena programmer malas. Seringkali karena tekanan realistis.
+
+**Penyebab umum technical debt:**
+
+| Penyebab | Contoh |
+|----------|--------|
+| **Deadline ketat** | "Fitur ini harus rilis Jumat. Urusan kualitas belakangan." |
+| **Kurang pengalaman** | Waktu belajar Flutter, aku nulis semua state management di satu file karena belum paham BLoC/Riverpod |
+| **Copy-paste tanpa adaptasi** | Ambil kode dari Stack Overflow tanpa memahami konteksnya |
+| **Tidak ada code review** | Kode langsung masuk production tanpa dicek orang lain |
+| **Prototype jadi production** | Aplikasi yang awalnya coba-coba tiba-tiba dipakai ribuan orang |
+
+Yang paling berbahaya adalah **technical debt yang tidak disadari** — ketika kamu tidak tahu bahwa kode yang kamu tulis hari ini akan menyusahkan dirimu sendiri bulan depan.
+
+Aku mengalaminya waktu belajar Android. Semua state disimpan di Activity. Semua logika di satu kelas. Semua styling hardcode di XML. Waktu itu kupikir: *"Ini cara bikin aplikasi."* Baru setelah belajar clean architecture, aku sadar bahwa apa yang kubangun sebelumnya adalah rumah tanpa fondasi.
+
+---
+
+### Kapan Technical Debt Itu Wajar?
+
+Technical debt tidak selalu buruk. Kadang-kadang, mengambil hutang adalah keputusan yang tepat — asal kamu sadar bahwa kamu sedang berhutang dan punya rencana untuk membayarnya.
+
+**Contoh situasi di mana technical debt wajar:**
+
+- **MVP (Minimum Viable Product):** Kamu perlu validasi ide secepat mungkin. Kode boleh berantakan asal kamu siap rewrite nantinya.
+- **Time-to-market kritis:** Fitur yang rilis lebih cepat dari kompetitor bisa jadi keunggulan bisnis.
+- **Eksperimen:** Kamu coba-coba teknologi baru. Kode eksperimen tidak perlu sempurna.
+
+Intinya: **technical debt itu keputusan sadar, bukan kebiasaan.**
+
+Yang berbahaya adalah ketika technical debt diambil terus-menerus tanpa pernah dibayar. Akumulasi bunganya bisa membuat sistemmu collapse total.
+
+---
+
+### Cara Mengelola Technical Debt
+
+Technical debt tidak bisa dihilangkan sepenuhnya. Tapi bisa dikelola.
+
+#### 1. **Sadari dan Catat Technical Debt**
+Langkah pertama adalah mengakui bahwa technical debt itu ada. Catat di mana letaknya:
+- Kode yang butuh refactor
+- Library yang perlu di-upgrade
+- Arsitektur yang perlu diperbaiki
+- Test yang hilang
+
+#### 2. **Prioritaskan Pembayaran**
+Tidak semua technical debt harus dibayar sekaligus. Prioritaskan:
+- 🔴 **Critical:** Memblokir fitur baru atau bikin bug production
+- 🟡 **High:** Memperlambat development signifikan
+- 🟢 **Medium:** Mengganggu tapi masih bisa ditoleransi
+- 🔵 **Low:** Idealnya diperbaiki, tapi tidak urgent
+
+#### 3. **Alokasikan Waktu Khusus**
+Di sprint planning, alokasikan waktu untuk refactoring dan pembayaran technical debt. Idealnya 20% dari kapasitas tim.
+
+Di Papua Madhani Tech, kami mulai kebiasaan ini: setiap sprint, 1-2 hari khusus untuk *tech debt cleanup*. Progres fitur sedikit melambat di awal, tapi kecepatan tim secara keseluruhan meningkat drastis dalam 3 bulan.
+
+#### 4. **Kaitkan dengan Proyek Nyata**
+Jangan refactor tanpa tujuan. Kaitkan pembayaran technical debt dengan fitur yang akan dikerjakan.
+
+Contoh: "Kita mau nambah fitur search. Tapi kode search sekarang berserakan di 5 file. Refactor dulu jadi satu service, baru tambah fiturnya."
+
+---
+
+### Jadi...
+
+Technical debt bukan dosa. Ia hanya konsekuensi dari keputusan — seperti halnya keputusan engineer lainnya.
+
+Yang membedakan engineer profesional dari yang lainnya adalah: **kesadaran bahwa setiap shortcut adalah hutang, dan kesediaan untuk membayarnya.**
+
+> *"Kode yang baik bukan kode yang sempurna dari awal. Tapi kode yang sadar akan kekurangannya dan terus diperbaiki."*
+
+🌱 **Mulai catat technical debt proyekmu hari ini — apa yang akan kamu bayar minggu depan?**
+[Kembali ke Professional Mindset](/articles/foundation/professional-mindset/) | [Lihat Semua Topik](/articles/)

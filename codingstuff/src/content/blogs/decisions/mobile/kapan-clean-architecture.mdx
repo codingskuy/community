@@ -1,0 +1,35 @@
+---
+title: "Kapan Clean Architecture Dibutuhkan?"
+description: "&quot;Clean Architecture — dari pengalaman over-engineering dan under-engineering — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["decisions", "mobile", "kapan-clean-architecture"]
+---
+
+
+# Kapan Clean Architecture Dibutuhkan?
+
+> *"Dulu aku paksa Clean Architecture untuk todo app. 3 layer, repository, use case. Untuk nyimpan catatan."*
+
+Itu over-engineering parah. Paling tidak untuk konteksnya.
+
+Aku ingat: todo app dengan Clean Architecture punya 8 folder. Entity, use case, repository interface, repository impl, presenter, widget, model, provider. Untuk fitur CRUD sederhana — setiap ada perubahan field harus update 6 file. Padahal kalau pake struktur sederhana, cukup 2 file.
+
+**Kapan Clean Architecture berguna:**
+
+1. **Domain kompleks** — aturan bisnis berlapis, banyak conditional logic. Contoh: sistem approval yang butuh validasi bertingkat, notifikasi, dan audit trail.
+2. **Sumber data ganda** — API + lokal + cache. Abstraction repository jadi sangat membantu.
+3. **Tim besar** — butuh batasan yang jelas antar modul. Developer A ngerjain fitur X tanpa takut ganggu punya developer B.
+4. **Long-term project** — 2+ tahun. Banyak perubahan requirement. Testing jadi penting — use case bisa di-test tanpa dependency eksternal.
+5. **Butuh test ketat** — setiap use case bisa di-test secara unit tanpa butuh widget atau API beneran.
+
+**Kapan jangan pake:**
+
+1. **CRUD sederhana** — form → API → database. Tidak perlu berlapis-lapis.
+2. **Prototype / MVP** — validasi ide dulu. Clean Architecture bisa ditambah setelah ide terbukti.
+3. **Sendiri atau tim kecil** — overhead tidak sebanding.
+4. **Deadline ketat** — clean architecture butuh waktu setup dan maintenance.
+
+> *"Arsitektur yang baik adalah yang cukup kompleks untuk kebutuhanmu, tidak lebih. Mulai sederhana, tambah lapisan hanya kalau terbukti diperlukan."*
+
+[Kembali ke Decisions](/articles/decisions/)

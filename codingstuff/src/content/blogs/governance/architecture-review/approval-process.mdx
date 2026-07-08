@@ -1,0 +1,66 @@
+---
+title: "Architecture Review"
+description: "&quot;Review arsitektur — dari pengalaman migrasi arsitektur tanpa review — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "architecture-review", "approval-process"]
+---
+
+
+# Architecture Review
+
+> *"Aku pikir architecture review buang-buang waktu. 'Aku udah mikir matang, ngapain direview orang lain?' Sampai aku harus rewrite 3 modul karena circular dependency yang tidak kusadari."*
+
+Dulu aku tipe developer yang langsung implementasi. Ada ide arsitektur — langsung bikin folder, setup pattern, nulis kode. Kelihatan cepat — tapi sering salah arah.
+
+Waktu itu aku bikin arsitektur untuk fitur baru — kelihatan bagus di diagram. Tapi setelah implementasi: modul A butuh data dari modul B, B dependensi ke A. Circular dependency.
+
+Harus refactor. 3 modul ditulis ulang. Buang waktu 2 minggu.
+
+**Sejak itu, setiap keputusan arsitektur — sebelum implementasi — harus direview.**
+
+---
+
+### Kisah Kedua: Review Arsitektur yang Menyelamatkan Proyek
+
+Di CodingSkuy, aku mau migrasi dari Firebase ke Supabase. Aku udah bikin rencana: tabel, relasi, aturan keamanan.
+
+Sebelum eksekusi, aku presentasi ke teman yang lebih berpengalaman. Dia lihat 10 menit, lalu bilang:
+
+> *"Schema-mu ini normalized banget. Nanti query-nya ribet. Untuk use case-mu (banyak read, sedikit write), denormalized lebih cocok."*
+
+Dia bener. Kalau aku langsung implementasi — sebulan coding, lalu sadar schema-nya tidak optimal.
+
+**Pelajaran:**
+Sebelum eksekusi: presentasi arsitektur ke minimal 1 orang. 10 menit diskusi bisa hemat berminggu-minggu kerja.
+
+---
+
+### Proses yang Kupakai
+
+**1. Dokumentasi** — gambar diagram arsitektur + catat alasan (bisa dalam bentuk ADR)
+
+**2. Presentasi singkat** — 15 menit jelaskan: masalah, pendekatan yang dipilih, trade-off, alternatif
+
+**3. Review** — tim kasih feedback: ada yang kelewat? Ada pendekatan lebih baik?
+
+**4. Keputusan** — lanjut, revisit, atau ganti pendekatan
+
+**5. Iterasi** — revisit kalau ada masukan baru
+
+Tidak harus formal. Kadang cukup ngobrol 10 menit di whiteboard. Tapi harus **sebelum** implementasi, bukan sesudah.
+
+---
+
+### Kenapa Architecture Review Penting
+
+1. **Catch masalah lebih awal** — circular dependency di kode butuh refactor. Di diagram — cukup hapus 2 garis.
+2. **Konsistensi** — tanpa review, tiap orang punya gaya arsitektur sendiri.
+3. **Knowledge sharing** — junior lihat cara senior berpikir. Senior dapet perspektif baru.
+
+---
+
+🌱 **Sebelum nulis kode untuk fitur baru — gambar arsitekturnya dulu, minta review:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya pengalaman arsitektur yang salah karena tidak direview? Cerita di komentar.*

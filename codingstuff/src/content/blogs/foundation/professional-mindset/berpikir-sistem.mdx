@@ -1,0 +1,156 @@
+---
+title: "Berpikir Sistem"
+description: "&quot;Berpikir sistem: melihat keterkaitan, bukan hanya bagian terpisah — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["foundation", "professional-mindset", "berpikir-sistem"]
+---
+
+
+# Berpikir Sistem
+
+> *"Engineer yang baik melihat kode. Engineer yang hebat melihat sistem di balik kode itu."*
+
+Ada satu momen yang mengubah cara berpikirku secara drastis.
+
+Waktu SMK, aku belajar jaringan komputer. Tentang bagaimana data berpindah dari satu komputer ke komputer lain. Tentang OSI layer — tujuh lapisan yang harus dilewati sebelum satu byte data sampai ke tujuannya.
+
+Awalnya kupikir: *"Ah, ini cuma teori. Yang penting kan data sampainya."*
+
+Tapi semakin dalam, aku sadar sesuatu.
+
+Internet bukan sihir.
+Setiap pesan, gambar, video, halaman web — semuanya adalah data yang berpindah dari satu tempat ke tempat lain melalui aturan yang disepakati bersama.
+
+Dan setiap bagian punya peran:
+- **Layer fisik** — kabel dan sinyal
+- **Layer data link** — pengalamatan lokal
+- **Layer network** — routing ke tujuan
+- **Layer transport** — memastikan data utuh
+- **Layer aplikasi** — yang dilihat pengguna
+
+Kalau satu layer gagal, seluruh komunikasi terhenti.
+
+Di situlah aku mulai paham: **teknologi tidak bekerja sendiri. Ia bekerja sebagai sistem.**
+
+---
+
+### Dari Bagian ke Keseluruhan
+
+Waktu belajar HTML, CSS, dan JavaScript di SMK, awalnya semuanya terasa seperti potongan yang berdiri sendiri.
+
+HTML bikin struktur. CSS bikin tampilan. JavaScript bikin perilaku.
+
+Tapi semakin dipelajari, semakin jelas: **ketiganya adalah satu sistem.**
+
+| Bagian | Fungsi | Analogi |
+|--------|--------|---------|
+| HTML | Struktur | Kerangka rumah |
+| CSS | Tampilan | Cat, wallpaper, dekorasi |
+| JavaScript | Perilaku | Listrik, pipa air, interaksi |
+
+Kalau HTML-nya kacau, CSS dan JavaScript tidak akan bekerja optimal. Kalau CSS-nya berat, halaman lambat — pengguna pergi. Kalau JavaScript error, pengguna nggak bisa interaksi.
+
+Semua terhubung.
+
+Dan ini bukan cuma soal frontend. Ini soal **cara software engineering bekerja secara keseluruhan.**
+
+---
+
+### Tiga Level Berpikir Sistem
+
+Dari pengalaman bertahun-tahun, aku melihat ada tiga level berpikir sistem yang membedakan engineer:
+
+#### Level 1: **Fokus pada Bagian** (Developer)
+
+*"Apa yang harus aku tulis untuk membuat tombol ini bekerja?"*
+
+Ini level awal semua orang. Kamu fokus pada tugas spesifik di depan mata. Selesaikan ticket. Tutup task. Move on.
+
+Tidak ada yang salah dengan level ini — semua engineer mulai dari sini. Hanya saja, kalau kamu stuck di level ini terlalu lama, kamu akan kesulitan ketika proyek mulai kompleks.
+
+Contoh riil: Saat pertama bikin aplikasi Android di Eclipse ADT, aku cuma fokus bikin satu halaman jalan. Tidak peduli bagaimana activity lain akan terpengaruh.
+
+#### Level 2: **Melihat Keterkaitan** (Senior Engineer)
+
+*"Bagaimana tombol ini mempengaruhi bagian lain dari sistem?""
+
+Di level ini kamu mulai sadar bahwa perubahan di satu tempat bisa merusak di tempat lain.
+
+Kode review membantuku mencapai level ini. Ketika mentor di Dicoding bilang *"Fungsi ini terlalu panjang, dipisah aja"* — aku mulai belajar bahwa satu fungsi tidak berdiri sendiri. Ia dipanggil di tempat lain. Ia bergantung pada data dari tempat lain. Ia mempengaruhi performa di tempat lain.
+
+Memisahkan fungsi bukan soal gaya kode. Ini soal mengelola kompleksitas sistem.
+
+#### Level 3: **Merancang Sistem** (Architect/Lead)
+
+*"Bagaimana seharusnya sistem ini dirancang agar mudah dipelihara, diperluas, dan dipahami tim?"*
+
+Di level ini kamu tidak hanya bereaksi terhadap apa yang ada. Kamu merancang masa depan.
+
+Keputusan seperti:
+- Pilih monolithic dulu atau modular dari awal?
+- Pake SQL atau NoSQL?
+- REST atau GraphQL?
+- Feature-first atau layer-first?
+
+Semua keputusan ini adalah **desain sistem** — dan dampaknya baru terasa berminggu-minggu atau berbulan-bulan kemudian.
+
+---
+
+### Bagaimana Melatih Berpikir Sistem?
+
+Berpikir sistem tidak datang otomatis. Harus dilatih.
+
+Berikut praktik yang kulakukan:
+
+#### 1. **Latihan "Apa yang Terjadi Jika..."**
+
+Saat menulis atau membaca kode, tanyakan:
+- *"Apa yang terjadi jika fungsi ini dipanggil 1000 kali dalam satu detik?"*
+- *"Apa yang terjadi jika data ini tiba-tiba menjadi 10x lebih besar?"*
+- *"Apa yang terjadi jika koneksi internet terputus di tengah proses?"*
+
+Latihan ini memaksa otakmu melihat sistem dari berbagai sudut, bukan hanya jalur ideal (happy path).
+
+#### 2. **Pahami Riwayat Keputusan (ADR)**
+
+Setiap sistem yang ada sekarang adalah hasil dari keputusan masa lalu. Coba cari tahu:
+- Kenapa tim memilih database ini?
+- Kenapa arsitektur ini yang dipilih?
+- Trade-off apa yang mereka hadapi?
+
+Membaca ADR (Architecture Decision Record) di proyek open source bisa membantumu melihat bagaimana engineer senior berpikir.
+
+#### 3. **Dokumentasikan Hubungan, Bukan Hanya Komponen**
+
+Waktu menulis dokumentasi, jangan cuma daftar fitur. Gambarkan bagaimana bagian-bagian saling terhubung.
+
+Contoh simulasi:
+
+```
+[User] → [Login API] → [Auth Service] → [Database]
+                             ↓
+                      [Session Cache]
+                             ↓
+                      [Notification Service]
+```
+
+Sekilas ini sederhana. Tapi ketika kamu paham hubungan ini, kamu tahu bahwa memperbaiki Auth Service bisa berdampak ke Notification Service — dan itu mengubah cara kamu membuat keputusan.
+
+---
+
+### Jadi...
+
+Berpikir sistem adalah kemampuan untuk **menahan diri dari langsung bertindak**, dan meluangkan waktu untuk memahami gambaran besar.
+
+Ini tentang **menyadari bahwa setiap baris kode yang kamu tulis adalah bagian dari ekosistem yang lebih besar** — dan bahwa ekosistem itu akan terus ada bahkan setelah kamu meninggalkan proyek.
+
+Di SMK, aku pikir jaringan komputer hanyalah teori.
+Sekarang aku paham: jaringan komputer adalah metafora sempurna untuk cara software engineering bekerja.
+
+Setiap komponen adalah lapisan. Setiap lapisan saling bergantung. Dan memahami bagaimana semuanya terhubung — itulah yang membedakan antara yang hanya *bisa coding* dengan yang *bisa membangun sistem*.
+
+> *"Kode yang baik menyelesaikan masalah hari ini. Sistem yang baik memastikan tidak ada masalah baru besok."*
+
+🌱 **Latih berpikir sistemmu: mulai dari satu proyek kecil, tapi lihat bagaimana setiap bagian saling terhubung.**
+[Kembali ke Professional Mindset](/articles/foundation/professional-mindset/) | [Lihat Semua Topik](/articles/)

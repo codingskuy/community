@@ -1,0 +1,80 @@
+---
+title: "Mobile Engineer"
+description: "&quot;Jadi mobile engineer — dari Flutter ke produksi, cerita perjalanan — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["career", "path", "mobile-engineer"]
+---
+
+
+# Mobile Engineer
+
+> *"Aku mulai bikin aplikasi HP karena penasaran. Ternyata jadi mobile engineer itu lebih dari sekadar nulis kode."*
+
+Pertengahan 2021, aku buka laptop dan ngetik `flutter create my_app`. Aku nggak tahu apa itu widget tree, apa itu state management, apa itu platform channel. Yang kutahu: aku mau bikin aplikasi yang bisa dipake orang di HP mereka sendiri.
+
+Dari situ, perjalanan dimulai.
+
+### Awal Mula: Dari Todo Sampai Produksi
+
+Aplikasi Flutter pertamaku — todo app. Selesai dalam seminggu. Fiturnya: tambah task, hapus task, centang task. Sederhana. Tapi pas running di HP sungguhan — perasaan pertamaku: *"Wow, ini beneran jadi aplikasi."*
+
+App kedua — counter app. Iya, yang cuma tombol "+" dan "-". Kata orang, belajar Flutter mulai dari counter. Tapi habis itu aku bikin counter app lagi dengan animasi. Terus counter app dengan state management. Tiga kali counter app — sampai akhirnya bosan dan mulai bikin proyek beneran.
+
+Aplikasi pertamaku yang dipake orang lain adalah aplikasi untuk organisasi kampus. Fiturnya: jadwal rapat, notifikasi, absensi. Sederhana. Tapi pas lihat orang lain buka aplikasi karyaku — rasanya beda. **Bukan cuma aku yang lihat kodenya. Orang lain pake.**
+
+### Skill yang Bikin Mobile Engineer Berbeda
+
+Dari perjalanan itu, aku mulai paham mobile engineer beda dengan jenis engineer lain.
+
+**1. Platform Knowledge**
+
+Bukan cuma nulis kode Flutter yang jalan di dua platform. Tapi paham bahwa Android dan iOS punya cara kerja berbeda.
+
+Pertama kali ngerilis aplikasi, aku kaget: di Android tombol back langsung nutup app. Di iOS, back gesture dari kiri ke kanan. Solusi yang sama tidak selalu berfungsi di dua platform.
+
+Aku harus belajar: lifecycle Android beda dengan iOS. Notifikasi push pake FCM untuk Android dan APNs untuk iOS. App store review butuh waktu 1-7 hari, Google Play cuma beberapa jam.
+
+**2. State Management**
+
+Ini pelajaran paling menyakitkan. Aplikasi mobile itu hidup — layar diputer, app di-minimize, notifikasi masuk. Semua momen itu harus dihandle.
+
+Aplikasi pertamaku tanpa state management — setState di mana-mana. Begitu layar diputer, data hilang. User nulis form panjang, layar ke rotate, form kosong. User marah.
+
+Dari situ aku belajar Riverpod, lalu BLoC untuk fitur tertentu. Setiap pendekatan punya trade-off, dan tidak ada yang sempurna untuk semua situasi.
+
+**3. UX Sensitivity**
+
+Mobile itu layar kecil. Setiap pixel berharga. Aku belajar bahwa loading state, error state, empty state — semuanya harus di-design.
+
+Bayangkan aplikasi yang pas dibuka cuma muncul spinner. Atau form error tanpa pesan yang jelas. Atau tombol yang terlalu kecil buat dijari.
+
+Aku belajar: user mobile itu tidak sabar. Kalau aplikasi lambat 1 detik — mereka tutup. Kalau error tanpa pesan jelas — mereka uninstall.
+
+**4. Offline First**
+
+Koneksi internet tidak reliable di Indonesia. Satu menit lancar, menit berikutnya putus.
+
+Aplikasi pertamaku panggil API tiap kali butuh data. Di kota dengan sinyal buruk, aplikasi tidak bisa dipake sama sekali.
+
+Sekarang semua aplikasi yang kubuat punya cache strategy: data ditampilkan dari lokal dulu, lalu di-refresh dari server. User tetap bisa lihat data meskipun offline.
+
+### Dari Experiment ke CodingSkuy
+
+Setelah bertahun-tahun experiment — dari todo app, counter app, aplikasi kampus, sampe proyek freelance — akhirnya aku membangun CodingSkuy apps.
+
+Aplikasi ini adalah kristalisasi semua pelajaran:
+- State management yang matang (Riverpod)
+- Arsitektur modular (feature-first)
+- Caching strategy untuk offline mode
+- UI yang accessible di berbagai ukuran layar
+
+Dan yang paling membanggakan: **aplikasi yang benar-benar dipake orang.**
+
+Bukan cuma aku yang lihat kodenya. Bukan cuma buat portfolio. Tapi orang lain buka aplikasi ini tiap hari, baca artikel, belajar coding.
+
+Itulah kenapa menjadi mobile engineer terasa istimewa. Hasil kerja kita ada di genggaman user. Setiap hari.
+
+> *"Mobile engineer bukan cuma 'bikin aplikasi'. Tapi bikin pengalaman yang bisa dibawa ke mana-mana."*
+
+[Kembali ke Career](/articles/career/)

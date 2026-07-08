@@ -1,0 +1,43 @@
+---
+title: "Edge AI vs Cloud AI"
+description: "&quot;Edge AI vs cloud AI — dari pengalaman jalanin model di perangkat vs server — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["decisions", "ai", "edge-vs-cloud-ai"]
+---
+
+
+# Edge AI vs Cloud AI
+
+> *"Cloud AI itu pintar, tapi lambat karena harus kirim data bolak-balik. Edge AI itu cepat, tapi modelnya lebih kecil."*
+
+Eksperimen: bikin classifier konten untuk kategorisasi artikel CodingSkuy. Dua opsi: pake GPT-4 di cloud, atau TensorFlow Lite di perangkat.
+
+**Cloud AI:**
+Aku coba pake GPT-4o via API. Akurat — klasifikasinya tepat. Tapi tiap request butuh 500ms-2s tergantung koneksi. Untuk aplikasi mobile, itu terasa lambat.
+
+Plus: user harus online. Di Indonesia, itu masalah — sinyal tidak selalu stabil.
+
+**Edge AI (on-device):**
+Aku coba TensorFlow Lite. Training model sederhana dengan dataset artikel CodingSkuy. Hasil: akurasi lebih rendah dari GPT-4 — sekitar 85% vs 95% — tapi klasifikasi selesai dalam 50ms, tanpa internet.
+
+Kekurangan: model harus di-deploy bareng aplikasi. Kalau mau update, harus rilis versi baru app.
+
+**Perbandingan:**
+
+| Aspek | Cloud AI | Edge AI |
+|-------|----------|---------|
+| Kualitas | Tinggi | Sedang |
+| Latensi | 500ms-2s | 10-100ms |
+| Internet | Wajib | Opsional |
+| Privasi | Data ke server | Data di perangkat |
+| Update model | Instant | Butuh update app |
+
+**Yang kupelajari:**
+Kombinasi sering jadi jawaban. Edge untuk real-time classification (kategorisasi konten cepat). Cloud untuk task yang butuh kecerdasan tinggi (nulis artikel, analisis mendalam).
+
+Edge sebagai first line — kalau model tidak yakin (confidence rendah), fallback ke cloud.
+
+> *"Cloud AI untuk kecerdasan tinggi. Edge AI untuk offline dan latensi kritis. Gabungkan keduanya untuk hasil optimal."*
+
+[Kembali ke Decisions](/articles/decisions/)

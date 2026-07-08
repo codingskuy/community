@@ -1,0 +1,108 @@
+---
+title: "AI Engineering Handbook"
+description: "&quot;AI dalam engineering — dari prompt sampe agent, berdasarkan pengalaman nyata — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["handbook", "ai-engineering", "index"]
+---
+
+
+# AI Engineering Handbook
+
+> *"Dulu aku nulis kode baris per baris. Sekarang aku dialog sama AI — tapi bukan berarti jadi lebih mudah."*
+
+Awal 2023, pertama kali nyobain GPT buat bantu coding. Aku pikir: *"Ini dia, masanya kerjaanku hilang."*
+
+Ternyata tidak sesederhana itu.
+
+AI itu seperti asisten junior yang super cepat tapi kadang ngawur. Kamu tetap harus tahu apa yang kamu mau — dan cara memeriksanya.
+
+---
+
+### Prompt Engineering: Seni Berbicara ke AI
+
+Dari pengalaman, cara bertanya ke AI beda dengan cara googling.
+
+**Google**: *flutter error null safety* → langsung dapet Stack Overflow.
+
+**AI**: *"Bikin state management pakai Riverpod lengkap dengan auth flow"* → AI ngasih kode yang keliatannya bener, tapi kadang pake versi lawas.
+
+Aku belajar trik ini:
+
+**1. Konteks dulu, perintah kemudian**
+
+*"Aku pakai Flutter 3.22, Riverpod 2.5. Aku mau bikin auth flow dengan pattern ini..."*
+
+Bandingkan: *"Bikin auth flow"* — hasilnya pasti generic.
+
+**2. Minta AI berpikir langkah demi langkah**
+
+Ini beda besar. *"Jawab langsung"* vs *"Pertama analisis masalahnya, lalu usulkan solusi"* — hasilnya jauh lebih tajam.
+
+**3. Beri contoh**
+
+*"Output harus seperti ini: [contoh]. Sekarang kerja untuk case ini."*
+
+---
+
+### AI-Assisted Coding: Ritme Kerja Baru
+
+Awalnya aku pakai AI untuk semuanya. Error? Tanya AI. Mau bikin fungsi? Tanya AI.
+
+Hasilnya: **kode jadi banyak, kualitas menurun.** Karena AI bisa nulis kode cepat, tapi aku jadi malas mikir.
+
+Sekarang ritmeku:
+
+1. **Rencana sendiri** — arsitektur, alur data, keputusan teknis tetap aku yang putuskan
+2. **AI untuk implementasi** — bagian repetitif, boilerplate, test case
+3. **Review manual** — setiap baris kode dari AI aku baca sebelum dipakai
+
+Di CodingSkuy, aku pakai AI untuk:
+- Generate struktur artikel
+- Bantu riset referensi
+- Kasih perspektif kedua
+
+Tapi nada, suara, dan cerita tetap dari aku.
+
+---
+
+### AI Agent: Lebih dari Sekadar Chat
+
+Pertengahan 2024, aku mulai eksperimen dengan AI agent — bukan cuma chatbot, tapi agent yang bisa pakai tools.
+
+**Contoh sederhana**: Agent yang bisa akses dokumentasi Flutter, cari solusi, terus implementasi.
+
+**Masalahnya**: Agent terlalu percaya diri. Dia pilih package yang outdated, pake API yang deprecated. Karena dia tidak punya konteks riwayat kegagalan.
+
+Pelajaran: **Agent tanpa human-in-the-loop = risiko tinggi.**
+
+---
+
+### Mengevaluasi Output AI
+
+Pelajaran paling penting: **AI tidak selalu benar.**
+
+Aku pernah dapat saran AI yang kelihatan meyakinkan. Disusun rapi. Ada kodenya. Tapi pas dijalanin, error. Ternyata pake API versi lama.
+
+Sekarang aku selalu:
+
+1. **Test dulu** — jangan percaya sebelum running
+2. **Cek referensi** — kalau AI bilang "menurut dokumentasi...", cek dokumentasi aslinya
+3. **Cross-check** — tanya AI yang sama dengan cara berbeda, bandingkan jawabannya
+
+---
+
+### Trade-off AI dalam Engineering
+
+| Tanpa AI | Dengan AI |
+|----------|-----------|
+| Lebih lambat | Lebih cepat |
+| Paham detail tiap baris | Kadang asal generate |
+| Lebih sedikit kode | Banyak kode (termasuk sampah) |
+| Kemampuan bertahan | Ketergantungan |
+
+Keseimbangan yang kupakai sekarang: **AI sebagai amplifier, bukan replacement.** Aku tetap harus tahu apa yang dilakukan — AI cuma bantu ngerjain lebih cepat.
+
+> *"AI tidak menggantikan engineer. Tapi engineer yang pakai AI akan menggantikan yang tidak."*
+
+[Kembali ke Engineering Handbook](/articles/handbook/)

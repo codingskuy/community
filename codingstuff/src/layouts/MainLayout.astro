@@ -1,0 +1,70 @@
+---
+import { cn } from "@/lib/utils";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { Toaster } from "../components/ui/sonner";
+
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  className?: string;
+  keywords?: string;
+  robots?: string;
+  author?: string;
+  type?: "website" | "article" | "product";
+  publishedTime?: string;
+  modifiedTime?: string;
+  section?: string;
+  tags?: string[];
+}
+
+const {
+  title,
+  description,
+  image,
+  className,
+  keywords,
+  robots,
+  author,
+  type,
+  publishedTime,
+  modifiedTime,
+  section,
+  tags,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="mona">
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      keywords={keywords}
+      robots={robots}
+      author={author}
+      type={type}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+      section={section}
+      tags={tags}
+    />
+  </head>
+  <body>
+    <div class="flex min-h-screen flex-col bg-background">
+      <Header />
+      <main class="flex-1">
+        <div class={cn(className ? className : "container p-4 md:p-6 mx-auto")}>
+          <slot />
+        </div>
+      </main>
+      <Footer />
+    </div>
+    <Toaster client:load />
+  </body>
+</html>

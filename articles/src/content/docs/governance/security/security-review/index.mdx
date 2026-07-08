@@ -1,0 +1,88 @@
+---
+title: Security Review
+description: "Security review — dari pengalaman audit keamanan proyek — CodingSkuy"
+---
+
+# Security Review
+
+> *"Aku pikir aplikasi sudah aman. Udah pake HTTPS, udah hash password, udah validasi input. Tapi setelah security review — nemu 10 celah. Termasuk yang kritis: API endpoint tanpa autentikasi."*
+
+Suatu hari aku minta teman — yang lebih berpengalaman di security — audit aplikasi CodingSkuy. Dalam 30 menit, dia nemu:
+
+- API endpoint lupa dikasih autentikasi (masih dari masa develop)
+- Input tidak divalidasi di server — cuma di client
+- Error message bocor stack trace (termasuk path server)
+- Token tidak ada expiry
+
+Aku kaget. Selama ini aku pikir udah aman. Tapi security itu tidak bisa "kira-kira" — harus diperiksa secara sistematis.
+
+---
+
+### Kisah Kedua: Bedanya Code Review dan Security Review
+
+**Code review:** "Apakah kodenya benar? Apakah maintainable?"
+**Security review:** "Bagaimana kode ini bisa diretas?"
+
+Dua hal yang berbeda. Code review bisa terlewatkan security issue — karena reviewer fokus ke logika, bukan ke attack vector.
+
+**Contoh:**
+Di code review, PR tentang fitur upload kelihatan OK — logic bener, error handling ada. Tapi di security review baru ketahuan: tipe file tidak divalidasi — user bisa upload file .exe.
+
+---
+
+### Area yang Dicek
+
+**1. Authentication & Session**
+- Password di-hash? (bcrypt/argon2)
+- Session token aman? (HttpOnly, Secure, SameSite)
+- Rate limiting untuk login?
+- Logout beneran invalidate?
+
+**2. Authorization**
+- Setiap endpoint cek otorisasi?
+- IDOR? (Insecure Direct Object Reference)
+- Admin endpoint cuma bisa diakses admin?
+
+**3. Input Validation**
+- Input divalidasi di server? (jangan cuma client)
+- SQL injection risk?
+- XSS (Cross-Site Scripting) risk?
+- File upload — tipe dan ukuran dibatasi?
+
+**4. Data Exposure**
+- Data sensitif di-log?
+- Error response bocor internal info?
+- API response mengandung field tidak perlu?
+
+**5. Configuration**
+- Environment variables aman? (tidak di commit)
+- CORS bener? (jangan allow all)
+- Dependency up-to-date? (cek CVE)
+
+---
+
+### Cara Melakukan
+
+**Manual review** — baca kode dengan perspektif security. 1-4 jam tergantung kompleksitas.
+
+**Automated scanning** — tools:
+- `npm audit` / `flutter pub audit`
+- OWASP ZAP
+- Snyk
+
+**Penetration testing** — simulasi serangan. Kalau budget memadai, hire pihak ketiga.
+
+---
+
+### Frekuensi
+
+- Setiap fitur yang handle data sensitif
+- Sebelum rilis major
+- Setiap 6 bulan untuk existing system
+
+---
+
+🌱 **Jadwalkan security review untuk aplikasimu — atau minta teman audit:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya pengalaman security review yang nemu celah kritis? Cerita di komentar.*

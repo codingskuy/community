@@ -1,0 +1,78 @@
+---
+title: "Architecture Decision Records"
+description: "&quot;ADR — dari pengalaman lupa kenapa pilih teknologi tertentu — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "documentation", "adr"]
+---
+
+
+# Architecture Decision Records
+
+> *"Setahun kemudian, aku lihat kode lama dan bertanya: 'Kenapa dulu pake ini?' Tidak ada jawaban. Dokumentasi kosong. Tim yang dulu juga sudah pada lupa. Aku harus riset ulang dari awal."*
+
+Waktu buka CodingSkuy setelah setahun tidak disentuh, aku menemukan keputusan arsitektur yang aneh: "Kenapa pake Riverpod dan bukan BLoC? Kenapa pake Firebase dan bukan Supabase?"
+
+Aku yang nulis kode itu — tidak ingat. Makanya. Tidak ada catatan.
+
+Sejak itu, setiap keputusan arsitektur — berapapun kecilnya — aku catat dalam ADR (Architecture Decision Record).
+
+---
+
+### Kisah Kedua: ADR yang Menyelamatkan Diskusi Tim
+
+Suatu hari, anggota tim baru bertanya: *"Kenapa kita pake Riverpod dan bukan BLoC?"*
+
+Aku bisa jawab (karena masih ingat). Tapi 2 tahun lagi — mungkin aku lupa. 5 tahun lagi — mungkin sudah pindah tim.
+
+Dengan ADR, jawabannya abadi:
+> *"2024-03-15: Pilih Riverpod karena: tidak butuh BuildContext, testing lebih mudah, code lebih bersih. Trade-off: not as battle-tested as BLoC, learning curve untuk tim."*
+
+Anggota tim baru baca ADR. Langsung paham. Tidak perlu tanya senior yang mungkin sudah lupa atau sudah tidak ada.
+
+---
+
+### Kisah Ketiga: Menghindari Debat Berulang
+
+Pernah di tim yang setiap 6 bulan selalu ada diskusi yang sama: "Kenapa kita tidak pake microservices?"
+
+Setiap kali harus dijelasin dari awal: "Kita tim kecil, belum perlu..." — buang waktu.
+
+Kalau ada ADR, diskusi selesai: "Sudah dibahas 2 tahun lalu. Ini ADR-nya. Kondisi sekarang masih sama, jadi keputusan masih relevan."
+
+---
+
+### Format yang Kupakai
+
+Sederhana — tidak perlu template rumit:
+
+**Title:** [Keputusan yang diambil]
+**Status:** Proposed | Accepted | Deprecated | Superseded
+**Context:** Masalah? Kenapa perlu diputuskan?
+**Decision:** Apa yang diputuskan?
+**Consequences:** Dampak positif dan negatif.
+
+Contoh:
+
+**Title:** Pilih Riverpod untuk State Management
+**Status:** Accepted
+**Context:** Aplikasi mulai punya 10+ screen. Provider mulai terbatas — butuh BuildContext, testing susah, rebuild tidak terkontrol.
+**Decision:** Migrasi ke Riverpod secara bertahap. Fitur baru pake Riverpod. Fitur lama dipindah satu per satu.
+**Consequences:** +Tidak perlu BuildContext, +Testing lebih mudah, +Performae lebih baik, -Butuh waktu migrasi 2 minggu, -Tim harus belajar Riverpod.
+
+---
+
+### Kapan Nulis ADR
+
+- Setiap kali ada keputusan arsitektur signifikan
+- Setiap kali ada pilihan antara dua teknologi
+- Setiap kali ada perubahan standar tim
+
+Tidak perlu panjang. 5-10 baris cukup. Tapi harus ada.
+
+---
+
+🌱 **Buat ADR pertama untuk keputusan arsitektur terakhirmu:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya pengalaman lupa kenapa ambil keputusan teknis? Atau debat berulang di tim? Cerita di komentar.*

@@ -1,0 +1,93 @@
+---
+title: "Backend Engineer"
+description: "&quot;Jadi backend engineer — API, database, dan server-side story — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["career", "path", "backend-engineer"]
+---
+
+
+# Backend Engineer
+
+> *"Dulu aku pikir backend itu cuma 'return JSON'. Sampai production down jam 2 pagi."*
+
+Awalnya, backend itu misteri buat aku. Waktu SMK, yang aku lihat cuma kode PHP yang campur aduk dengan HTML. Query database ditulis langsung di tengah tag `<body>`. Tidak ada struktur. Tapi aplikasinya jalan — dan itu sudah cukup untuk ukuran waktu itu.
+
+Di Dicoding, aku belajar Laravel. Pertama kali paham MVC. Pertama kali lihat migration database, ORM, REST API. Dari situ dunia backend terbuka.
+
+### Momen Paling Berharga
+
+Proyek Laravel pertamaku untuk Dicoding — bikin API learning management system. Fiturnya: manajemen kursus, user enrollment, progress tracking. Aku bangga. API-nya jalan, 30 endpoint, response JSON rapi.
+
+Tapi ada satu momen yang tidak pernah kulupakan. Aplikasi diakses 3 user — keluarga dan teman. Server VPS 1GB. Semua jalan lancar.
+
+Sampai aku bergabung di proyek yang lebih besar. API untuk ribuan user. Database dengan jutaan baris. Dan aku baru sadar: **backend yang kutulis sebelumnya tidak akan bertahan.**
+
+### Skill yang Beneran Kepake
+
+**1. API Design — Dari Asal-asalan ke REST yang Konsisten**
+
+Dulu endpoint-ku:
+
+```
+GET /getUserData
+POST /saveUserData  
+GET /getUser?id=5
+POST /updateUser
+```
+
+Campur aduk. Kadang pake query params, kadang body. Kadang pake kata kerja di URL. Developer lain yang baca kode bingung — apalagi kalau harus integrasi dengan frontend.
+
+Sekarang standarnya:
+
+```
+GET    /users
+GET    /users/:id
+POST   /users
+PUT    /users/:id
+DELETE /users/:id
+```
+
+Predictable. Developer mana pun yang baca langsung paham.
+
+Tapi REST tidak selalu jawabannya. Beberapa proyek pakai GraphQL untuk fleksibilitas query. Beberapa pakai WebSocket untuk real-time.
+
+**2. Database — Pelajaran Pahit soal Index**
+
+Di proyek kecil, query apapun cepat. 100 baris data? `SELECT *` aja.
+
+Tapi begitu data 100rb baris dengan JOIN 5 tabel — query yang sama butuh 30 detik. User nunggu. User komplen.
+
+Aku belajar indexing. Cara baca EXPLAIN query. Cara optimize query plan. Pengalaman yang pahit tapi berharga.
+
+Pelajaran: database bukan cuma bikin tabel. Tapi mikir: data ini berapa banyak? Query-nya gimana? Butuh index apa?
+
+**3. Security — Karena Satu Celah Bisa Fatal**
+
+Aplikasi Laravel pertamaku — tidak ada validasi input. Tidak ada rate limiting. Tidak ada sanitasi.
+
+Beruntung proyek itu hanya dipake 3 orang. Kalau publik? Bencana.
+
+Sekarang aku mulai dengan authentication dan authorization. Lalu rate limiting. Lalu validasi input di setiap endpoint. Lalu audit logging. Bukan karena aku paranoid — tapi karena setiap celah adalah waktu yang kuhabiskan di malam hari untuk memperbaiki.
+
+### Backend Engineer vs Fullstack
+
+Banyak yang tanya: *"Jangan fullstack aja, biar serba bisa?"*
+
+Aku jawab: backend engineer itu spesialis. Kamu mikir tentang data — bagaimana data disimpan, diamankan, dan dikirimkan. Kamu mikir tentang skalabilitas — bagaimana sistem menangani 10 user sampai 10 juta user. Kamu mikir tentang reliability — bagaimana sistem tetap jalan meski ada yang mati.
+
+**Fullstack boleh. Tapi backend engineer adalah fondasi.**
+
+Tanpa backend yang solid, frontend secantik apapun hanya tampilan kosong.
+
+### Cerita Production
+
+Ada satu cerita yang tidak akan kulupakan. Production down jam 2 pagi. Database connection pool habis. Error 500 di mana-mana. Aku panic — belum pernah handle ini sebelumnya.
+
+Setelah 2 jam debugging, penyebabnya: satu query tanpa index yang diakses ribuan user sekaligus. Query-nya sederhana — `WHERE status = 'active'` — tapi tanpa index, database full scan 500rb baris tiap kali diakses.
+
+Sejak malam itu, aku selalu cek query plan sebelum deploy. Dan selalu pasang alarm untuk connection pool.
+
+> *"Backend engineer adalah yang memastikan user tidak pernah mikir: 'kok lambat sih?'"*
+
+[Kembali ke Career](/articles/career/)

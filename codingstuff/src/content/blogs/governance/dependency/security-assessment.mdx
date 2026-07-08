@@ -1,0 +1,62 @@
+---
+title: "Security Assessment"
+description: "&quot;Menilai keamanan dependensi — dari pengalaman library dengan celah keamanan — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["governance", "dependency", "security-assessment"]
+---
+
+
+# Security Assessment
+
+> *"Tahun lalu ada CVE di library Flutter yang kupakai — celah keamanan kritis. Untung library itu hanya dipake di fitur minor, bukan di data user. Tapi itu peringatan: setiap library adalah potensi backdoor."*
+
+Dulu aku pikir: "Pake library populer, pasti aman." Tapi kenyataannya — popularitas tidak menjamin keamanan. Library dengan jutaan download pun bisa punya celah kritis.
+
+Setiap dependensi adalah potensi celah keamanan. Kamu tidak tahu siapa maintainer-nya — apakah mereka jaga keamanan dengan baik? Apakah mereka pake 2FA? Apakah ada vulnerability reporting process?
+
+---
+
+### Kisah Kedua: Supply Chain Attack yang Semakin Marak
+
+Pernah dengar event-stream? Library npm dengan 2 juta download mingguan — disusupi malware di salah satu update. Hanya karena maintainer memberikan akses ke orang yang tidak bertanggung jawab.
+
+Ini bukan fiksi — ini sudah terjadi berkali-kali. Dan makin populer supply chain attack di dunia software.
+
+**Apa yang terjadi:**
+Attacker dapat akses ke akun maintainer (karena tidak ada 2FA) → push update jahat → semua yang auto-update kena.
+
+**Pelajaran:**
+Cek apakah maintainer pake 2FA. Cek apakah rilis ditandatangani. Cek apakah ada security policy di repository.
+
+---
+
+### Yang Harus Dicek
+
+**1. Riwayat CVE**
+Cek GitHub Security Advisories atau Dependabot. Apakah library ini pernah punya celah? Gimana response maintainer? Cepet atau lambat?
+
+**2. Supply chain security**
+- Maintainer pake 2FA? (cek di GitHub — ada badge)
+- Rilis ditandatangani? (verified tags)
+- Ada security policy? (SECURITY.md di repo)
+
+**3. Dependency scope**
+Semakin besar library, semakin besar permukaan serangan. Library yang butuh 50 dependensi lain — risikonya lebih tinggi dari yang zero dependensi.
+
+---
+
+### Praktik
+
+- **Update rutin** — Dependabot auto-create PR kalau ada update. Jangan biarkan library usang.
+- **Monitor CVE** — subscribe ke notifikasi keamanan untuk library yang dipake.
+- **Minimalkan dependensi** — tanya: apa perlu ini? Atau bisa pake standar library?
+- **Pin versi** — jangan "latest" atau "^1.0.0". Tentukan versi eksak. Update setelah testing.
+- **Review changelog sebelum update** — jangan asal upgrade.
+
+---
+
+🌱 **Aktifkan Dependabot di repositori GitHub-mu:**
+[Kembali ke Governance](/articles/governance/) | [Lihat Semua Topik](/articles/)
+
+*Punya pengalaman dependensi yang kena CVE atau supply chain attack? Cerita di komentar.*

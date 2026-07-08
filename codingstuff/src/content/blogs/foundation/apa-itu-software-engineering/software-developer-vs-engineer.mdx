@@ -1,0 +1,219 @@
+---
+title: "Software Developer vs Software Engineer"
+description: "&quot;Belajar tentang perbedaan Software Developer dan Software Engineer — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["foundation", "apa-itu-software-engineering", "software-developer-vs-engineer"]
+---
+
+
+# Software Developer vs Software Engineer
+
+> *"Semua engineer bisa menjadi developer, tapi tidak semua developer bisa menjadi engineer."*
+
+Kalau kamu baru belajar coding, mungkin kamu pernah bertanya:
+
+> **"Nanti setelah bisa bikin aplikasi, saya disebut programmer, developer, atau engineer?"**
+
+Atau mungkin kamu sudah kerja di tech dan dengar istilah-istilah ini di pertemuan tim atau deskripsi lowongan, lalu bertanya:
+
+> **"Benar-benar ada perbedaan? Atau ini hanya judul yang fancy-aja?"**
+
+Dari pengalaman pribadi saya — dari yang hanya bisa `console.log("Hello World")` di Turbo Pascal sampai bekerja sebagai engineer di produk yang digunakan ribuan orang — aku bisa bilang: **ada perbedaan nyata. Dan memahami perbedaan ini sejak awal justru bisa mengarahkan perjalanan belajarmu.**
+
+Tapi alih-alih mulai dengan definisi teoritis, mari saya ceritakan melalui kisah-kisah nyata dari perjalananku.
+
+---
+
+### Kisah Pertama: Aplikasi Pertamaku di Eclipse ADT
+
+![Android smartphone with Eclipse ADE showing a simple app screen](/codingstuff/codingstuff/codingstuff/images/journey/08-android-eclipse-adt.jpeg)
+
+Saat belajar Android di sekitar 2014, aku membuat aplikasi sederhana: daftar belanjaan. 
+
+Aku:
+- Desain tampilan dengan XML di Eclipse
+- Tulis kode Java untuk menambahkan/hapus item
+- Jalankan di emulator, lihat hasilnya
+- Senang karena bisa ngelihat aplikasi berjalan di layar ponsel
+
+Di sini aku berperan sebagai **Developer**: 
+- Fokus pada membuat sesuatu yang *kerja*
+- Mengikuti tutorial langkah demi langkah
+- Tujuan utama: "aplikasi ini bisa tampil dan fungsi dasarnya jalan"
+- Tidak terlalu berpikir tentang apa yang akan terjadi jika 1000 orang menggunakan aplikasi ini sekaligus
+- Tidak terlalu concern tentang bagaimana kode ini akan dipelihara oleh orang lain besok
+
+Aku bisa bilang: **"Saya berhasil bikin aplikasi!"** — ini pencapaian developer.
+
+---
+
+### Kisah Kedua: Bootcamp Dicoding dan Proyek Pendidikan Laravel
+
+![Dicoding bootcamp session with code review on screen and mentor discussing](/codingstuff/codingstuff/codingstuff/images/journey/10-dicoding-bootcamp.jpeg)
+
+Di bootcamp Dicoding, saya tidak hanya belajar bikin aplikasi — saya belajar *bagaimana software dibangun di industri*.
+
+Di sini hal-hal yang saya alami:
+- **Version Control (Git)**: pertama kali belajar branching, merge request, dan mengapa kita tidak boleh langsung push ke main
+- **Code Review**: mentor dari Tokopedia membaca kodemu baris per baris, komentar seperti: *"Fungsi ini terlalu panjang, bisa dipisah jadi dua untuk readability dan reuse"*, atau *"Kenapa kamu nggak pakai library yang sudah ada alih-alih bikin sendiri?"*
+- **Testing**: belajar menulis unit test sederhana, memahami bahwa kode yang tidak diuji adalah kode yang berisiko
+- **API Design**: belajar merancang endpoint yang konsisten, memahami perbedaan antara REST dan SOAP
+- **Arsitektur Aplikasi**: belajar tentang MVC, bagaimana memisahkan concern antara UI, logika bisnis, dan data access
+
+Lalu di proyek pendidikan dengan Laravel:
+![Laravel dashboard with education program management interface](/codingstuff/codingstuff/codingstuff/images/journey/11-laravel-education-dashboard.jpeg)
+
+Kita membangun sistem untuk mengelola program pendidikan. Di sini aku mulai melihat bahwa software engineering jauh lebih dari sekadar menulis kode:
+- Harus memahami kebutuhan pengguna yang kompleks (siswa, guru, admin)
+- Perancangan database yang skalabel untuk menangani ribuan data
+- Pertimbangan keamanan untuk melindungi data siswa
+- Perencanaan bagaimana sistem akan diperbaharui di masa depan tanpa merusak fungsi existente
+- Pertimbangan performa: bagaimana agar halaman dashboard masih cepat meski data bertambah
+
+Di sini aku mulai beralih dari berpikir seperti Developer ke berpikir seperti Engineer:
+- **Developer**: "Bagaimana aku bisa membuat fitur ini jalan?"
+- **Engineer**: "Bagaimana aku bisa membuat fitur ini yang *tahan lama*, *mudah diperbaharui*, dan *aman* untuk ribuan pengguna?"
+
+---
+
+### Kisah Ketiga: Bekerja di Tim Profesional
+
+![Developer team discussing code review with sticky notes on board](/codingstuff/codingstuff/codingstuff/images/journey/12-professional-team-collaboration.jpeg)
+
+Setelah lulus bootcamp, saya bergabung di startup RuangHalal dan kemudian di Papua Madhani Tech. Di sini aku belajar bahwa perbedaan Developer dan Engineer bukan hanya tentang skills teknis — tapi tentang **mindset dan rutinitas harian**.
+
+Di pekerjaan sehari-hari sebagai Developer, aku sering:
+- Menerima ticket: "Buat fitur X"
+- Menulis kode untuk mengimplementasikan fitur X
+- Menjalankan test lokal
+- Push kode untuk di-review
+- Perbaiki berdasarkan feedback
+- Pindah ke ticket berikutnya
+
+Ini adalah **rutinitas developer**: mencari solusi untuk masalah spesifik, mengikuti prosedur yang ada, dan menyelesaikan tugas yang diberikan.
+
+Tapi sebagai Engineer, aku mulai terlibat dalam hal-hal yang berbeda:
+- Dalam rapids planning: bertanya *"Apakah fitur ini benar-benar diperlukan? Ada solusi yang lebih efisien?"*
+- Saat estimasi: mempertimbangkan tidak hanya waktu coding, tetapi juga waktu untuk testing, dokumentasi, dan kemungkinan risiko teknis
+- Durante kode review: tidak hanya melihat apakah kode jalan, tapi juga apakah kode tersebut sesuai dengan arsitektur sistem, apakah mudah dipahami orang lain, dan apakah menimbulkan technical debt
+- Setelah rilis: memantau performance, mencari pola error, dan berusah meningkatkan sistem secara proaktif — bukan hanya menanggapi masalah yang sudah terjadi
+
+Di sini aku paham: 
+- **Developer bekerja untuk menyelesaikan ticket hari ini** 
+- **Engineer berinvestasi untuk memastikan sistem masih kuat tahun depan**
+
+---
+
+### Tiga Perbedaan Utama yang Saya Amati
+
+Berdasarkan pengalaman ini, berikut perbedaan konkret yang saya lihat:
+
+#### 1. **Fokus Waktu**
+-aktu: Hari Ini vs Tahun Depan**
+- **Developer**: "Bagaimana aku menyelesaikan ini sebelum jam 5 sore?"
+- **Engineer**: "Bagaimana ini akan berfungsi 6 bulan ke depan? Apa risiko jika kitaambil pendekatan ini?"
+
+Contoh nyata: Saat membuat fitur notifikasi di RuangHalal, pilihan awalnya adalah menggunakan library push notification yang mudah diimplementasi tapi mahal per pengiriman. Sebagai developer, aku bisa langsung implementasi dan selesaikan ticket. Tapi sebagai engineer (dengan bimbingan senior), aku mempertimbangkan alternatif: membangun sistem notifikasi sendiri menggunakan layanan yang lebih murah, meski butuh lebih banyak waktu awalnya. Keputusan ini menghemat ribuan dolar per tahun — ini contoh investasi engineer yang membuah hasilnya di masa depan.
+
+#### 2. **Lingkup Pemikiran: Satu Fitur vs Sistem Keseluruhan**
+- **Developer**: "Bagaimana aku membuat tombol ini bekerja saat diklik?"
+- **Engineer**: "Bagaimana tombol ini berinteraksi dengan bagian lain sistem? Apakah perubahan ini akan merusak fitur Y atau Z?"
+
+Contoh nyata: Di proyek Laravel education dashboard, saat menambahkan fitur export laporan ke PDF, tim developer hanya fokus pada membuat fungsi export bekerja. Tapi setelah diskusi dengan engineer senior, kita realized bahwa tanpa proper caching dan queue system, fitur ini akan membuat server crash ketika 100 guru sekaligus mencetak laporan. Ini menunjukkan bagaimana engineer berpikir tentang sistem secara holistik, bukan hanya fitur isolasi.
+
+#### 3. **Pendekatan Terhadap Masalah: Reactive vs Proactive**
+- **Developer**: "Ada error? Aku akan perbaiki sekarang."
+- **Engineer**: "Kenapa error ini bisa terjadi? Bagaimana kita mencegah hal serupa terjadi di masa depan?"
+
+Contoh nyata: Saat pertama kali melakukan code review di Dicoding, saya mendapat komentar tentang fungsi yang terlalu kompleks. Sebagai developer baru, aku pikir ini hanya kritik gaya kode. Tapi setelah menjalani beberapa tahun di industri, aku paham bahwa komentar tersebut berupa investasi: dengan memecah fungsi kompleks menjadi fungsi-fungsi kecil yang spesifik, kita membuat kode yang:
+- Lebih mudah diuji (testable)
+- Lebih mudah dipahami oleh anggota tim lain  
+- Lebih mudah diperbaharui tanpa side effects yang tidak terduga
+- Mengurangi kemungkinan bug di masa depan
+
+Ini adalah perbedaan antara *memperbaiki masalah yang sudah terjadi* (developer reactive) vs *mencegah masalah sebelum terjadi* (engineer proactive).
+
+---
+
+### Mengapa Perbedaan Ini Penting buat Pemula?
+
+Mungkin kamu berpikir: *"Aku masih belajar dasar-daroku. Nanti khawatir tentang hal ini ketika sudah senior."*
+
+Tapi ini seperti belajar memicu mobil tanpa belajar aturan lintas jalan. Kamu bisa jalan dari A ke B, tapi kamu bisa terlibat kecelakaan karena tidak tahu tanda tangan atau prioritas.
+
+Dengan memahami perbedaan developer vs engineer sejak awal:
+- Kamu tidak hanya belajar *bagaimana* menulis kode, tapi juga *mengapa* tertentu pendekatan lebih baik dalam konteks tertentu
+- Kamu mulai berpikir seperti engineer — bukan hanya seperti yang menyelesaikan tugas
+- Kamu lebih siap ketika pertama kali masuk tim nyata, karena kamu sudah paham ekspektasi dan prosesnya
+- Kamu bisa berkontribusi lebih cepat, bukan hanya sebagai "orang yang bisa coding", tapi sebagai "orang yang bisa berpikir sistem dan memberi nilai tambah bagi tim"
+
+---
+
+### Bekerja Seolah-olah Engineer Sejak Hari Ini
+
+Baik, bagaimana cara mulai berpikir seperti engineer meski masih baru belajar coding?
+
+Berikut beberapa praktik konkret yang bisa kamu mulai hari ini:
+
+#### 1. **Sebelum Menulis Kode, Tanya Pertanyaan Ini**
+Inilah yang aku lakukan sekarang ketika ada ide baru:
+- **"Masalah apa yang sebenarnya ingin aku selesaikan?"** (bukan: "Fitur apa yang ingin aku bikin?")
+- **"Siapa yang akan menggunakan ini, dan apa kebutuhan sebenarnya mereka?"**
+- **"Apa alternatif lain yang mungkin lebih simple atau efisien?"**
+- **"Bagaimana ini akan berfungsi jika jumlah pengguna meningkat 10x?"**
+- **"Apakah solusi ini akan membuat bagian lain sistem lebih kompleks atau rentan error?""
+
+Contoh dari masa SMPku: saat pertama kali belajar HTML, bukan hanya belajar tag `<marquee>` untuk membuat teks berjalan (karena itu keren), tapi bertanya: *"Apakah teks berjalan sebenarnya diperlukan pengguna? Apakah ada cara lain yang lebih user-friendly untuk menyampaikan informasi ini?"*
+
+#### 2. **Setelah Selesai Kerja, Lakukan Refleksi**
+Sebelum kamu meninggalkan komputer untuk hari ini, tanyakan:
+- **"Hari ini, di mana aku terlalu fokus pada 'membuat jalan' dan di mana aku mulai mempertimbangkan 'membangun yang tahan lama'?"**
+- **"Adakah kode yang aku tulis hari ini yang mungkin akan menyebabkan masalah untuk saya sendiri atau tim saya besok?"**
+- **"Apa satu hal kecil yang aku bisa perbaiki sekarang agar kode bersih lebih mudah dipahami orang lain?"**
+
+Ini adalah cara membangun kebiasaan engineer — bukan hanya menyelesaikan task, tapi terus meningkatkan kualitas pekerjaanmu seiring waktu.
+
+#### 3. **Baca dan Pahami Kode Orang Lain**
+Sebanyak 70% waktu seorang engineer dihabiskan untuk membaca kode, bukan menulisnya. 
+- Buka proyek open source yang kamu sukai di GitHub
+- Bacalah READMEnya dulu untuk memahami tujuan proyeknya
+- Lihat struktur folder: bagaimana mereka mengatur kode?
+- Bacalah satu file kecil — focus pada mengapa mereka menulis kode dengan cara tertentu, bukan hanya apa yang kode itu lakukan
+- Tanyakan: *"Jika aku dalam posisi penulis kode ini, kenapa aku membuat keputusan seperti ini?"*
+
+Saat pertama kali belajar JavaScript, bukannya hanya belajar cara membuat variabel, tapi aku membaca kode jQuery lama (meski sudah usang) untuk memahami pola pola seperti encapsulation dan separation of concerns — hal yang tetap relevan sampai sekarang.
+
+#### 4. **Lihat Kesempatan untuk Investasi Kecil**
+Kamu tidak perlu langsung merancang sistem mikrosevicesskalenganggur untuk belajar berpikir seperti engineer. Mulailah hal kecil:
+- Saat bikin kalkulator sederhana, tanyakan: *"Bagaimana jika nanti kita ingin menambahkan fungsi scientific? Apakah struktur kodeku sekarang bisa diperluas tanpa menulis ulang semua?"*
+- Saat bikin todo list aplikasi, pertimbangkan: *"Bagaimana jika nanti pengguna ingin menyimpan todo list mereka ke cloud agar bisa diakses dari berbagai perangkat?"*
+- Saat belajar loop, pikirkan: *"Adakah cara yang lebih efisien untuk menangani kasus edge seperti array kosong atau nilai null?"*
+
+Ini seperti berolahraga otak: kamu tidak langsungangkat beban 100kg di hari pertama, tapi mulai dengan beban yang bisa kamu tangani dan secara bertahap meningkatkan bebanmu.
+
+---
+
+### Jadi...
+
+Kalau suatu hari kamu bertanya pada dirimu sendiri: *"Apakah saya masih hanya seorang developer, atau sudah mulai berpikir seperti engineer?"*
+
+Pertanyaannya bukan tentang seberapa banyak bahasa yang kamu kuasai, atau seberapa cepat kamu bisa menyelesaikan tantangan kode.
+
+Pertanyaannya adalah:
+- **"Apakah kamu mulai bertanya 'mengapa' sebelum 'bagaimana'?"**
+- **"Apakah kamu mulai mempertimbangkan dampak jangka panjang dari keputusan teknismu?"**
+- **"Apakah kamu mulai merasa tidak nyaman dengan kode yang 'jalan tapi berantakan' dan ingin membuatnya yang 'bersih dan terstruktur'?"**
+
+Jika jawaban untuk pertanyaan-pertanyaan ini mulai berubah dari "tidak" menjadi "ya" — selamat, kamu sudah mulai berjalan di jalan engineer.
+
+Dan ingat: 
+- **Developer adalah pekerjaan**. Kamu menulis kode untuk menyelesaikan tugas yang diberikan hari ini.
+- **Engineer adalah investasi**. Kamu berfikir dan bertindak hari ini untuk menciptakan sesuatu yang akan tetap berharga besok, bulan depan, dan tahun yang akan datang.
+
+---
+
+🌱 **Yuk, mulai berinvestasi pada skillsetmu sejak hari ini:**  
+[Kembali ke Foundation](/articles/foundation/) | [Lihat Semua Topik](/articles/)
+
+*Pernah punya momen di mana kamu beralih dari sekadar 'membuat kode jalan' ke 'membangun yang tahan lama'? Apa yang memicu perubahan pikiranmu itu? Cerita di komentar — kita belajar dari pengalaman satu sama lain.*

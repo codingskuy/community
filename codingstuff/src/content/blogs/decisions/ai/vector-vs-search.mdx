@@ -1,0 +1,44 @@
+---
+title: "Vector Database vs Traditional Search"
+description: "&quot;Vector database vs traditional search — dari pengalaman cari artikel — CodingSkuy&quot;"
+pubDate: "2026-07-07"
+author: "Rois"
+tags: ["decisions", "ai", "vector-vs-search"]
+---
+
+
+# Vector Database vs Traditional Search
+
+> *"Keyword search itu cari kata. Vector search itu cari makna."*
+
+Di CodingSkuy, user bisa cari artikel. Awalnya pake pencarian keyword biasa — PostgreSQL `ILIKE '%query%'`. Sederhana, cepat untuk skala kecil.
+
+Tapi ada problem: user cari "cara kelola state aplikasi" — tidak ketemu artikel "Riverpod vs BLoC" karena tidak ada kata "kelola" atau "state aplikasi" di judul. Padahal isinya relevan.
+
+**Traditional Search (PostgreSQL full-text, Elasticsearch):**
+
+Cari berdasarkan kata kunci. Cocok untuk exact match. Cepat. Infrastrukturnya matang.
+
+Tapi user sering cari dengan kata yang berbeda dari yang ada di artikel. Bahasa Indonesia punya banyak sinonim: "kelola" ↔ "manage", "cara" ↔ "tutorial", "bikin" ↔ "buat."
+
+**Vector Database (pgvector):**
+
+Sekarang setiap artikel CodingSkuy punya vector embedding. Pas user cari "cara kelola state aplikasi" → query diubah ke vector → cari artikel dengan vector terdekat → ketemu artikel Riverpod, BLoC, Provider.
+
+Gak perlu exact match. Yang dicari maknanya, bukan katanya.
+
+**Perbandingan:**
+
+| Traditional Search | Vector Search |
+|-------------------|---------------|
+| Exact keyword match | Semantic similarity |
+| Cepat, infrastruktur matang | Butuh embedding, resource lebih |
+| Tidak paham sinonim | Paham konteks dan sinonim |
+| Cocok untuk filter, facet | Cocok untuk rekomendasi, RAG |
+
+**Yang kulakukan:**
+Keduanya dipakai. Traditional search untuk pencarian cepat dan filter. Vector search untuk "rekomendasi artikel terkait" dan fallback kalau traditional search tidak dapet hasil.
+
+> *"Traditional search untuk akurasi keyword. Vector search untuk pemahaman makna. Kombinasi keduanya bikin search engine yang benar-benar paham user."*
+
+[Kembali ke Decisions](/articles/decisions/)

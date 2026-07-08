@@ -1,0 +1,107 @@
+---
+title: Root Cause Analysis
+description: "Root Cause Analysis: mencari akar masalah, bukan hanya gejala — CodingSkuy"
+---
+
+# Root Cause Analysis
+
+> *"Engineer yang baik memperbaiki gejala. Engineer yang hebat menemukan akar masalahnya."*
+
+Ada error yang memperbaiki sendiri setelah kamu restart aplikasi.
+
+Ada error yang hilang setelah kamu refresh halaman.
+
+Ada error yang kamu takut-takuti dan ternyata cuma typo.
+
+Tapi ada juga error yang muncul lagi dan lagi. Error yang sepertinya random. Error yang bikin kamu gregetan karena tidak konsisten.
+
+Aku pernah mengalami error seperti itu di Flutter. Tiga jam debug. Error muncul di halaman tertentu, hanya di perangkat tertentu, hanya ketika pengguna melakukan urutan aksi tertentu.
+
+Aku perbaiki di satu tempat. Error pindah ke tempat lain.
+
+Aku perbaiki di tempat lain. Error muncul lagi di tempat semula.
+
+Tiga jam, sampai akhirnya aku sadar: **aku tidak mencari akar masalah. Aku hanya memperbaiki gejala.**
+
+---
+
+### Gejala vs Akar Masalah
+
+Kebanyakan orang — termasuk aku dulu — ketika menghadapi error langsung mencari solusi tercepat. Google error message. Stack Overflow. Copy-paste solusi. Selesai.
+
+Tapi seringkali error yang sama muncul lagi minggu depan.
+
+Ini karena kita hanya memperbaiki **gejala**, bukan **akar masalah** (root cause).
+
+| Gejala | Root Cause |
+|--------|-----------|
+| "Aplikasi crash di halaman profil" | "Memory leak karena image tidak di-cache dengan benar" |
+| "Halaman login lambat" | "Query database tidak pake index" |
+| "Fitur ekspor PDF error" | "Queue system tidak dikonfigurasi, server timeout" |
+
+Di proyek Laravel education dashboard, gejala pertama adalah "fitur export laporan error". Kami perbaiki dengan nambahin timeout. Error hilang — minggu depan muncul lagi. Baru setelah diskusi dengan senior, kami sadar *root cause*-nya: server tidak sanggup handle 100 guru yang ekspor bersamaan. Solusi jangka panjang? Implementasi queue system dan file caching.
+
+---
+
+### Teknik 5 Whys
+
+Salah satu teknik paling sederhana untuk Root Cause Analysis adalah **5 Whys** — tanya "kenapa" sebanyak 5 kali (atau sampai akar masalah ketemu).
+
+Contoh dari pengalaman nyata:
+
+**Problem:** Aplikasi crash ketika pengguna mengupload foto profil.
+
+1. **Kenapa crash?** Karena proses upload menghabiskan terlalu banyak memory.
+2. **Kenapa memory habis?** Karena image di-load dalam ukuran asli (4000x3000) tanpa kompresi.
+3. **Kenapa image tidak dikompres?** Karena library image picker kita tidak mengatur parameter kompresi.
+4. **Kenapa parameter kompresi tidak diatur?** Karena waktu implementasi, kita copy-paste kode dari proyek lain yang tidak ada fitur upload foto.
+5. **Kenapa kita copy-paste tanpa adaptasi?** Karena deadline mepet dan kita ambil jalan pintas.
+
+**Akar masalah:** Deadline mendorong pengambilan shortcut tanpa review dampak penuh.
+
+Sekarang kamu tahu solusinya bukan cuma "tambah kompresi" — tapi perlu juga: **memasukkan code review untuk third-party code** dan **alokasi waktu estimasi untuk adaptasi library**.
+
+---
+
+### RCA dalam Debugging Kode
+
+Root Cause Analysis tidak hanya untuk masalah besar. Kamu bisa pakai setiap hari saat debugging.
+
+**Langkah-langkah debugging sistematis:**
+
+1. **Reproduksi** — pastikan kamu bisa memunculkan error secara konsisten
+2. **Isolasi** — cari minimal reproducible case. Hilangkan variabel yang tidak relevan
+3. **Observasi** — apa yang sebenarnya terjadi? Baca stack trace. Cek log. Cek state.
+4. **Hipotesis** — tebak apa yang menyebabkan ini
+5. **Eksperimen** — coba buktikan hipotesismu dengan mengubah satu variabel
+6. **Kesimpulan** — apakah eksperimen membuktikan hipotesis? Kalau tidak, ulang.
+
+Dulu, waktu debug aku sering loncat dari langkah 1 langsung ke 5 — tanpa observasi, tanpa hipotesis. Hasilnya? Trial and error yang membabi buta. Sesuatu yang seharusnya selesai 15 menit bisa makan waktu 3 jam.
+
+---
+
+### RCA untuk Keputusan Teknis
+
+Root Cause Analysis bukan cuma soal error.
+
+Kamu juga bisa menganalisis kenapa:
+- **Estimasi selalu meleset:** bukan karena "kurang teliti", tapi karena (misal) kita tidak mempertimbangkan waktu testing dan dokumentasi
+- **Technical debt menumpuk:** bukan karena "tim malas", tapi karena (misal) tidak ada waktu khusus untuk refactoring dalam siklus sprint
+- **Fitur jarang dipakai:** bukan karena "pengguna tidak suka", tapi karena (misal) kita tidak melakukan user research sebelum membangunnya
+
+RCA adalah alat untuk jujur pada diri sendiri dan tim. Tanpa menyalahkan individu — karena sistem yang buruk lebih sering jadi penyebab daripada orang yang malas.
+
+---
+
+### Jadi...
+
+Root Cause Analysis adalah keterampilan yang memisahkan antara programmer yang *memperbaiki error* dengan engineer yang *memastikan error yang sama tidak terulang*.
+
+Dan ini membutuhkan satu hal: **kesabaran untuk tidak langsung menyentuh keyboard.**
+
+Langkah tersulit dalam RCA adalah berhenti. Membaca. Menganalisis. Baru bertindak.
+
+> *"Bug yang sama yang muncul dua kali bukan bug — itu alarm bahwa prosesmu perlu diperbaiki."*
+
+🌱 **Mulai latihan RCA hari ini: ketika error muncul, tanyakan "kenapa" 5 kali sebelum mencari solusi.**
+[Kembali ke Professional Mindset](/articles/foundation/professional-mindset/) | [Lihat Semua Topik](/articles/)

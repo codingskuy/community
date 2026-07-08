@@ -1,0 +1,36 @@
+---
+title: Lazy Loading vs Prefetching
+description: "Lazy loading vs prefetching — dari pengalaman optimasi performa Flutter — CodingSkuy"
+---
+
+# Lazy Loading vs Prefetching
+
+> *"Dulu aku load semua data di awal. Aplikasi lambat, user nunggu."*
+
+Awal bikin aplikasi Flutter, aku pikir lebih baik load semua data sekaligus. Biar pas user klik, data sudah siap. Tapi hasilnya: loading awal lama banget. User buka aplikasi, spinner muter 10 detik. Banyak yang tutup sebelum aplikasi kebuka.
+
+**Lazy Loading:**
+Sekarang aku pake infinite scroll — load 20 item dulu, pas user scroll ke bawah, load 20 lagi. Loading awal cepat. User langsung bisa interaksi.
+
+Kekurangan: ada delay kecil tiap kali load data baru. Tapi lebih bisa diterima daripada loading lama di awal.
+
+**Prefetching:**
+Untuk beberapa skenario, lazy loading aja tidak cukup. Contoh: aplikasi e-commerce. User lihat daftar produk. Kemungkinan besar mereka akan tap produk pertama atau kedua.
+
+Aku coba prefetch: saat user lihat produk pertama, background-load detail produk kedua dan ketiga. Pas user tap produk kedua, detail sudah siap. Tidak ada loading.
+
+**Perbandingan:**
+
+| Lazy Loading | Prefetching |
+|-------------|-------------|
+| Load saat dibutuhkan | Load sebelum dibutuhkan |
+| Hemat bandwidth | Bisa boros kalau tidak jadi diakses |
+| Ada delay | UX lebih mulus |
+| Cocok untuk list panjang | Cocok untuk navigasi yang predictable |
+
+**Strategi yang kupakai:**
+Kombinasi keduanya. List produk: lazy loading dengan infinite scroll. Detail produk yang adjacent: prefetch. Profile user: lazy loading. Data yang hampir pasti diakses: prefetch.
+
+> *"Lazy loading untuk data yang tidak pasti diakses. Prefetching untuk data yang hampir pasti. Kombinasikan keduanya untuk hasil optimal."*
+
+[Kembali ke Decisions](/articles/decisions/)
