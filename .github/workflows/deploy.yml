@@ -69,7 +69,7 @@ jobs:
       - name: Build codingstuff (static for GitHub Pages)
         run: cd codingstuff && bash scripts/deploy-static.sh 2>&1
         env:
-          SITE_URL: ${{ secrets.CODINGSTUFF_SITE_URL || 'https://roishoiron.github.io' }}
+          SITE_URL: ${{ secrets.CODINGSTUFF_SITE_URL || 'https://codingskuy.github.io' }}
 
       - name: Debug codingstuff output
         run: ls -la codingstuff/dist/ || echo "codingstuff/dist/ not found"
@@ -79,6 +79,9 @@ jobs:
           mkdir -p build/codingstuff
           cp -R codingstuff/dist/* build/codingstuff/
           ls -la build/codingstuff/
+
+      - name: Copy index.html as 404.html for SPA fallback
+        run: cp build/index.html build/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

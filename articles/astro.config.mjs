@@ -3,8 +3,8 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
 export default defineConfig({
-  site: "https://roishoiron.github.io",
-  base: "/articles",
+  site: "https://codingskuy.github.io",
+  base: "/community/articles",
   trailingSlash: "always",
   outDir: "./dist",
   integrations: [

@@ -25,8 +25,8 @@ export default defineConfig({
   server: { allowedHosts: true },
   trailingSlash: "never",
   output: "static",
-  site: SITE_URL || "https://roishoiron.github.io",
-  base: "/codingstuff",
+  site: SITE_URL || "https://codingskuy.github.io",
+  base: "/community/codingstuff",
   image: {
     service: { entrypoint: "astro/assets/services/noop" },
   },
